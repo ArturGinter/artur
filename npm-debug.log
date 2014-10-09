@@ -1,0 +1,155 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-g', 'ios-deploy' ]
+2 info using npm@1.4.14
+3 info using node@v0.10.29
+4 verbose cache add [ 'ios-deploy', null ]
+5 verbose cache add name=undefined spec="ios-deploy" args=["ios-deploy",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'ios-deploy',
+6 verbose parsed url   path: 'ios-deploy',
+6 verbose parsed url   href: 'ios-deploy' }
+7 silly lockFile 69149c11-ios-deploy ios-deploy
+8 verbose lock ios-deploy /Users/lars/.npm/69149c11-ios-deploy.lock
+9 silly lockFile 69149c11-ios-deploy ios-deploy
+10 silly lockFile 69149c11-ios-deploy ios-deploy
+11 verbose addNamed [ 'ios-deploy', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 9c508a6b-ios-deploy ios-deploy@
+14 verbose lock ios-deploy@ /Users/lars/.npm/9c508a6b-ios-deploy.lock
+15 silly addNameRange { name: 'ios-deploy', range: '*', hasData: false }
+16 verbose url raw ios-deploy
+17 verbose url resolving [ 'https://registry.npmjs.org/', './ios-deploy' ]
+18 verbose url resolved https://registry.npmjs.org/ios-deploy
+19 info trying registry request attempt 1 at 10:07:04
+20 http GET https://registry.npmjs.org/ios-deploy
+21 http 200 https://registry.npmjs.org/ios-deploy
+22 silly registry.get cb [ 200,
+22 silly registry.get   { date: 'Thu, 18 Sep 2014 08:07:05 GMT',
+22 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly registry.get     etag: '"AFI8RO6M5CQ0AX14GWLC7HM0S"',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     'cache-control': 'max-age=60',
+22 silly registry.get     'content-length': '12806',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     age: '0',
+22 silly registry.get     'x-served-by': 'cache-ams4131-AMS',
+22 silly registry.get     'x-cache': 'MISS',
+22 silly registry.get     'x-cache-hits': '0',
+22 silly registry.get     'x-timer': 'S1411027625.167059,VS0,VE685',
+22 silly registry.get     vary: 'Accept',
+22 silly registry.get     'keep-alive': 'timeout=10, max=50',
+22 silly registry.get     connection: 'Keep-Alive' } ]
+23 silly addNameRange number 2 { name: 'ios-deploy', range: '*', hasData: true }
+24 silly addNameRange versions [ 'ios-deploy',
+24 silly addNameRange   [ '1.0.1',
+24 silly addNameRange     '1.0.2',
+24 silly addNameRange     '1.0.3',
+24 silly addNameRange     '1.0.4',
+24 silly addNameRange     '1.0.5',
+24 silly addNameRange     '1.0.6',
+24 silly addNameRange     '1.0.7',
+24 silly addNameRange     '1.0.8',
+24 silly addNameRange     '1.0.9',
+24 silly addNameRange     '1.1.0' ] ]
+25 verbose addNamed [ 'ios-deploy', '1.1.0' ]
+26 verbose addNamed [ '1.1.0', '1.1.0' ]
+27 silly lockFile 322bbb98-ios-deploy-1-1-0 ios-deploy@1.1.0
+28 verbose lock ios-deploy@1.1.0 /Users/lars/.npm/322bbb98-ios-deploy-1-1-0.lock
+29 silly lockFile 88ea9948--ios-deploy-ios-deploy-1-1-0-tgz https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+30 verbose lock https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz /Users/lars/.npm/88ea9948--ios-deploy-ios-deploy-1-1-0-tgz.lock
+31 verbose addRemoteTarball [ 'https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz',
+31 verbose addRemoteTarball   'fc2bbd3b6bf9f5ea2a8b2e90df5d8bad4da09b9e' ]
+32 info retry fetch attempt 1 at 10:07:05
+33 verbose fetch to= /Users/lars/tmp/npm-18428-9KUVLQtc/registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+34 http GET https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+35 http 200 https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+36 silly lockFile 88ea9948--ios-deploy-ios-deploy-1-1-0-tgz https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+37 silly lockFile 88ea9948--ios-deploy-ios-deploy-1-1-0-tgz https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz
+38 silly lockFile 322bbb98-ios-deploy-1-1-0 ios-deploy@1.1.0
+39 silly lockFile 322bbb98-ios-deploy-1-1-0 ios-deploy@1.1.0
+40 silly lockFile 9c508a6b-ios-deploy ios-deploy@
+41 silly lockFile 9c508a6b-ios-deploy ios-deploy@
+42 silly resolved [ { name: 'ios-deploy',
+42 silly resolved     version: '1.1.0',
+42 silly resolved     description: 'launch iOS apps iOS devices from the command line (Xcode 5)',
+42 silly resolved     main: 'ios-deploy',
+42 silly resolved     scripts: { preinstall: 'make ios-deploy' },
+42 silly resolved     bin: { 'ios-deploy': './ios-deploy' },
+42 silly resolved     repository: { type: 'git', url: 'https://github.com/phonegap/ios-deploy' },
+42 silly resolved     keywords: [ 'ios-deploy', 'deploy to iOS device' ],
+42 silly resolved     author: { name: 'Greg Hughes' },
+42 silly resolved     license: 'GPLv3',
+42 silly resolved     gitHead: '0f1ef6f4eff88dd91e2c5c16244a91020b01a0f5',
+42 silly resolved     bugs: { url: 'https://github.com/phonegap/ios-deploy/issues' },
+42 silly resolved     homepage: 'https://github.com/phonegap/ios-deploy',
+42 silly resolved     _id: 'ios-deploy@1.1.0',
+42 silly resolved     _shasum: 'fc2bbd3b6bf9f5ea2a8b2e90df5d8bad4da09b9e',
+42 silly resolved     _from: 'ios-deploy@',
+42 silly resolved     _npmVersion: '1.4.14',
+42 silly resolved     _npmUser: { name: 'shazron', email: 'shazron@gmail.com' },
+42 silly resolved     maintainers: [ [Object] ],
+42 silly resolved     dist:
+42 silly resolved      { shasum: 'fc2bbd3b6bf9f5ea2a8b2e90df5d8bad4da09b9e',
+42 silly resolved        tarball: 'http://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz' },
+42 silly resolved     directories: {},
+42 silly resolved     _resolved: 'https://registry.npmjs.org/ios-deploy/-/ios-deploy-1.1.0.tgz' } ]
+43 info install ios-deploy@1.1.0 into /usr/local/lib
+44 info installOne ios-deploy@1.1.0
+45 info /usr/local/lib/node_modules/ios-deploy unbuild
+46 verbose tar unpack /Users/lars/.npm/ios-deploy/1.1.0/package.tgz
+47 silly lockFile d4189100-ocal-lib-node-modules-ios-deploy tar:///usr/local/lib/node_modules/ios-deploy
+48 verbose lock tar:///usr/local/lib/node_modules/ios-deploy /Users/lars/.npm/d4189100-ocal-lib-node-modules-ios-deploy.lock
+49 silly lockFile 2e91c9c6-npm-ios-deploy-1-1-0-package-tgz tar:///Users/lars/.npm/ios-deploy/1.1.0/package.tgz
+50 verbose lock tar:///Users/lars/.npm/ios-deploy/1.1.0/package.tgz /Users/lars/.npm/2e91c9c6-npm-ios-deploy-1-1-0-package-tgz.lock
+51 silly gunzTarPerm modes [ '755', '644' ]
+52 silly gunzTarPerm extractEntry package.json
+53 silly gunzTarPerm extractEntry .npmignore
+54 silly gunzTarPerm extractEntry README.md
+55 silly gunzTarPerm extractEntry LICENSE
+56 silly gunzTarPerm extractEntry Entitlements.plist
+57 silly gunzTarPerm extractEntry Info.plist
+58 silly gunzTarPerm extractEntry Makefile
+59 silly gunzTarPerm extractEntry CONTRIBUTING.md
+60 silly gunzTarPerm extractEntry ResourceRules.plist
+61 silly gunzTarPerm extractEntry demo.c
+62 silly gunzTarPerm extractEntry ios-deploy.c
+63 silly gunzTarPerm extractEntry MobileDevice.h
+64 silly lockFile d4189100-ocal-lib-node-modules-ios-deploy tar:///usr/local/lib/node_modules/ios-deploy
+65 silly lockFile d4189100-ocal-lib-node-modules-ios-deploy tar:///usr/local/lib/node_modules/ios-deploy
+66 silly lockFile 2e91c9c6-npm-ios-deploy-1-1-0-package-tgz tar:///Users/lars/.npm/ios-deploy/1.1.0/package.tgz
+67 silly lockFile 2e91c9c6-npm-ios-deploy-1-1-0-package-tgz tar:///Users/lars/.npm/ios-deploy/1.1.0/package.tgz
+68 info preinstall ios-deploy@1.1.0
+69 verbose unsafe-perm in lifecycle false
+70 info ios-deploy@1.1.0 Failed to exec preinstall script
+71 info /usr/local/lib/node_modules/ios-deploy unbuild
+72 info preuninstall ios-deploy@1.1.0
+73 info uninstall ios-deploy@1.1.0
+74 verbose true,/usr/local/lib/node_modules,/usr/local/lib/node_modules unbuild ios-deploy@1.1.0
+75 verbose /usr/local/bin,[object Object] binRoot
+76 info postuninstall ios-deploy@1.1.0
+77 error ios-deploy@1.1.0 preinstall: `make ios-deploy`
+77 error Exit status 2
+78 error Failed at the ios-deploy@1.1.0 preinstall script.
+78 error This is most likely a problem with the ios-deploy package,
+78 error not with npm itself.
+78 error Tell the author that this fails on your system:
+78 error     make ios-deploy
+78 error You can get their info via:
+78 error     npm owner ls ios-deploy
+78 error There is likely additional logging output above.
+79 error System Darwin 13.3.0
+80 error command "node" "/usr/local/bin/npm" "install" "-g" "ios-deploy"
+81 error cwd /Users/lars/Desktop/PowerOneApp
+82 error node -v v0.10.29
+83 error npm -v 1.4.14
+84 error code ELIFECYCLE
+85 verbose exit [ 1, true ]

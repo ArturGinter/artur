@@ -1,0 +1,41 @@
+<ion-view title="">
+    <ion-content has-header="true" padding="true">
+        <div class="list">
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    {{'general_day' | translate}}
+                </div>
+                <select ng-init="drug.startday = drug.startday || startdays[0]" ng-model="drug.startday" ng-options="startday for startday in startdays"></select>
+            </label>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    {{'general_month' | translate}}
+                </div>
+                <select ng-init="drug.startmonth = drug.startmonth || 1" ng-model="drug.startmonth">
+                    <option value="1">{{'general_january' | translate}}</option>
+                    <option value="2">{{'general_february' | translate}}</option>
+                    <option value="3">{{'general_march' | translate}}</option>
+                    <option value="4">{{'general_april' | translate}}</option>
+                    <option value="5">{{'general_may' | translate}}</option>
+                    <option value="6">{{'general_june' | translate}}</option>
+                    <option value="7">{{'general_july' | translate}}</option>
+                    <option value="8">{{'general_august' | translate}}</option>
+                    <option value="9">{{'general_september' | translate}}</option>
+                    <option value="10">{{'general_october' | translate}}</option>
+                    <option value="11">{{'general_november' | translate}}</option>
+                    <option value="13">{{'general_december' | translate}}</option>
+                </select>
+            </label>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    {{'general_year' | translate}}
+                </div>
+                <select ng-init="drug.startyear = drug.startyear || startyears[0]" ng-model="drug.startyear" ng-options="startyear for startyear in startyears"></select>
+            </label>
+
+        </div>
+    </ion-content>
+</ion-view>

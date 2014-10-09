@@ -1,0 +1,276 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Untitled Document</title><style></style></head><body>
+<h1 id="manateeworks-barcode-scanner-plugin">Manatee Works Barcode Scanner Plugin</h1>
+<p> Version 1.3</p>
+<p>Guide on how to add the Manatee Works Barcode Scanner Phonegap plugin to your project(s)</p>
+<p><em>For more in-depth info, visit our website at <a href="http://manateeworks.com/">www.manateeworks.com</a></em></p>
+<h2 id="install-using-cli-interface-phonegap-3-0-and-above-">Install using CLI interface (Phonegap 3.0 and above)</h2>
+<p>(supposed you have already created the app by using CLI interface and added desired platforms)</p>
+<ul>
+<li>Add plugin to the project with:</li>
+</ul>
+<pre><code>phonegap local plugin add https://github.com/manateeworks/phonegap-mwbarcodescanner.git
+</code></pre><p>or   </p>
+<pre><code>phonegap local plugin add LOCAL_PATH_TO_THE_FOLDER_WITH_PLUGIN (if you are adding from local folder)   
+</code></pre><ul>
+<li><p>Perform initial build for each platform (repeat the command twice if not working after first time, seems there&#39;s a bug in phonegap 3.3)</p>
+<pre><code>  phonegap local build ios
+  phonegap local build android
+  phonegap local build wp8
+</code></pre></li>
+<li><p>Add a button to index.html which will call the scanner:</p>
+</li>
+</ul>
+<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"width: 100%; text-align: center;"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"button"</span> <span class="hljs-attribute">value</span>=<span class="hljs-value">"Scan Barcode"</span> <span class="hljs-attribute">onclick</span>=<span class="hljs-value">"scanner.startScanning()"</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">"font-size: 40px; width: 300px; height: 50px; margin-top: 100px;"</span>/&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span>
+</code></pre>
+<ul>
+<li>Upon license purchase, replace the username/key pairs for the corresponding barcode types in the file &#39;MWBScanner.js&#39;;</li>
+</ul>
+<p>&nbsp;</p>
+<p><strong>WP8 Note</strong></p>
+<p>It&#39;s seems there&#39;s a bug in Phonegap 3.0 so you have to add <code>html &#39;&lt;script type=&quot;text/javascript&quot; src=&quot;cordova.js&quot;&gt;&lt;/script&gt;&#39;</code> in index.html (or other html files) manually</p>
+<h2 id="manual-install-phonegap-2-x-or-3-0-">Manual Install (Phonegap 2.x or 3.0)</h2>
+<h3 id="android-">Android:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Create a Phonegap Android app;</p>
+</li>
+<li><p>Copy the folder &#39;Android/src/com/manateeworks&#39; to your project&#39;s &#39;src/com/&#39; folder;</p>
+</li>
+<li><p>Copy the file &#39;Android/res/layout/scanner.xml&#39; to your project&#39;s &#39;res/layout&#39; folder;</p>
+</li>
+<li><p>Copy the file &#39;Android/res/drawable/overlay.png&#39; to your project&#39;s &#39;res/drawable&#39; folder. Do the same for the file in &#39;drawable-hdpi&#39; folder;</p>
+</li>
+<li><p>Copy the files &#39;Android/libs/armeabi/libBarcodeScannerLib.so&#39; and &#39;Android/libs/armeabi-v7a/libBarcodeScannerLib.so&#39; to your project&#39;s &#39;libs/&#39; folder, all the while preserving the same folder structure </p>
+</li>
+<li><p>Copy the file &#39;www/MSBScanner.js&#39; to the &#39;assets/www/js&#39; folder;</p>
+</li>
+<li><p>Insert the Scanner activity definition into AndroidManifest.xml:</p>
+<pre><code>   &lt;activity android:name=&quot;com.manateeworks.ScannerActivity&quot;
+      android:screenOrientation=&quot;landscape&quot; android:configChanges=&quot;orientation|keyboardHidden&quot;
+      android:theme=&quot;@android:style/Theme.NoTitleBar.Fullscreen&quot;&gt;
+  &lt;/activity&gt;
+</code></pre></li>
+<li><p>Insert the MWBScanner.js script into index.html:</p>
+<pre><code>  &lt;script type=&quot;text/javascript&quot; src=&quot;js/MWBScanner.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li>Add a test button for calling the scanner to index.html:<pre><code>   &lt;form style=&quot;width: 100%; text-align: center;&quot;&gt;
+              &lt;input type=&quot;button&quot; value=&quot;Scan Barcode&quot; onclick=&quot;startScanning()&quot; style=&quot;font-size: 20px; width: 300px; height: 30px; margin-top: 50px;&quot;/&gt;
+     &lt;/form&gt;
+</code></pre></li>
+</ul>
+<ul>
+<li>Add the plugin to &#39;res/xml/config.xml&#39;:</li>
+</ul>
+<p>For Phonegap 2.x </p>
+<pre><code>    &lt;plugins&gt;
+        ...    
+        &lt;plugin name=&quot;MWBarcodeScanner&quot; value=&quot;com.manateeworks.BarcodeScannerPlugin&quot;/&gt;
+        ...
+    &lt;/plugins&gt;
+</code></pre><p>For Phonegap 3 *</p>
+<pre><code>    &lt;feature name=&quot;MWBarcodeScanner&quot;&gt;
+                &lt;param name=&quot;android-package&quot; value=&quot;com.manateeworks.BarcodeScannerPlugin&quot; /&gt;
+       &lt;/feature&gt;
+</code></pre><ul>
+<li><p>Import .R file of your project (import YOUR_APP_PACKAGE_NAME.R;) to the &#39;src/com/manateeworks/ScannerActivity.java&#39;;</p>
+</li>
+<li><p>Upon license purchase, replace the username/key pairs for the corresponding barcode types in the file &#39;src/com/manateeworks/BarcodeScannerPlugin.java&#39;;</p>
+</li>
+<li><p>Run the app and test the scanner by pressing the previously added button;</p>
+</li>
+<li><p>(Optional): You can also replace our default overlay.png for the camera screen with your own customized image;</p>
+</li>
+<li><p>(For Phonegap 3) If notification plugin is not present in project, add it by following instructions from this url:</p>
+</li>
+</ul>
+<p>&lt;!-- --&gt;
+    <a href="http://docs.phonegap.com/en/3.0.0/cordova_notification_notification.md.html">http://docs.phonegap.com/en/3.0.0/cordova_notification_notification.md.html</a></p>
+<ul>
+<li>If not present already, add camera permission to the AndroidManifest.xml:</li>
+</ul>
+<p>&lt;!-- --&gt;
+    &lt;uses-permission android:name=&quot;android.permission.CAMERA&quot; /&gt;</p>
+<ul>
+<li><p>(For Phonegap 2.x) In BarcodeScannerPlugin.java replace org.apache.cordova reference to org.apache.cordova.api :</p>
+<p> Instead:    </p>
+<pre><code> import org.apache.cordova.CallbackContext;
+ import org.apache.cordova.CordovaPlugin;
+</code></pre><p> Use this:</p>
+<pre><code>  import org.apache.cordova.api.CallbackContext;
+ import org.apache.cordova.api.CordovaPlugin;
+</code></pre></li>
+</ul>
+<p>&nbsp;</p>
+<h3 id="ios-">iOS:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Create a Phonegap iOS app;</p>
+</li>
+<li><p>Copy all files from our &#39;iOS/src&#39; folder to your project&#39;s &#39;Plugins&#39; folder and add them to the project;</p>
+</li>
+<li><p>Copy the file &#39;www/MSBScanner.js&#39; to the folder &#39;www/js&#39; . NOTE: You cannot drag &amp; drop directly into the Xcode project... use Finder instead;</p>
+</li>
+<li><p>Insert MWBScanner.js script into index.html:</p>
+<pre><code>  &lt;script type=&quot;text/javascript&quot; src=&quot;js/MWBScanner.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li><p>Add a test button for calling the scanner to index.html:</p>
+<pre><code>   &lt;form style=&quot;width: 100%; text-align: center;&quot;&gt;
+              &lt;input type=&quot;button&quot; value=&quot;Scan Barcode&quot; onclick=&quot;startScanning()&quot; style=&quot;font-size: 20px; width: 300px; height: 30px; margin-top: 50px;&quot;/&gt;
+      &lt;/form&gt;
+</code></pre></li>
+<li><p>Add the plugin to config.xml (from project root, not the one from www folder):</p>
+</li>
+</ul>
+<p>For Phonegap 2.x </p>
+<pre><code>    &lt;plugins&gt;
+
+        ...
+        &lt;plugin name=&quot;MWBarcodeScanner&quot; value=&quot;CDVMWBarcodeScanner&quot;/&gt;
+
+        ...
+    &lt;/plugins&gt;
+</code></pre><p>For Phonegap 3</p>
+<pre><code>    &lt;feature name=&quot;MWBarcodeScanner&quot;&gt;
+            &lt;param name=&quot;ios-package&quot; value=&quot;CDVMWBarcodeScanner&quot; /&gt;
+    &lt;/feature&gt;
+</code></pre><ul>
+<li><p>Confirm you have the following frameworks added to your project: CoreVideo, CoreGraphics;</p>
+</li>
+<li><p>Upon license purchase, replace the username/key pairs for the corresponding barcode types in the file Plugins/MWBarcodeScanner/MWScannerViewController.m;</p>
+</li>
+</ul>
+<ul>
+<li>Run the app and test the scanner by pressing the previously added button;</li>
+</ul>
+<ul>
+<li>(Optional): You can replace our default overlay.png and close_button.png for the camera screen with your own customized image;</li>
+</ul>
+<p>&nbsp;</p>
+<h3 id="windows-phone-8-">Windows Phone 8:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Add (drag &amp; drop) MWBarcodeScanner folder into the project folder named &#39;plugins&#39;. If needed, create Plugins folder in project previously;</p>
+</li>
+<li><p>Copy (this time from Windows Explorer, not by way of drag &amp; drop) to the project BarcodeLib.winmd and BarcodeLib.dll to project root;</p>
+</li>
+<li><p>Add (drag &amp; drop) www/MWBScanner.js to www/js/ project folder;</p>
+</li>
+<li><p>Insert MWBScanner.js script into index.html:</p>
+<pre><code>  &lt;script type=&quot;text/javascript&quot; src=&quot;js/MWBScanner.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li><p>Add a button for calling the scanner to index.html:</p>
+<pre><code>   &lt;form style=&quot;width: 100%; text-align: center;&quot;&gt;
+
+       &lt;input type=&quot;button&quot; value=&quot;Scan Barcode&quot; onclick=&quot;scanner.startScanning()&quot; style=&quot;font-size: 40px; width: 300px;height: 50px; margin-top: 100px;&quot;/&gt;
+
+  &lt;/form&gt;
+</code></pre></li>
+<li><p>Add BarcodeLib.winmd to project references: right click on &#39;References&#39;, &#39;Add Reference&#39;, &#39;Browse&#39; and choose the file;</p>
+</li>
+<li><p>Add the plugin to config.xml:</p>
+</li>
+</ul>
+<p>For Phonegap 2.x</p>
+<pre><code>    &lt;plugins&gt;
+
+        ...
+        &lt;plugin name=&quot;MWBarcodeScanner&quot; value=&quot;MWBarcodeScanner&quot;/&gt;
+
+        ...
+    &lt;/plugins&gt;
+</code></pre><p>For Phonegap 3</p>
+<pre><code>    &lt;feature name=&quot;MWBarcodeScanner&quot;&gt;
+            &lt;param name=&quot;wp-package&quot; value=&quot;MWBarcodeScanner&quot; /&gt;
+    &lt;/feature&gt;
+</code></pre><p>Add a notification plugin (if not already present):</p>
+<pre><code>     &lt;plugin name=&quot;Notification&quot; value=&quot;Notification&quot;/&gt;
+</code></pre><ul>
+<li><p>(For Phonegap 2.9) Sometimes a bug occurs in Phonegap 2.9.0 with notification dialogs, making them crash on closing. It may be necessary to make a change in the Plugins/Notification.cs file:</p>
+<p>  inside function: void btnOK_Click</p>
+<p>  replace the following block:</p>
+<pre><code>    NotifBoxData notifBoxData = notifBoxParent.Tag as NotifBoxData;
+            notifyBox = notifBoxData.previous as NotificationBox;
+            callbackId = notifBoxData.callbackId as string;
+
+            if (notifyBox == null)
+            {
+                page.BackKeyPress -= page_BackKeyPress;
+            }
+</code></pre><p>  with the one below:</p>
+<pre><code>  NotifBoxData notifBoxData = notifBoxParent.Tag as NotifBoxData;
+          if (notifBoxData != null)
+              {
+                  notifyBox = notifBoxData.previous as NotificationBox;
+                  callbackId = notifBoxData.callbackId as string;
+                  if (notifyBox == null)
+                  {
+                      page.BackKeyPress -= page_BackKeyPress;
+                  }
+              }
+</code></pre></li>
+<li><p>Add ID_CAP_ISV_CAMERA capability into WMAppManifest.xml</p>
+</li>
+</ul>
+<ul>
+<li>Upon license purchase, replace the username/key pairs for the corresponding barcode types in file Plugins/com.manateeworks.barcodescanner/BarcodeHelper.cs;</li>
+</ul>
+<ul>
+<li>Run the app and test the scanner by pressing the previously added button;</li>
+</ul>
+<ul>
+<li>(Optional): You can replace our default overlay.png for the camera screen with your own customized image;</li>
+</ul>
+<p>&nbsp;</p>
+<h3 id="changes-in-1-3-">Changes in 1.3:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Zoom feature added for iOS and Android. It&#39;s not supported on WP8 due to API limitation.</p>
+</li>
+<li><p>Added function to turn Flash ON by default</p>
+</li>
+<li><p>Fixed &#39;frameworks was not added to the references&#39; on WP8</p>
+</li>
+<li><p>Fixed freezing if missing org.apache.cordova.device plugin</p>
+</li>
+<li><p>Added x86 lib for Android</p>
+</li>
+<li><p>CameraManager.java rework</p>
+<p>It now contains complete camera handling functionality, other files from camera folder are not necessary</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h3 id="changes-in-1-2-">Changes in 1.2:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Registering calls moved from native code to MWBScanner.js</p>
+<p>You can now enter your licensing info without changing the native code of plugin;</p>
+</li>
+<li><p>Import package_name.R manually after adding Android plugin is not necessary anymore</p>
+</li>
+<li><p>Decoding library updated to 2.9.31</p>
+</li>
+</ul>
+<p>&nbsp;</p>
+<h3 id="changes-in-1-1-">Changes in 1.1:</h3>
+<p>&nbsp;</p>
+<ul>
+<li><p>Advanced Overlay (MWBsetOverlayMode: function(overlayMode)</p>
+<p>You can now choose between Simple Image Overlay and MW Dynamic Overlay, which shows the actual 
+viewfinder, depending on selected barcode types and their respective scanning rectangles;</p>
+</li>
+<li><p>Orientation parameter (MWBsetInterfaceOrientation: function(interfaceOrientation))</p>
+<p>Now there&#39;s only a single function for supplying orientation parameters which makes tweaking the 
+controller for changing scanner orientation no longer needed; </p>
+</li>
+<li><p>Enable or disable high resolution scanning (MWBenableHiRes: function(enableHiRes))</p>
+<p>Added option to choose between high or normal resolution scanning to better match user 
+application requirements;</p>
+</li>
+<li><p>Flash handling (MWBenableFlash: function(enableFlash))</p>
+<p>Added option to enable or disable the flash toggle button;</p>
+</li>
+</ul>
+
+</body></html>

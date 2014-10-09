@@ -1,0 +1,30 @@
+<!-- 
+  Create tabs with an icon and label, using the tabs-positive style. 
+  Each tab's child <ion-nav-view> directive will have its own 
+  navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top">
+
+
+    <!-- Community Tab -->
+    <ion-tab title="{{'tab_dash' | translate}}" icon="icon po-icon1" href="#/tab/dash">
+        <ion-nav-view name="tab-dash"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Batterieratgeber Tab -->
+    <ion-tab title="{{'tab_batteries' | translate}}" icon="icon po-icon3" href="#/tab/batteries">
+        <ion-nav-view name="tab-batteries"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Hearing Aid Tab -->
+    <ion-tab title="{{'tab_healthbook' | translate}}" icon="icon po-icon2" href="#/tab/healthbook">
+        <ion-nav-view name="tab-healthbook"></ion-nav-view>
+    </ion-tab>
+
+    <!-- Contact Tab -->
+    <ion-tab title="{{'tab_contact' | translate}}" icon="icon po-icon4" href="#/tab/contact">
+        <ion-nav-view name="tab-contact"></ion-nav-view>
+    </ion-tab>
+
+
+</ion-tabs>

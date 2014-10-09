@@ -1,0 +1,72 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'firend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view title="">
+    <ion-content has-header="true" padding="true">
+        <div class="list card">
+            <div class="item item-thumbnail-left">
+                <img ng-show="battery.imagelq.length" style="width:auto; height:80px;" src="{{battery.imagelq}}">
+                <h2>{{battery.name}}</h2>
+                <p ng-show="battery.typedesignation.length">{{'batteries_label_typedesignation' | translate}}: {{battery.typedesignation}}</p>
+            </div>
+
+
+            <div class="item item-body">
+                <div ng-show="battery.iec.length" class="row">
+                    <div class="col">{{'batteries_label_iec' | translate}}</div>
+                    <div class="col"><strong>{{battery.iec}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_typeno' | translate}}</div>
+                    <div class="col"><strong>{{battery.typeno}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_voltage' | translate}}</div>
+                    <div class="col"><strong>{{battery.voltage}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_electro' | translate}}</div>
+                    <div class="col"><strong>{{battery.electrochemicalsystem}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_typicalenergy' | translate}}</div>
+                    <div class="col"><strong>{{battery.typicalenergy}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_typicalcapacity' | translate}}</div>
+                    <div class="col"><strong>{{battery.typicalcapacity}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_capacity' | translate}}</div>
+                    <div class="col"><strong>{{battery.typicalcapacity}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_diameter' | translate}}</div>
+                    <div class="col"><strong>{{battery.diameter}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_height' | translate}}</div>
+                    <div class="col"><strong>{{battery.height}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_weight' | translate}}</div>
+                    <div class="col"><strong>{{battery.weight}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_typicalcapacity' | translate}}</div>
+                    <div class="col"><strong>{{battery.capacity}}</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col">{{'batteries_label_energy' | translate}}</div>
+                    <div class="col"><strong>{{battery.energy}}</strong></div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </ion-content>
+</ion-view>
