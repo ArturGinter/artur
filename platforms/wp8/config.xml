@@ -6,6 +6,9 @@
     <feature name="Device">
         <param name="wp-package" value="Device" />
     </feature>
+    <feature name="MWBarcodeScanner">
+        <param name="wp-package" value="MWBarcodeScanner" />
+    </feature>
     <feature name="Globalization">
         <param name="wp-package" value="Globalization" />
     </feature>
@@ -71,9 +74,6 @@
         <Capability Name="ID_CAP_CAMERA" />
     </Capabilities>
     <gap:plugin name="org.apache.cordova.GeoBroker" />
-    <feature name="Geolocation">
-        <param name="ios-package" value="CDVLocation" />
-    </feature>
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -100,11 +100,6 @@
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
-    <feature name="MWBarcodeScanner">
-        <param name="wp-package" value="MWBarcodeScanner" />
-        <param name="android-package" value="com.manateeworks.BarcodeScannerPlugin" />
-        <param name="ios-package" value="CDVMWBarcodeScanner" />
-    </feature>
     <gap:config-file parent="UIStatusBarHidden" platform="ios">
         <true />
     </gap:config-file>

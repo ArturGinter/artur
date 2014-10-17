@@ -136,8 +136,8 @@ angular.module('starter.services', [])
                 if (window.localStorage.getItem("news")) return angular.fromJson(window.localStorage.getItem("news"));
 
                 var lang = 1;
-                if (navigator.language == 'de-de') lang = 13;
-                if (navigator.language == 'fr-fr') lang = 6;
+                if (navigator.language.toLowerCase() == 'de-de') lang = 13;
+                if (navigator.language.toLowerCase() == 'fr-fr') lang = 6;
 
                 return $http.get( "http://www.powerone-batteries.com/index.php?id=news&type=5000&L=" + lang).then(function(result) {
                     try {
