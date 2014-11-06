@@ -1,0 +1,13 @@
+Wichtige Bemerkung zu wp8
+================================
+
+Die wp8-Version wurde an einigen Stellen in den Orginal Angular Sourcen angepasst, damit diese lauffähig ist. Die wp8 Version darf deshalb per cordova/phonegap Shell nicht neu erzeugt werden. An vielen Stellen waren Änderungen der Templates/Controller unter www notwendig. Alle Änderungen sind unter wp8/www vorzunehmen.
+
+Geänderte Sourcen
+========================
+
+\wp8\cordovalib\XHRHelper.cs
+vgl. https://github.com/angular/angular.js/issues/4288
+
+\wp8\cordovalib\Commands\BaseCommand.cs
+https://github.com/leecrossley/cordova-plugin-datetime-picker/issues/2

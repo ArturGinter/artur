@@ -1,0 +1,16 @@
+<ion-view title="">
+    <ion-content has-header="true" padding="true">
+        <div class="card">
+            <div class="item item-divider item-text-wrap">
+                {{news.title}}
+            </div>
+            <div class="item item-body" style="min-height:100px;">
+                <img class="full-image" ng-show="news.image.length" src="http://www.powerone-batteries.com/uploads/tx_drivepoweroneadmin/{{news.image}}">
+                <h2>{{news.subtitle}}</h2>
+                <span ng-repeat="line in (news.text | newlines) track by $index" />
+                {{line}}<br/>
+                </span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

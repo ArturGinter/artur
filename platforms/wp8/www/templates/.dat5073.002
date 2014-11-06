@@ -1,0 +1,22 @@
+<ion-view title="">    <ion-content class="has-header" padding="true">        <div class="box padding">        <h3 class="center">{{'healthbook_headline_mybattery' | translate}}</h3>		<div class="list bordertop">
+			<br/>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'ACCU plus p10'">ACCU plus p10</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'ACCU plus p13'">ACCU plus p13</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'ACCU plus p312'">ACCU plus p312</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'ACCU plus p675'">ACCU plus p675</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'IMPLANT plus p13'">IMPLANT plus p13</ion-radio>
+
+			<ion-radio ng-model="aiddevice.battery" ng-value="'IMPLANT plus p675'">IMPLANT plus p675</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'IMPLANT plus p675 MERCURY-FREE'">IMPLANT plus p675 MERCURY-FREE</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air high drain approved MERCURY-FREE p10'">Zinc Air high drain approved MERCURY-FREE p10</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air high drain approved MERCURY-FREE p675'">Zinc Air high drain approved MERCURY-FREE p675</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air p10'">Zinc Air p10</ion-radio>	
+			
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air p13'">Zinc Air p13</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air p312'">Zinc Air p312</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air p675'">Zinc Air p675</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air wireless approved MERCURY-FREE p13'">Zinc Air wireless approved MERCURY-FREE p13</ion-radio>
+			<ion-radio ng-model="aiddevice.battery" ng-value="'Zinc Air wireless approved MERCURY-FREE p312'">Zinc Air wireless approved MERCURY-FREE p312</ion-radio>
+			<br/>
+			
+		</div>		</div>    </ion-content></ion-view>

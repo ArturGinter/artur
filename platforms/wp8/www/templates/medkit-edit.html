@@ -1,0 +1,84 @@
+<ion-view title="">
+    <ion-content has-header="true" padding="true">
+        <form name="drugForm" data-ng-submit="updateMedikitEntry()" method="post">
+            <h3 class="center">{{ drug.title }}</h3>
+
+            <div class="item item-divider bordertop">
+                {{'healthbook_headline_editdrug' | translate}}
+            </div>
+            <label class="item item-input borderbottom">
+                <input type="text" ng-model="drug.title" placeholder="{{'healthbook_placeholder_newdrug' | translate}}">
+            </label>
+
+            <br/>
+
+            <div class="item item-divider bordertop">
+                {{'general_info' | translate}}
+            </div>
+
+            <div class="item item-icon-right borderbottom">
+                {{'general_time' | translate}}
+                <span id="addmedikitentry-time" class="item-note" ng-show="drug.time">{{drug.time | date:'HH:mm'}}&nbsp;&nbsp;</span>
+                <a class="button button-icon icon ion-ios7-time-outline" ng-click="time()"></a>
+            </div>
+
+            <br/>
+
+            <div class="item item-divider bordertop">
+                {{'healthbook_headline_plan' | translate}}
+            </div>
+
+            <div class="item item-icon-right">
+                {{'general_startdate' | translate}}
+                <span id="addmedikitentry-startdate" class="item-note" ng-show="drug.startday">{{drug.startday | date:'dd.MM.yyyy'}}&nbsp;&nbsp;</span>
+                <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarStart()"></a>
+
+            </div>
+            <div class="item item-icon-right borderbottom">
+                {{'general_enddate' | translate}}
+                <span id="addmedikitentry-enddate" class="item-note" ng-show="drug.endday">{{drug.endday | date:'dd.MM.yyyy'}}&nbsp;&nbsp;</span>
+                <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarEnd()"></a>
+            </div>
+
+            <br/>
+
+            <div class="item item-divider bordertop">
+                {{'general_plan' | translate}}
+            </div>
+            <ul class="item borderbottom list">
+                <ion-checkbox class="clearborder" ng-model="drug.planmon">{{'general_monday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.plantue">{{'general_tuesday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.planwed">{{'general_wednesday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.planthu">{{'general_thursday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.planfri">{{'general_friday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.plansat">{{'general_saturday' | translate}}</ion-checkbox>
+                <ion-checkbox class="clearborder" ng-model="drug.plansun">{{'general_sunday' | translate}}</ion-checkbox>
+            </ul>
+
+            <div class="item item-divider bordertop">
+                {{'general_settings' | translate}}
+            </div>
+
+            <div class="item item-toggle borderbottom">
+                {{'general_push' | translate}}
+                <label class="toggle">
+                    <input ng-model="drug.push" type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </div>
+
+
+            <button class="button button-block button-positive">
+                {{'general_update' | translate}}
+            </button>
+
+            <button id="medkit-delete" class="button button-block button-assertive">
+                {{'general_delete' | translate}}
+            </button>
+
+        </form>
+    </ion-content>
+</ion-view>
+

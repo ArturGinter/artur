@@ -1,0 +1,47 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
+    <ion-content class="has-header" padding="true">
+        <form name="stockForm" data-ng-submit="addBatteryStock()" method="post">
+            <div class="box padding">
+                <h3 class="center">{{'healthbook_mybatt_headline_take' | translate}}</h3>
+                <div class="list">
+
+                    <br/>
+
+                    <div class="item item-divider bordertop">
+                        {{'healthbook_mybatt_subheadline_take' | translate}}
+                    </div>
+
+                    <div class="item item-icon-right">
+                        {{'healthbook_mybatt_date' | translate}}
+                        <p>{{stockdate | date:'dd.MM.yyyy'}}</p>
+                        <a class="button button-icon icon ion-ios7-calendar-outline" ng-bind="{{batteryentry.date}}" ng-click="calendar()"></a>
+                    </div>
+                    <div class="item item-icon-right">
+                        {{'healthbook_mybatt_time' | translate}}
+                        <p>{{stocktime | date:'HH:mm'}}</p>
+                        <a class="button button-icon icon ion-ios7-time-outline" ng-bind="{{batteryentry.time}}" ng-click="time()"></a>
+                    </div>
+
+                    <ion-radio ng-model="$parent.ear" ng-value="'R'">{{'healthbook_mybatt_rightear' | translate}}</ion-radio>
+                    <ion-radio ng-model="$parent.ear" ng-value="'L'" class="borderbottom">{{'healthbook_mybatt_leftear' | translate}}</ion-radio>
+
+                    <br/>
+                </div>
+
+                <button id="contact-submit" class="button button-positive" style="float:right;">
+                    <span>{{'healthbook_mybatt_button_take' | translate}}</span>
+                </button>
+
+            </div>
+        </form>
+    </ion-content>
+
+
+</ion-view>
+
+

@@ -1,0 +1,68 @@
+<ion-view title="" class="padding">
+    <ion-content has-header="true" padding="true">
+
+
+        <h3>{{ acoustician.company }} {{myacoustician}}</h3>
+
+        <div class="list">
+
+            <br/>
+            <div class="item item-divider bordertop">
+                {{'acoustician_headline_address' | translate}}
+            </div>
+            <div class="item borderbottom">
+                <div class="col">
+                    <p>{{ acoustician.street }}</p>
+                    <p>{{ acoustician.zip }} {{ acoustician.city }}</p>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="item item-divider bordertop">
+                {{'acoustician_headline_contact' | translate}}
+            </div>
+            <div class="item borderbottom">
+                <div ng-show="acoustician.phone" class="row">
+                    <div class="col">Phone</div>
+                    <div class="col col-75">
+                        <p><a ng-href="tel: {{ acoustician.phone }}">{{ acoustician.phone }}</a></p>
+                    </div>
+                </div>
+                <div ng-show="acoustician.fax" class="row">
+                    <div class="col">Fax</div>
+                    <div class="col col-75">
+                        <p>{{ acoustician.fax }}</p>
+                    </div>
+                </div>
+                <div ng-show="acoustician.web" class="row">
+                    <div class="col">Web</div>
+                    <div class="col col-75">
+                        <p>{{ acoustician.web }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div ng-show="acoustician.additionalinfos" class="item item-divider bordertop">
+                {{'acoustician_headline_openingtimes' | translate}}
+            </div>
+            <div ng-show="acoustician.additionalinfos" class="item borderbottom">
+                <p>{{ acoustician.businesshours }}</p>
+                <p>{{ acoustician.additionalinfos }}</p>
+            </div>
+
+            <br/>
+        </div>
+
+        <a class="button button-full button-positive" ng-click="openMap()" target="_system">{{'acoustician_routeplanner' | translate}}</a>
+        <button class="saveacoustician button button-full button-positive">
+            {{'acoustician_button_myacoustician' | translate}}
+        </button>
+        <button class="orderbutton button button-full button-positive">
+            {{'acoustician_button_inquiry' | translate}}
+        </button>
+
+    </ion-content>
+</ion-view>
