@@ -8,7 +8,24 @@
 function GoogleMap() {
 
     var retailer;
-    var addMarkersToMap = function(map, retailer) {
+    var addMarkersToMap = function(map, retailer, position) {
+
+        // Usermarker
+        if (window.localStorage.getItem("myLatitude") && window.localStorage.getItem("myLongitude")) {
+            var latitudeAndLongitudeUser = new google.maps.LatLng(window.localStorage.getItem("myLatitude"), window.localStorage.getItem("myLongitude"));
+            var markerUser = new google.maps.Marker({
+                position: latitudeAndLongitudeUser,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                title: "User",
+                draggable: false,
+                clickable: true,
+                optimized: false,
+                zIndex: 15,
+                icon: new google.maps.MarkerImage("img/bluedot.png", null, null, null, new google.maps.Size(20,20))
+            });
+        }
+
 
         // Load Akustiker
         var log;
@@ -51,9 +68,7 @@ function GoogleMap() {
         }, log);
 
 
-        $('#map_info').bind( "touchstart", function(event) {
-            //alert("User clicked on product: " + $(event.currentTarget).attr('data-retailer') );
-            //$.mobile.changePage( "templates/tab-contact.html", { transition: "slideup"});
+        $('#map_info').bind( "click", function(event) {
             window.location = "#/tab/details/" + $(event.currentTarget).attr('data-retailer');
         });
         google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -71,9 +86,9 @@ function GoogleMap() {
 
     }
 
-    this.initialize = function($scope) {
+    this.initialize = function(position) {
         var map = showMap();
-        addMarkersToMap(map, this.retailer);
+        addMarkersToMap(map, this.retailer, position);
     }
 
     var showMap = function(){
@@ -94,6 +109,7 @@ function GoogleMap() {
         }
 
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        //map.setMyLocationEnabled(true);
 
         return map;
 

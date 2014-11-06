@@ -259,6 +259,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.plugin.datepicker/www/ios/DatePicker.js",
+        "id": "com.plugin.datepicker.DatePicker",
+        "clobbers": [
+            "datePicker"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
         "id": "org.apache.cordova.dialogs.notification",
         "merges": [
@@ -283,6 +290,7 @@ module.exports.metadata =
     "org.apache.cordova.globalization": "0.3.2-dev",
     "org.apache.cordova.inappbrowser": "0.5.2",
     "org.apache.cordova.media-capture": "0.3.3",
+    "com.plugin.datepicker": "0.4.0",
     "org.apache.cordova.dialogs": "0.2.9-dev",
     "org.apache.cordova.device": "0.2.13-dev"
 }

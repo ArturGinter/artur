@@ -97,6 +97,10 @@
                         {
                             "xml": "<feature name=\"Capture\"><param name=\"ios-package\" value=\"CDVCapture\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatePicker\"><param name=\"ios-package\" value=\"DatePicker\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -133,6 +137,9 @@
             "PACKAGE_NAME": "com.poweronebatteries.app"
         },
         "org.apache.cordova.media-capture": {
+            "PACKAGE_NAME": "com.poweronebatteries.app"
+        },
+        "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.poweronebatteries.app"
         }
     },

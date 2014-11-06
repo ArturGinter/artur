@@ -35,6 +35,10 @@
                         {
                             "xml": "<feature name=\"Capture\"><param name=\"android-package\" value=\"org.apache.cordova.mediacapture.Capture\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"DatePickerPlugin\"><param name=\"android-package\" value=\"com.plugin.datepicker.DatePickerPlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -97,6 +101,9 @@
         },
         "org.apache.cordova.media-capture": {
             "PACKAGE_NAME": "com.powerone_batteries.app"
+        },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.poweronebatteries.app"
         }
     },
     "dependent_plugins": {

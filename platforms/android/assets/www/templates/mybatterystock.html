@@ -1,0 +1,122 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="has-header" padding="true">
+
+        <div class="box padding">
+
+            <h3 class="center">{{'healthbook_mybatt_headline_mystock' | translate}}</h3>
+
+            <div class="list">
+
+                <br/>
+
+                <div ng-click="foldering()" class="item item-divider bordertop item-icon-right">
+                    {{'healthbook_mybatt_headline_newtake' | translate}}
+                    <strong><i class="ion-arrow-down-b"></i></strong>
+                </div>
+                <div id="toggle">
+                    <div class="item item-divider">
+                        <div class="row">
+                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
+                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
+                        </div>
+                    </div>
+                    <a class="item item-icon-right borderbottom" href="#/tab/mybatterystock_calendar">
+                        <p>{{'healthbook_mybatt_currentstock' | translate}}<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
+                        <p>
+                            {{'healthbook_mybatt_averageusefullife' | translate}}<br/>
+                            Ø R: {{liferight}} {{'healthbook_mybatt_days' | translate}}<br/>
+                            Ø L: {{lifeleft}} {{'healthbook_mybatt_days' | translate}}<br/>
+                            <!--<div class="button button-clear button-small icon-left ion-ios7-refresh">Berechnungen zurücksetzen</div>-->
+                        </p>
+
+                    </a>
+                </div>
+
+
+                <!-- Responsive calendar - START -->
+                <div id="card1">
+                    <div class="responsive-calendar">
+                        <div class="controls">
+
+                            <div class="row">
+                                <div class="col"><a class="button button-small button-positive" href="" ng-click="listcard()">{{'healthbook_mybatt_list' | translate}}</a></div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col"><a class="pull-left" data-go="prev"><div class="btn btn-primary">{{'healthbook_mybatt_prev' | translate}}</div></a></div>
+                                <div class="col"><h4 class="calender-headline"><span data-head-month></span>/<span data-head-year></span></h4></div>
+                                <div class="col"><a class="pull-right" data-go="next"><div class="btn btn-primary">{{'healthbook_mybatt_next' | translate}}</div></a></div>
+                            </div>
+
+                        </div><hr/>
+                        <div class="day-headers">
+                            <div class="day header">{{'healthbook_mybatt_short_mon' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_tue' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_wed' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_thu' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_fri' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_sat' | translate}}</div>
+                            <div class="day header">{{'healthbook_mybatt_short_sun' | translate}}</div>
+                        </div>
+                        <div class="days" data-group="days">
+
+                        </div>
+                    </div>
+                    <!-- Responsive calendar - END -->
+                </div>
+
+
+                <div id="card2">
+                    <div class="row row-center">
+                        <div class="col">
+                            <button class="button button-small button-positive" ng-click="leftear()">
+                                {{'healthbook_mybatt_leftear' | translate}}
+                            </button>
+                        </div>
+                        <div class="col"><a class="button button-small button-positive" href="" ng-click="calcard()">Kalender</a></div>
+                        <div class="col">
+                            <button class="button button-small button-positive" ng-click="rightear()">
+                                {{'healthbook_mybatt_rightear' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                    <div id="leftcard">
+                        <div class="item item-divider bordertop">
+                            {{'healthbook_mybatt_term' | translate}}: {{'healthbook_mybatt_leftear' | translate}}
+                        </div>
+                        <p class="item" ng-hide="stockleft">{{'healthbook_mybatt_nodata' | translate}}</p>
+                        <ion-list>
+                            <ion-item ng-repeat="entry in stockleft | orderBy:'-date' | limitTo: 30" ng-show="stockleft" type="item-text-wrap" class="item">
+                                <p>{{'healthbook_mybatt_insertdate' | translate}}:<br/>{{entry.date | date:'dd.MM.yyyy'}}, {{entry.date | date:'HH:mm'}} Uhr</p>
+                                    <span class="item-note" ng-show="entry.term">
+                                        {{'healthbook_mybatt_term' | translate}}: {{parseTerm(entry.term)}}
+                                    </span>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                    <div id="rightcard">
+                        <div class="item item-divider bordertop">
+                            {{'healthbook_mybatt_term' | translate}}: {{'healthbook_mybatt_rightear' | translate}}
+                        </div>
+                        <p class="item" ng-hide="stockright">{{'healthbook_mybatt_nodata' | translate}}</p>
+                        <ion-list>
+                            <ion-item ng-repeat="entry in stockright | orderBy:'-date' | limitTo: 30" ng-show="stockright" type="item-text-wrap" class="item">
+
+                                <p>{{'healthbook_mybatt_insertdate' | translate}}:<br/>{{entry.date | date:'dd.MM.yyyy'}}, {{entry.date | date:'HH:mm'}} Uhr</p>
+                                    <span class="item-note" ng-show="entry.term">
+                                        {{'healthbook_mybatt_term' | translate}}: {{parseTerm(entry.term)}}
+                                    </span>
+
+                            </ion-item>
+                        </ion-list>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

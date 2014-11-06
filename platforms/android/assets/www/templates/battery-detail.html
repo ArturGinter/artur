@@ -8,7 +8,7 @@
     <ion-content has-header="true" padding="true">
         <div class="list card">
             <div class="item item-thumbnail-left">
-                <img ng-show="battery.imagelq.length" style="width:auto; height:80px;" src="{{battery.imagelq}}" class="enlarge">
+                <img ng-show="battery.imagelq.length" ng-click="zoomImage()" style="width:auto; height:80px;" src="{{battery.imagelq}}" class="enlarge">
                 <h2>{{battery.name}}</h2>
                 <p ng-show="battery.typedesignation.length">{{'batteries_label_typedesignation' | translate}}: {{battery.typedesignation}}</p>
             </div>
@@ -66,7 +66,6 @@
             </div>
 
         </div>
-
-
     </ion-content>
 </ion-view>
+<div style="display:none;" ng-click="hideImage()" id="fullimage"><img ng-show="battery.imagehq.length" src="{{battery.imagehq}}"></div>

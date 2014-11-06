@@ -1,19 +1,19 @@
 <ion-view title="">
     <ion-content class="has-header padding">
-        <h3 class="center">{{'headline_contact' | translate}}</h3>
+        <h3 class="center">{{'headline_contact' | translate}} {{accoustian}}</h3>
         <div class="list">
             <br/>
             <label class="item item-input bordertop">
                 <span class="input-label">{{'contact_label_name' | translate}}</span>
-                <input id="contact-name" type="text" placeholder="{{'contact_label_name' | translate}}">
+                <input id="contact-name" type="text" value="{{default_name}}" placeholder="{{'contact_label_name' | translate}}">
             </label>
             <label class="item item-input">
                 <span class="input-label">{{'contact_label_email' | translate}}</span>
-                <input id="contact-email" type="text" placeholder="{{'contact_label_email' | translate}}">
+                <input id="contact-email" type="text" value="{{default_email}}" placeholder="{{'contact_label_email' | translate}}">
             </label>
             <label class="item item-input">
                 <span class="input-label">{{'contact_label_telefon' | translate}}</span>
-                <input id="contact-phone" type="text" placeholder="{{'contact_label_telefon' | translate}}">
+                <input id="contact-phone" type="text" value="{{default_phone}}" placeholder="{{'contact_label_telefon' | translate}}">
             </label>
             <label class="item item-input item-floating-label borderbottom">
                 <span class="input-label">{{'contact_label_inquiry' | translate}}</span>
@@ -24,7 +24,11 @@
                 <span>{{'contact_button_send' | translate}}</span>
             </button>
             <br/>
-            <a href="#/tab/imprint">{{'contact_imprint' | translate}}</a> <a href="#/tab/privacy">{{'contact_privacy' | translate}}</a>
+            <br/>
+            <div style="clear:both;">
+                <a href="#/tab/imprint">{{'contact_imprint' | translate}}</a> <a href="#/tab/privacy">{{'contact_privacy' | translate}}</a>
+            </div>
+
         </div>
     </ion-content>
 

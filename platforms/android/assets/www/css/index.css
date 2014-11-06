@@ -125,6 +125,27 @@ a {
     font-size: 30px;
 }
 
+#map_info_win {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    padding:15px;
+    color: rgb(68, 68, 68);
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-transition:all linear 0.5s;
+    background-color: #eee;
+}
+#map_info_win .map_info_icon {
+    position: absolute;
+    right:25px;
+    top:25px;
+}
+#map_info_win .map_info_icon i {
+    font-size: 30px;
+}
+
 .ng-modal-overlay {
     /* A dark translucent div that covers the whole screen */
     position:absolute;
@@ -172,6 +193,29 @@ a {
     font-family: 'arial', 'sans-serif';
     color:#fff;
 }
+
+#starthelp {
+    display:none;
+    z-index: 500;
+    position: absolute;
+    top:0;
+    left: 0px;
+    background-color: rgba(255,255,255,.9);
+    width: 100%;
+    height: 100%;
+}
+#starthelp .box {
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    width: 250px;
+    top: 50%;
+    left: 50%;
+    margin-top: -190px;
+    margin-left: -125px;
+    padding:15px;
+}
+
 #help {
     position: absolute;
     top:0;
@@ -201,6 +245,12 @@ a {
 .borderbottom {
     border-radius: 0px 0px 10px 10px;
 }
+#mymedkit .list .item:first-child {
+    border-radius: 10px 10px 0px 0px;
+}
+#mymedkit .list .item:last-child {
+    border-radius: 0px 0px 10px 10px;
+}
 .button.button-positive {
     border-color: #831337;
     background-color: #831337;
@@ -209,6 +259,10 @@ a {
 .button.button-positive span {
     margin-right: 25px;
     margin-left: 25px;
+}
+.button-assertive {
+    background-color: #cc2311 !important;
+    border-radius: 5px;
 }
 #tab-healthbook .item:last-child {
     border-radius: 0px 0px 10px 10px;
@@ -246,9 +300,88 @@ a {
 .slider-pager {
     display:none;
 }
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 500;
+}
+.clearborder {
+    border: none;
+}
+.responsive-calendar .day .badge {
+    color:#fff;
+}
 
+.responsive-calendar .day.active a {
+    background-color: grey !important;
+}
 
+.calender-headline {
+    font-size: 12px;
+    font-weight:bold;
+}
+.responsive-calendar .btn {
+    font-size: 12px;
+}
+.responsive-calendar .day .badge {
+    border-radius: 0;
+    position: absolute;
+    top:0px !important;
+    left:0px !important;
+    right: 0px !important;
+}
+.badge-R {
+    font-size: 8px;
+    line-height: 8px;
+    padding:4px;
+    background-color: #831438;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 5px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.badge-L {
+    font-size: 8px;
+    line-height: 8px;
+    padding:4px;
+    background-color: #64A70B;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    position: absolute;
+    left: 0px;
+    right: auto;
+    top: 0px;
+}
+.badge-N {
+    display: none;
+}
 
+#fullimage {
+    z-index: 500;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+}
+#fullimage img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    height: 400px;
+}
 
 @media screen and (min-device-width: 768px) {
 

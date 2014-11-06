@@ -7,7 +7,9 @@
             <div class="item item-body" style="min-height:100px;">
                 <img class="full-image" ng-show="news.image.length" src="http://www.powerone-batteries.com/uploads/tx_drivepoweroneadmin/{{news.image}}">
                 <h2>{{news.subtitle}}</h2>
-                <p>{{news.text}}</p>
+                <span ng-repeat="line in (news.text | newlines) track by $index" />
+                {{line}}<br/>
+                </span>
             </div>
         </div>
     </ion-content>

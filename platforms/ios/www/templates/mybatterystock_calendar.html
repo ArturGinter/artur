@@ -1,0 +1,59 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="has-header" padding="true">
+
+        <div class="box padding">
+
+            <h3 class="center">Mein Batteriebestand</h3>
+
+            <div class="list">
+
+                <div data-ng-include data-src="'templates/mybatterystock_header.html'"></div>
+
+                <!-- Responsive calendar - START -->
+                <div class="responsive-calendar">
+                    <div class="controls">
+
+                        <div class="row">
+                            <div class="col"><a class="pull-left" data-go="prev"><div class="btn btn-primary">Prev</div></a></div>
+                            <div class="col"><h4><span data-head-year></span> <span data-head-month></span></h4></div>
+                            <div class="col"><a class="pull-right" data-go="next"><div class="btn btn-primary">Next</div></a></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col"><a class="button button-small button-positive" href="#/tab/mybatterystockcalendar">Listenansicht</a></div>
+                        </div>
+
+                    </div><hr/>
+                    <div class="day-headers">
+                        <div class="day header">Mon</div>
+                        <div class="day header">Tue</div>
+                        <div class="day header">Wed</div>
+                        <div class="day header">Thu</div>
+                        <div class="day header">Fri</div>
+                        <div class="day header">Sat</div>
+                        <div class="day header">Sun</div>
+                    </div>
+                    <div class="days" data-group="days">
+
+                    </div>
+                </div>
+
+                <!-- Responsive calendar - END -->
+
+            </div>
+
+
+        </div>
+
+    </ion-content>
+
+
+</ion-view>
+
+
+
+

@@ -1,0 +1,66 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+    <ion-content class="has-header" padding="true">
+
+        <div class="box padding">
+
+            <h3 class="center">Mein Batteriebestand</h3>
+
+            <div class="list">
+
+                <div data-ng-include data-src="'templates/mybatterystock_header.html'"></div>
+
+                <div class="row">
+                    <div class="col">
+                        <button class="button button-small button-positive">
+                            Linkes Ohr
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button class="button button-small button-positive">
+                            Rechtes Ohr
+                        </button>
+                    </div>
+                </div>
+
+                <ion-list>
+                    <ion-item ng-repeat="entry in stock" type="item-text-wrap" class="item" href="#/tab/newsarticle/{{$index}}">
+
+                        {{stock.type}}
+
+                        <div class="item item-divider bordertop">
+                            Laufzeithistorie Linkes Ohr
+                        </div>
+
+                        <a class="item" href="#">
+                            <p>Einsetzdatum: entry.date, entry.time Uhr</p>
+                            <span class="item-note">
+                                Laufzeit: entry.date Tage entry.time Stunden
+                            </span>
+                        </a>
+
+
+                    </ion-item>
+                </ion-list>
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </ion-content>
+
+
+</ion-view>
+
+
+
+

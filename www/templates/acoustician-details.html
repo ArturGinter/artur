@@ -2,12 +2,7 @@
     <ion-content has-header="true" padding="true">
 
 
-        <h3>{{ acoustician.company }}</h3>
-
-
-        <button class="orderbutton button button-full button-clear">
-            {{'acoustician_button_inquiry' | translate}}
-        </button>
+        <h3>{{ acoustician.company }} {{myacoustician}}</h3>
 
         <div class="list">
 
@@ -17,7 +12,8 @@
             </div>
             <div class="item borderbottom">
                 <div class="col">
-                    <p>{{ acoustician.street }}, {{ acoustician.zip }} {{ acoustician.city }}</p>
+                    <p>{{ acoustician.street }}</p>
+                    <p>{{ acoustician.zip }} {{ acoustician.city }}</p>
                 </div>
             </div>
 
@@ -56,11 +52,15 @@
                 <p>{{ acoustician.businesshours }}</p>
                 <p>{{ acoustician.additionalinfos }}</p>
             </div>
+
+            <br/>
         </div>
 
-        <br/>
-
-        <button class="orderbutton button button-positive" style="float:right;">
+        <a class="button button-full button-positive" ng-click="openMap()" target="_system">{{'acoustician_routeplanner' | translate}}</a>
+        <button class="saveacoustician button button-full button-positive">
+            {{'acoustician_button_myacoustician' | translate}}
+        </button>
+        <button class="orderbutton button button-full button-positive">
             {{'acoustician_button_inquiry' | translate}}
         </button>
 

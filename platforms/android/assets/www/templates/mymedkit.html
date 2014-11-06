@@ -1,20 +1,21 @@
 <ion-view title="">
 
 
-    <ion-content has-header="true" padding="true">
+    <ion-content id="mymedkit" has-header="true" padding="true">
 
+        <h3 class="center">{{'healthbook_headline_mydrug' | translate}}</h3>
         <h4 ng-hide="{{drugs}}">{{'healthbook_headline_no_drugs' | translate}}</h4>
         <p ng-hide="{{drugs}}">
             {{'healthbook_text_adddrugs' | translate}}
         </p>
 
         <ion-list>
-            <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" href="#/tab/medkit-details/{{$index}}">
+            <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" href="#/tab/medkit-edit/{{$index}}">
                 {{drug.title}}
                  <span class="item-note">
-                    <span ng-show="drug.startday">{{drug.startday}}.{{drug.startmonth}}.{{drug.startyear}}</span>
+                    <span ng-show="drug.startday">{{drug.startday | date:'dd.MM.yy'}}</span>
                     <span ng-show="drug.endday"> - </span>
-                    <span ng-show="drug.endday">{{drug.endday}}.{{drug.endmonth}}.{{drug.endyear}}</span>
+                    <span ng-show="drug.endday">{{drug.endday | date:'dd.MM.yy'}}</span>
                     <span ng-show="drug.timehour">({{drug.timehour}}:{{drug.timeminute}} Uhr)</span>
                  </span>
                 <i class="icon ion-ios7-arrow-right"></i>

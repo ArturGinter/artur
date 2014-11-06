@@ -8,7 +8,7 @@
 
         <div class="item borderbottom">
             {{'general_time' | translate}}
-            <span class="item-note" ng-show="drug.timehour">{{ drug.timehour }}:{{ drug.timeminute }} Uhr</span>
+            <span class="item-note" ng-show="drug.time">{{drug.time | date:'HH:mm'}} Uhr</span>
         </div>
 
         <br/>
@@ -19,11 +19,11 @@
 
         <div class="item">
             {{'general_startdate' | translate}}
-            <span class="item-note" ng-show="drug.startday">{{ drug.startday }}.{{ drug.startmonth }}.{{ drug.startyear }}</span>
+            <span class="item-note" ng-show="drug.startday">{{drug.startday | date:'dd.MM.yyyy'}}</span>
         </div>
         <div class="item">
             {{'general_enddate' | translate}}
-            <span class="item-note" ng-show="drug.endday">{{ drug.endday }}.{{ drug.endmonth }}.{{ drug.endyear }}</span>
+            <span class="item-note" ng-show="drug.endday">{{drug.endday | date:'dd.MM.yyyy'}}</span>
         </div>
 
         <div class="item borderbottom">
@@ -41,28 +41,5 @@
             </span>
         </div>
 
-        <br/>
-
-        <div class="item item-divider bordertop">
-            {{'general_settings' | translate}}
-        </div>
-
-        <div class="item item-toggle borderbottom">
-            {{'general_push' | translate}}
-            <label class="toggle">
-                <input type="checkbox">
-                <div class="track">
-                    <div class="handle"></div>
-                </div>
-            </label>
-        </div>
-
-
-        <button id="medkit-delete" class="button button-block button-assertive">
-            {{'general_delete' | translate}}
-        </button>
-
-
     </ion-content>
 </ion-view>
-

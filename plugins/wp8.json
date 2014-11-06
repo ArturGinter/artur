@@ -97,6 +97,9 @@
         },
         "org.apache.cordova.media-capture": {
             "PACKAGE_NAME": "{f6d1a830-4aec-11e4-914e-7da5cd148d09}"
+        },
+        "com.plugin.datepicker": {
+            "PACKAGE_NAME": "{f6d1a830-4aec-11e4-914e-7da5cd148d09}"
         }
     },
     "dependent_plugins": {

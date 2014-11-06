@@ -1,0 +1,33 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
+    <ion-content class="has-header" padding="true">
+
+
+            <div class="box padding">
+
+                <h3 class="center">{{date | date:'dd.MM.yyyy'}}</h3>
+
+
+                <ion-list>
+                    <ion-item ng-repeat="entry in stock | orderBy:'-date' | limitTo: 30" type="item-text-wrap" class="item">
+                        <p>{{'healthbook_mybatt_insertdate' | translate}}:<br/>{{entry.date | date:'dd.MM.yyyy'}}, {{entry.date | date:'HH:mm'}} {{'healthbook_mybatt_clock' | translate}}</p>
+                                    <span class="item-note">
+                                        {{'healthbook_mybatt_ear' | translate}}: {{entry.ear}}
+                                        <span ng-show="entry.term">{{'healthbook_mybatt_term' | translate}}: {{parseTerm(entry.term)}}</span>
+                                    </span>
+                    </ion-item>
+                </ion-list>
+
+            </div>
+
+
+    </ion-content>
+
+
+</ion-view>
+
+

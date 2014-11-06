@@ -12,7 +12,7 @@ angular.module('starter.services', [])
                     lat = "48.97345";
                     lon = "10.12876";
                 }
-
+                console.log("http://www.powerone-batteries.com/index.php?id=retailer&type=5000&lat="+lat+"&lon="+lon);
                 return $http.get( "http://www.powerone-batteries.com/index.php?id=retailer&type=5000&lat="+lat+"&lon="+lon).then(function(result) {
                     try {
                         window.localStorage.setItem("retailerstatuscode", JSON.stringify(result.data.statuscode));
@@ -26,13 +26,12 @@ angular.module('starter.services', [])
                 })
             },
             search: function($search, $translate) {
-
+                console.log("http://www.powerone-batteries.com/index.php?id=retailer&type=5000&keyword="+$search);
                 return $http.get( "http://www.powerone-batteries.com/index.php?id=retailer&type=5000&keyword="+$search, function(result) {
 
                     try {
                         return result
-                    }
-                    catch(err) {
+                    } catch(err) {
                         alert( err.message );
                     }
 
@@ -47,7 +46,8 @@ angular.module('starter.services', [])
             all: function() {
 
                 if (window.localStorage.getItem("batteries")) {
-                    return angular.fromJson(window.localStorage.getItem("batteries"));
+                    batteries = angular.fromJson(window.localStorage.getItem("batteries"));
+                    return batteries;
                 }
 
                 return $http.get( "http://www.powerone-batteries.com/index.php?id=287&type=5000" ).then(function(result) {
@@ -65,11 +65,11 @@ angular.module('starter.services', [])
 
             },
             get: function(batteryId) {
-                // Simple index lookup
+                batteries = this.all();
                 return batteries[batteryId];
             },
             search: function(keyword) {
-
+                batteries = this.all();
                 if (keyword == "") return batteries;
 
                 var result = [];
@@ -92,8 +92,8 @@ angular.module('starter.services', [])
 
 
                 var lang = 1;
-                if (navigator.language == 'de-de') lang = 13;
-                if (navigator.language == 'fr-fr') lang = 6;
+                if (navigator.language.toLowerCase() == 'de-de') lang = 13;
+                if (navigator.language.toLowerCase() == 'fr-fr') lang = 6;
 
                 return $http.get( "http://www.powerone-batteries.com/index.php?id=faq&type=5000&L=" + lang).then(function(result) {
                     try {
@@ -110,11 +110,11 @@ angular.module('starter.services', [])
 
             },
             get: function(faqId) {
-                // Simple index lookup
+                faq = this.all();
                 return faq[faqId];
             },
             search: function(keyword) {
-
+                faq = this.all();
                 if (keyword == "") return faq;
 
                 var result = [];
@@ -154,11 +154,11 @@ angular.module('starter.services', [])
 
             },
             get: function(newsId) {
-                // Simple index lookup
+                news = this.all();
                 return news[newsId];
             },
             search: function(keyword) {
-
+                news = this.all();
                 if (keyword == "") return news;
 
                 var result = [];
@@ -176,17 +176,12 @@ angular.module('starter.services', [])
 
         var drug = {
             title : '',
+            time: '',
             timehour : '',
             timeminute : '',
 
             startday: '',
-            startmonth: '',
-            startyear: '',
-
-
             endday: '',
-            endmonth: '',
-            endyear: '',
 
             planmon: false,
             plantue: false,
@@ -194,7 +189,9 @@ angular.module('starter.services', [])
             planthu: false,
             planfri: false,
             plansat: false,
-            plansun: false
+            plansun: false,
+
+            push: false,
         }
 
 
@@ -204,6 +201,12 @@ angular.module('starter.services', [])
             },
             setTitle: function(title) {
                 drug.title = title;
+            },
+            getTime: function() {
+                return drug.time;
+            },
+            setTime: function(time) {
+                drug.time = time;
             },
             getTimehour: function() {
                 return drug.timehour;
@@ -223,35 +226,11 @@ angular.module('starter.services', [])
             setStartday: function(startdateday) {
                 drug.startdateday = startdateday;
             },
-            getStartmonth: function() {
-                return drug.startdatemonth;
-            },
-            setStartmonth: function(startdatemonth) {
-                drug.startdatemonth = startdatemonth;
-            },
-            getStartyear: function() {
-                return drug.startdateyear;
-            },
-            setStartyear: function(startdateyear) {
-                drug.startdateyear = startdateyear;
-            },
             getEndday: function() {
                 return drug.enddateday;
             },
             setEndday: function(enddateday) {
                 drug.enddateday = enddateday;
-            },
-            getEndmonth: function() {
-                return drug.enddatemonth;
-            },
-            setEndmonth: function(enddatemonth) {
-                drug.enddatemonth = enddatemonth;
-            },
-            getEndyear: function() {
-                return drug.enddateyear;
-            },
-            setEndyear: function(enddateyear) {
-                drug.enddateyear = enddateyear;
             },
             getPlanmon: function() {
                 return drug.planmon;
@@ -285,6 +264,12 @@ angular.module('starter.services', [])
                     title: projectTitle,
                     tasks: []
                 };
+            },
+            update: function(drug, id) {
+                var drugsString = window.localStorage['drugs'];
+                var drugs = angular.fromJson(drugsString);
+                drugs[id] = drug;
+                this.save(drugs);
             },
             delete: function(medId) {
                 var drugs = this.all();
@@ -475,5 +460,258 @@ angular.module('starter.services', [])
                 notes.text = text;
             }
         };
+    })
+    .factory('Batteryentry', function() {
+
+        var batteryentry = {
+            type : '',
+            count : '',
+            batterymanufacturer : '',
+            batterytype: '',
+            ear: '',
+            date: '',
+            term: '',
+            submittedToServer: false
+        }
+        return {
+            getType: function() {
+                return batteryentry.type;
+            },
+            setType: function(type) {
+                batteryentry.type = type;
+            },
+            getCount: function() {
+                return batteryentry.count
+            },
+            setCount: function(count) {
+                batteryentry.count = count;
+            },
+            getBatterymanufacturer: function() {
+                return batteryentry.batterymanufacturer;
+            },
+            setBatterymanufacturer: function(batterymanufacturer) {
+                batteryentry.batterymanufacturer = batterymanufacturer;
+            },
+            getBatterytype: function() {
+                return batteryentry.batterytype;
+            },
+            setBatterytype: function(batterytype) {
+                batteryentry.batterytype = batterytype;
+            },
+            getEar: function() {
+                return batteryentry.ear;
+            },
+            setEar: function(ear) {
+                batteryentry.ear = ear;
+            },
+            getDate: function() {
+                console.log("getDate");
+                return batteryentry.date;
+            },
+            setDate: function(date) {
+                batteryentry.date = date;
+            },
+            getTerm: function() {
+                return batteryentry.term;
+            },
+            setTerm: function(term) {
+                batteryentry.term = term;
+            }
+        };
+    })
+    .factory('Stock', function() {
+        var newStock = null;
+
+        return {
+            all: function() {
+                var stockString = window.localStorage['stock'];
+                if(stockString) {
+                    return angular.fromJson(stockString);
+                }
+                return [];
+            },
+            /*
+             allNew: function() {
+             var stock = this.all();
+             var returnStock = new Array();
+             for(var i=0;i<stock.length;i++) {
+             if (stock[i].submittedToServer == false) {
+             returnStock.push(stock[i]);
+             stock[i].submittedToServer = true;
+             }
+             }
+
+             this.save();
+             return returnStock;
+             },
+             */
+            allRight: function() {
+                var stockString = window.localStorage['stock'];
+                if(stockString) {
+                    var stock =  angular.fromJson(stockString);
+                    var returnval = new Array();
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "R") returnval.push(stock[i]);
+                    }
+                }
+                return returnval;
+            },
+            allLeft: function() {
+                var stockString = window.localStorage['stock'];
+                if(stockString) {
+                    var stock =  angular.fromJson(stockString);
+                    var returnval = new Array();
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "L") returnval.push(stock[i]);
+                    }
+                }
+                return returnval;
+            },
+            calEvents: function() {
+                var stockString = window.localStorage['stock'];
+                var result = new Array();
+                if(stockString) {
+                    stock = angular.fromJson(stockString);
+                    // Unique Dates for calender
+                    var datesArray = new Array()
+                    for(var i=0;i<stock.length;i++) {
+                        var tmpDate = new Date(stock[i].date);
+                        var dateString = tmpDate.getFullYear() + '-' + (tmpDate.getMonth()+1) + '-' + tmpDate.getDate();
+                        datesArray.push(dateString);
+                    }
+                    datesArray = $.unique( datesArray );
+
+                    // Checks right/left ear
+                    for(var i=0;i<datesArray.length;i++) {
+                        var foundEvents = this.getByDate(datesArray[i]);
+                        var rightEar = false;
+                        var leftEar = false;
+
+                        for(var j=0;j<foundEvents.length;j++) {
+                            if (foundEvents[j].ear == "R") rightEar = true;
+                            if (foundEvents[j].ear == "L") leftEar = true;
+                        }
+
+                        var earString;
+                        if (rightEar && leftEar) earString = "<span class=badge-R>R</span><span class=badge-L>L</span>";
+                        else if (rightEar) earString = "<span class=badge-R>R</span>";
+                        else if (leftEar) earString = "<span class=badge-L>L</span>";
+                        else earString = "N";
+                        foundEvents = null;
+
+                        // Create Return-Array
+                        var item = '"' + datesArray[i] +'":' + '{"number": "'+earString+'", "url": "#/tab/mybatterystockdetails/' + datesArray[i] + '"}';
+                        result = result + item;
+                        if (i < datesArray.length-1) result = result + ',';
+
+                    }
+                }
+                result = '{' + result + '}';
+                return angular.fromJson(result);
+            },
+            get: function(stockId) {
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                return stock[stockId];
+            },
+            getByDate: function(date) {
+                var splitDate = date.split("-");
+                var searchDate = new Date(splitDate[0], splitDate[1]-1, splitDate[2]);
+                var returnval = new Array();
+                var stockString = window.localStorage['stock'];
+                if(stockString) {
+                    var stock = angular.fromJson(stockString);
+
+                    for(var i=0;i<stock.length;i++) {
+                        var tmpDate = new Date(stock[i].date);
+                        if (tmpDate.toDateString() === searchDate.toDateString() && stock[i].type == "taking") returnval.push(stock[i]);
+                    }
+                }
+
+                return returnval;
+
+            },
+            getLastRight: function() {
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+
+                if (stock) {
+                    stock.sort(function(a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "R") return stock[i];
+                    }
+                }
+                return 0;
+
+            },
+            getLastLeft: function() {
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+
+                if (stock) {
+                    stock.sort(function(a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "L") return stock[i];
+                    }
+                }
+                return 0;
+            },
+            getInventoryCount: function() {
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var count = 0;
+                if (stock) {
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "new") count = count + stock[i].count;
+                        if (stock[i].type == "taking") count--;
+                    }
+                }
+                return count;
+            },
+            getAverageUsefulLifeRight: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinsuse = 0;
+
+                if (stock) {
+                    stock.sort(function(a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "R" && stock[i].term > 0 && !isNaN(stock[i].term)) timeinsuse += stock[i].term;
+                    }
+                }
+
+                return (timeinsuse/86400000).toFixed(2);
+
+            },
+            getAverageUsefulLifeLeft: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinsuse = 0;
+
+                if (stock) {
+                    stock.sort(function(a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "L" && stock[i].term > 0 && !isNaN(stock[i].term)) timeinsuse += stock[i].term;
+                    }
+                }
+                return (timeinsuse/86400000).toFixed(2);
+
+            },
+            save: function(stock) {
+                window.localStorage['stock'] = angular.toJson(stock);
+            }
+        }
+
     })
 ;

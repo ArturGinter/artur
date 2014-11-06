@@ -26,9 +26,12 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
-    <link href="lib/ionic/css/ionic.min.css" rel="stylesheet">
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+
+    <link href="../css/responsive-calendar.css" rel="stylesheet">
+    <link href="lib/responsive-calendar/0.7/css/responsive-calendar.css" rel="stylesheet">
 
     <title>Power One App</title>
     <!-- PhoneGap Stuff -->
@@ -38,40 +41,47 @@
 </head>
 <body id="powerone" ng-app="starter" ng-controller="LoadingCtrl">
 
+<div id="starthelp">
+    <div class="box">
+        <h3>{{"starthelp_headline" | translate}}</h3>
+        <p>{{"starthelp_introduction" | translate}}</p>
+        <p><strong>{{"starthelp_sub_1" | translate}}</strong><br/>{{"starthelp_text_1" | translate}}</p>
+        <p><strong>{{"starthelp_sub_2" | translate}}</strong><br/>{{"starthelp_text_2" | translate}}</p>
+        <br/>
+        <button class="button button-block button-positive" ng-click="firsthelp()">
+            ok
+        </button>
+    </div>
+</div>
+
 <div id="help" class='ng-modal' ng-show='show'>
     <div class='ng-modal-overlay' ng-click='hideModal()'></div>
     <div class='ng-modal-dialog' ng-style='dialogStyle'>
-        <div class='ng-modal-close' ng-click='hideModal()'><i class="icon ion-ios7-close-outline"></i></div>
-        <div class='ng-modal-dialog-content' ng-transclude>
-
             <div id="helplogo">
-
                 <div class="row row-center bordertop" style="text-align: center;">
                     <div class="col"><img src="img/logo_powerone_dark.svg" height="auto" width="240"></div>
                 </div>
 
                 <div ng-click="dash()" class="boxfade-in one row row-center">
                     <div class="col"><a class="icon po-icon1"></a></div>
-                    <div class="col col-75"><span>{{"startmodal_dash" | translate}}</span></div>
+                    <div class="col col-75"><span style="font-weight: bold;">{{"startmodal_dash" | translate}}</span></div>
                 </div>
                 <div ng-click="batteries()" class="boxfade-in two row row-center">
                     <div class="col"><a class="icon po-icon3"></a></div>
-                    <div class="col col-75"><span>{{"startmodal_batteries" | translate}}</span></div>
+                    <div class="col col-75"><span style="font-weight: bold;">{{"startmodal_batteries" | translate}}</span></div>
                 </div>
                 <div ng-click="healthbook()" class="boxfade-in three row row-center">
                     <div class="col"><a class="icon po-icon2"></a></div>
-                    <div class="col col-75"><span>{{"startmodal_healthbook" | translate}}</span></div>
+                    <div class="col col-75"><span style="font-weight: bold;">{{"startmodal_healthbook" | translate}}</span></div>
                 </div>
                 <div ng-click="contact()" class="boxfade-in four row row-center borderbottom">
                     <div class="col"><a class="icon po-icon4"></a></div>
-                    <div class="col col-75"><span>{{"startmodal_contact" | translate}}</span></div>
+                    <div class="col col-75"><span style="font-weight: bold;">{{"startmodal_contact" | translate}}</span></div>
                 </div>
             </div>
-
-
-        </div>
     </div>
 </div>
+
 
 <ion-nav-bar class="nav-title-slide-ios7" type="bar-clear">
     <h1 class="title"><img src="img/logo_powerone.svg" height="40" width="auto"></h1>
@@ -90,18 +100,25 @@
 <ion-nav-view></ion-nav-view>
 
 <script type="text/javascript" src="lib/ionic/js/ionic.bundle.min.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="lib/ionic/js/angular/angular-translate.min.js"></script>
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+
+
+<script src="lib/responsive-calendar/0.7/js/bootstrap.min.js"></script>
+<script src="lib/responsive-calendar/0.7/js/responsive-calendar.min.js"></script>
+
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 <script type="text/javascript" src="js/googlemap.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="js/services.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
 
 <script type="text/javascript">
+
     app.initialize();
+
 </script>
 
 </body>

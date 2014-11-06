@@ -2,17 +2,44 @@
 
 angular.module('starter.controllers', [])
 
-    .factory('LoaderService', function($rootScope, $translate, $ionicLoading) {
+    .factory('LoaderService', function($rootScope, $translate, $ionicLoading, $http, Stock) {
 
         // Cleanup
-        window.localStorage.removeItem("batteries");
-        window.localStorage.removeItem("faq");
-        window.localStorage.removeItem("news");
+        var today = new Date();
+        if(!window.localStorage.getItem("nextupdate")) {
+            window.localStorage.setItem("nextupdate", new Date((new Date()).getTime() + 7*24*60*60*1000));
+        }
+        if (new Date(window.localStorage.getItem("nextupdate")) < today) { // Updates Battery guide weekly
+            window.localStorage.removeItem("batteries");
+            window.localStorage.removeItem("faq");
+            window.localStorage.removeItem("news");
+            window.localStorage.setItem("nextupdate", new Date((new Date()).getTime() + 7*24*60*60*1000));
+        }
         window.localStorage.removeItem("retailer");
         window.localStorage.setItem("myLatitude", null);
         window.localStorage.setItem("myLongitude", null);
         window.localStorage.setItem("myLongitude", null);
-        window.localStorage.setItem("lasttab", "0")
+        window.localStorage.setItem("lasttab", "0");
+        window.localStorage.setItem("showcallist", "cal");
+        window.localStorage.setItem("batterystockfolder", "false");
+
+        if (window.localStorage.getItem("hasStarted")) {
+            $("#starthelp").hide();
+        } else {
+            $("#starthelp").show();
+        }
+
+        // Submit Battery Stock in background
+        if (window.localStorage.getItem("uuid")) {
+
+            var stockupdate = {uuid:window.localStorage.getItem("uuid"), stock:Stock.all()};
+
+            // ToDo: Nur neue Daten übermittelt. Flag 'sendToServer' in Services
+            $http.get( "http://www.powerone-batteries.com/index.php?id=stock&type=5000&data=" +  angular.toJson(stockupdate, false) ).then(function(result) {
+               // Error Handling
+            });
+
+        }
 
         return {
             show : function(message) {
@@ -33,8 +60,11 @@ angular.module('starter.controllers', [])
                     maxWidth: 400,
 
                     // The delay in showing the indicator
-                    showDelay: 10
+                    showDelay: 10,
+
+                    duration: 10000
                 });
+
             },
 
             hide : function(){
@@ -92,6 +122,10 @@ angular.module('starter.controllers', [])
             window.location = "#/tab/contact";
             $("#help").hide();
         };
+        $scope.firsthelp = function() {
+            $("#starthelp").hide();
+            window.localStorage.setItem("hasStarted", "true");
+        };
 
 
         $scope.camera = function() {
@@ -100,12 +134,7 @@ angular.module('starter.controllers', [])
 
     }])
 
-
     .controller('DashCtrl', function($scope, $translate, $timeout, $ionicModal, Retailers, LoaderService) {
-
-        //LoaderService.show();
-
-        // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation.getCurrentPosition
 
         if ( window.localStorage.getItem("retailer") != null) {
             var map = new GoogleMap();
@@ -113,7 +142,7 @@ angular.module('starter.controllers', [])
             map.initialize();
         } else {
 
-            document.addEventListener("deviceready", function() {
+            //document.addEventListener("deviceready", function() {
 
                 $translate('general_yourposition').then(function (text) {
                     $("#geoupdatemessage").html(text);
@@ -142,25 +171,22 @@ angular.module('starter.controllers', [])
                         }
 
                     }, function (status) {
-                        alert(status);
+                        console.log(status);
                     });
 
                 }, function (error) {
                     $translate('general_nogps').then(function (text) {
                         $("#geoupdatemessage").html(text);
                     });
-                    //Retailers.search("");
 
-                }, {enableHighAccuracy: false, timeout:15000, maximumAge: 1});
-            }, false);
+                }, {enableHighAccuracy: false, timeout:5000, maximumAge: 1});
+            //}, false);
 
         }
 
         // Search-Button
 
-
-
-        $("#acoustician-searchbutton").bind( "touchstart", function(event) {
+        $("#acoustician-searchbutton").bind( "click", function(event) {
 
             Retailers.search( $("#searchword").val(), $translate).then(function(result) {
 
@@ -186,15 +212,15 @@ angular.module('starter.controllers', [])
 
         $ionicSlideBoxDelegate.slide(2);
 
-        $scope.newsTab = function() {
+        $scope.battriesTab = function() {
             window.localStorage.setItem("lasttab", "0");
             $ionicSlideBoxDelegate.slide(0);
         };
-        $scope.battriesTab = function() {
+        $scope.faqTab = function() {
             window.localStorage.setItem("lasttab", "1");
             $ionicSlideBoxDelegate.slide(1);
         };
-        $scope.faqTab = function() {
+        $scope.newsTab = function() {
             window.localStorage.setItem("lasttab", "2");
             $ionicSlideBoxDelegate.slide(2);
         };
@@ -217,12 +243,12 @@ angular.module('starter.controllers', [])
                 var faqresult = Faq.search($("#battery-searchword").val());
 
                 if (battresult.length > 0) {
-                    window.localStorage.setItem("lasttab", "1")
+                    window.localStorage.setItem("lasttab", "0")
                     $scope.batteries = battresult;
                     $scope.faq = faqresult;
                     $scope.news = News.all();
                 } else if (faqresult.length > 0) {
-                    window.localStorage.setItem("lasttab", "2")
+                    window.localStorage.setItem("lasttab", "1")
                     $scope.batteries = battresult;
                     $scope.faq = faqresult;
                     $scope.news = News.all();
@@ -239,13 +265,12 @@ angular.module('starter.controllers', [])
 
 
         if ( window.localStorage.getItem("batteries") != null) {
-            $scope.batteries = JSON.parse(window.localStorage.getItem("batteries"));
-            LoaderService.hide();
+            $scope.batteries = angular.fromJson(window.localStorage.getItem("batteries"));
         } else {
             $translate('general_updateing').then(function (text) {
                 LoaderService.show(text);
             });
-            Batteries.all().then(function (result) {
+            $scope.batteries = Batteries.all().then(function (result) {
                 $scope.batteries = result;
                 LoaderService.hide();
             }, function (status) {
@@ -293,26 +318,47 @@ angular.module('starter.controllers', [])
     })
 
     .controller('BatteryDetailCtrl', function($scope, $stateParams, Batteries) {
-        window.localStorage.setItem("lasttab", "1")
+        window.localStorage.setItem("lasttab", "0")
         $scope.battery = Batteries.get($stateParams.batteryId);
+
+        $scope.zoomImage = function() {
+            $("#fullimage").show();
+        }
+        $scope.hideImage = function() {
+            $("#fullimage").hide();
+        }
+
     })
 
     .controller('FaqAnswerCtrl', function($scope, $stateParams, Faq) {
-        window.localStorage.setItem("lasttab", "2")
+        window.localStorage.setItem("lasttab", "1")
         $scope.faq = Faq.get($stateParams.faqId);
     })
 
+    .filter('newlines', function() {
+        return function(text) {
+            return text.split(/\n/g);
+        };
+    })
+
     .controller('NewsArticleCtrl', function($scope, $stateParams, News) {
-        window.localStorage.setItem("lasttab", "0")
+        window.localStorage.setItem("lasttab", "2")
         $scope.news = News.get($stateParams.newsId);
     })
 
-    .controller('HealthbookCtrl', function($scope, Aiddevice, Drugs, Glass, Notes) {
-        $scope.mybattery = window.localStorage.getItem('mybattery');
+
+    .controller('HealthbookCtrl', function($scope, Aiddevice, Drugs, Glass, Notes, Stock) {
+        $scope.inventory = Stock.getInventoryCount();
         $scope.aiddevice = Aiddevice.all();
         $scope.drugs = Drugs.all();
         $scope.glass = Glass.all();
         $scope.notes = Notes.all();
+        $scope.stock = Stock.all();
+
+        if (window.localStorage.getItem('mybattery')) {
+            Aiddevice.setBattery(window.localStorage.getItem('mybattery'));
+            Aiddevice.save();
+        }
 
     })
     .controller('MedkitbatteryCtrl', function($scope, Aiddevice) {
@@ -427,23 +473,56 @@ angular.module('starter.controllers', [])
 
         });
 
-
-
     })
     .controller('MymedkitCtrl', function($scope, Drugs, Drug) {
 
         $scope.drugs = Drugs.all();
-
         $scope.addMedikitEntry = function(event){
             window.location = "#/tab/addmedikitentry";
         }
-
 
     })
     .controller('AddmedikitentryCtrl', function($scope, $translate, Drug, Drugs) {
 
         $scope.drug = Drug;
         $scope.drugs = Drugs.all();
+
+        $scope.time = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'time'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.time = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.calendarStart = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.startday = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.calendarEnd = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.endday = date;
+                $scope.$apply();
+            });
+        }
+
 
         $scope.saveMedikitEntry = function(event) {
 
@@ -562,27 +641,91 @@ angular.module('starter.controllers', [])
         });
 
     })
+    .controller('MedkiteditCtrl', function($scope, $stateParams, Drug, Drugs) {
+        $scope.medid = $stateParams.medId;
+        $scope.drug = Drugs.get($stateParams.medId);
+
+
+        $scope.time = function(event) {
+            var options = {
+                date: new Date(),
+                mode: 'time'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.time = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.calendarStart = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.startday = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.calendarEnd = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options, function(date){
+                $scope.drug.endday = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.updateMedikitEntry = function(event) {
+            Drugs.update($scope.drug, $scope.medid);
+            window.location = "#/tab/mymedkit";
+        };
+
+        $("#medkit-delete").bind( "touchstart", function(event) {
+            Drugs.delete($scope.medid);
+            window.location = "#/tab/mymedkit";
+        });
+    })
     .controller('ContactCtrl', function($scope, $translate, LoaderService) {
 
+        if (window.localStorage.getItem("myacoustician_company")) {
+            $scope.accoustian = window.localStorage.getItem("myacoustician_company");
+        } else {
+            $scope.accoustian = "VARTA Microbattery GmbH";
+        }
 
-        $("#contact-submit").bind( "touchstart", function(event) {
+        $scope.default_name = window.localStorage.getItem("default_name");
+        $scope.default_email = window.localStorage.getItem("default_email");
+        $scope.default_phone = window.localStorage.getItem("default_phone");
+
+        $("#contact-submit").bind( "click", function(event) {
 
             var name = $("#contact-name").val();
             var email = $("#contact-email").val();
             var phone = $("#contact-phone").val();
             var message = $("#contact-message").val();
 
+            var mail = "corporatecommunications@varta-microbattery.com";
+            if (window.localStorage.getItem("myacoustician_company")) {
+                var mail = window.localStorage.getItem("myacoustician_email");
+            }
+
             if (name != "" && email != "" && message != "") {
                 LoaderService.show("Daten werden übermittelt ...");
-                var jqxhr = $.get( "http://www.powerone-batteries.com/index.php?id=mail&type=5000&name="+name+"&email="+email+"&phone="+phone+"&message="+message , function(data) {
+                var jqxhr = $.get( "http://www.powerone-batteries.com/index.php?id=mail&type=5000&name="+name+"&email="+email+"&phone="+phone+"&message="+message+"&to="+mail , function(data) {
+
+                    window.localStorage.setItem("default_name", name);
+                    window.localStorage.setItem("default_email", email);
+                    window.localStorage.setItem("default_phone", phone);
 
                     $translate('general_messagesubmit').then(function (text) {
                         navigator.notification.alert(text, null, "Info", "ok");
                     });
-
-                    $("#contact-name").val("");
-                    $("#contact-email").val("");
-                    $("#contact-phone").val("");
                     $("#contact-message").val("");
 
                     LoaderService.hide();
@@ -598,7 +741,7 @@ angular.module('starter.controllers', [])
         });
 
     })
-    .controller('AcousticianDetailsCtrl', function($scope, $stateParams) {
+    .controller('AcousticianDetailsCtrl', function($scope, $stateParams, $translate) {
 
         $scope.acousticianid = $stateParams.acousticianId;
         var retailer = JSON.parse(window.localStorage.getItem('retailer'));
@@ -606,22 +749,106 @@ angular.module('starter.controllers', [])
         if ( retailer.length == 1 ) $scope.acoustician = retailer[0];
         else $scope.acoustician = retailer[$stateParams.acousticianId];
 
+
+        $(".saveacoustician").bind( "click", function(event) {
+            window.localStorage.setItem("myacoustician_id", $stateParams.acousticianId);
+            window.localStorage.setItem("myacoustician_company", $scope.acoustician['company']);
+            window.localStorage.setItem("myacoustician_street", $scope.acoustician['street']);
+            window.localStorage.setItem("myacoustician_zip", $scope.acoustician['zip']);
+            window.localStorage.setItem("myacoustician_city", $scope.acoustician['city']);
+            window.localStorage.setItem("myacoustician_phone", $scope.acoustician['phone']);
+            window.localStorage.setItem("myacoustician_email", $scope.acoustician['email']);
+            $translate('acoustician_text_myacoustician').then(function (text) {
+                $scope.myacoustician = "("+text+")";
+            });
+            $translate('acoustician_info_saved').then(function (text) {
+                navigator.notification.alert(text, null, "Info", "ok");
+            });
+            $(".saveacoustician").show();
+        });
+
+
+
+        if ($scope.acoustician['company'] == window.localStorage.getItem("myacoustician_company")) {
+            $translate('acoustician_text_myacoustician').then(function (text) {
+                $scope.myacoustician = "("+text+")";
+            });
+            $(".saveacoustician").hide();
+        } else {
+            $scope.myacoustician = "";
+        }
+
+
         if ($scope.acoustician['email'] == "") {
             $(".orderbutton").hide();
         } else {
             $(".orderbutton").show();
-            $(".orderbutton").bind( "touchstart", function(event) {
-                //window.location = "#/tab/order/" + $(event.currentTarget).attr('data-retailer');
-                window.location.href = "mailto:"+$scope.acoustician['email']+"?subject=Anfrage";
+            $(".orderbutton").bind( "click", function(event) {
+                window.location = "#/tab/order/" + $stateParams.acousticianId;
             });
         }
 
+        $scope.openMap = function() {
+            window.open('http://map.google.com/maps?daddr='+$scope.acoustician.street+", "+$scope.acoustician.zip+" "+$scope.acoustician.city, '_blank', 'location=yes');
+        }
+
+
     })
-    .controller('AcousticianOrderCtrl', function($scope) {
+    .controller('AcousticianOrderCtrl', function($scope, $stateParams, $translate, Aiddevice, LoaderService) {
+
+        $scope.aiddevice = Aiddevice.all();
+
+        var retailer = JSON.parse(window.localStorage.getItem('retailer'));
+        $scope.acoustician = retailer[$stateParams.acousticianId];
+        $scope.company = $scope.acoustician['company'];
+        $scope.default_name = window.localStorage.getItem("default_name");
+        $scope.default_email = window.localStorage.getItem("default_email");
+        $scope.default_phone = window.localStorage.getItem("default_phone");
+
+        $("#order-submit").bind( "click", function(event) {
+
+            var name = $("#contact-name").val();
+            var email = $("#contact-email").val();
+            var phone = $("#contact-phone").val();
+            var message = $("#contact-message").val();
+
+            var mail = $scope.acoustician['email'];
+            if (name != "" && email != "" && message != "") {
+                LoaderService.show("Daten werden übermittelt ...");
+                var jqxhr = $.get( "http://www.powerone-batteries.com/index.php?id=mail&type=5000&name="+name+"&email="+email+"&phone="+phone+"&message="+message+"&to="+mail+"&aiddevicelabel="+$scope.aiddevice.label+"&aiddevicetype="+$scope.aiddevice.type+"&aiddevicebattery="+$scope.aiddevice.battery , function(data) {
+
+                    window.localStorage.setItem("default_name", name);
+                    window.localStorage.setItem("default_email", email);
+                    window.localStorage.setItem("default_phone", phone);
+
+                    $translate('general_messagesubmit').then(function (text) {
+                        navigator.notification.alert(text, null, "Info", "ok");
+                    });
+
+                    $("#contact-message").val("");
+
+                    LoaderService.hide();
+                });
+
+            } else {
+
+                $translate('general_fillout').then(function (text) {
+                    navigator.notification.alert(text, null, "Info", "ok");
+                });
+            }
+
+        });
 
     })
 
     .controller('AcousticianCreateCtrl', function($scope) {
+
+        $scope.open = function() {
+            if (window.localStorage.getItem('lang') == "de-DE")
+                window.open('http://www.powerone-batteries.com/de/retailerregistration/', '_blank', 'location=yes');
+            else
+                window.open('http://www.powerone-batteries.com/retailerregistration/', '_blank', 'location=yes');
+        };
 
     })
     .controller('MedkitglassCtrl', function($scope, Glass) {
@@ -649,4 +876,238 @@ angular.module('starter.controllers', [])
             navigator.device.capture.captureImage(function(mediaFiles) {}, function(error) {}, {limit:1});
         };
     })
+    .controller('MybatterystockCtrl', function($scope, Stock) {
+
+        $scope.stockright = Stock.allRight();
+        $scope.stockleft = Stock.allLeft();
+        $scope.inventory = Stock.getInventoryCount();
+        $scope.liferight = Stock.getAverageUsefulLifeRight();
+        $scope.lifeleft = Stock.getAverageUsefulLifeLeft();
+
+        $scope.foldering = function(event){
+            $("#toggle").toggle( "fold" );
+            if ( window.localStorage.getItem("batterystockfolder") == "false") window.localStorage.setItem("batterystockfolder", "true")
+            else window.localStorage.setItem("batterystockfolder", "false")
+        }
+        if (window.localStorage.getItem("batterystockfolder") == "false") $("#toggle").toggle( "fold" );
+        if (window.localStorage.getItem("showcallist") == "listright") {
+            $("#card1").hide();
+            $("#card2").show();
+            $("#rightcard").show();
+            $("#leftcard").hide();
+        } else if (window.localStorage.getItem("showcallist") == "listleft") {
+            $("#card1").hide();
+            $("#card2").show();
+            $("#rightcard").hide();
+            $("#leftcard").show();
+        } else {
+            $("#card1").show();
+            $("#card2").hide();
+        }
+        $scope.calcard = function(event) {
+            $("#card1").show();
+            $("#card2").hide();
+            window.localStorage.setItem("showcallist", "cal");
+        }
+        $scope.listcard = function(event) {
+            $("#card1").hide();
+            $("#card2").show();
+            $("#rightcard").hide();
+            $("#leftcard").show();
+            window.localStorage.setItem("showcallist", "listleft")
+        }
+        $scope.leftear = function(event) {
+            $("#rightcard").hide();
+            $("#leftcard").show();
+            window.localStorage.setItem("showcallist", "listleft")
+        }
+        $scope.rightear = function(event) {
+            $("#rightcard").show();
+            $("#leftcard").hide();
+            window.localStorage.setItem("showcallist", "listright")
+        }
+
+        var events = Stock.calEvents();
+        var dt = new Date();
+        $(".responsive-calendar").responsiveCalendar({
+            translateMonths: ["02", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+            time: dt.getFullYear() + '-' + (dt.getMonth() + 1),
+            events: events
+        });
+
+        $scope.parseTerm = function(time) {
+            var millis= time % 1000;
+            time = parseInt(time/1000);
+            var seconds = time % 60;
+            time = parseInt(time/60);
+            var minutes = time % 60;
+            time = parseInt(time/60);
+            var hours = time % 24;
+            var out = "";
+            if(hours && hours > 0) out += hours + " " + ((hours == 1)?"hr":"hrs") + " ";
+            if(minutes && minutes > 0) out += minutes + " " + ((minutes == 1)?"min":"mins") + " ";
+            if(seconds && seconds > 0) out += seconds + " " + ((seconds == 1)?"sec":"secs") + " ";
+            if(millis&& millis> 0) out += millis+ " " + ((millis== 1)?"msec":"msecs") + " ";
+            return out.trim();
+        }
+
+
+    })
+    .controller('MybatterystocknewCtrl', function($scope, Stock, Batteryentry, Aiddevice) {
+
+        $scope.aiddevice = Aiddevice.all();
+        $scope.batteryentry = Batteryentry;
+        $scope.stock = Stock.all();
+        $scope.count = 2;
+
+        $scope.increase = function(event){
+            $scope.count++;
+        }
+
+        $scope.decress = function(event){
+            if ($scope.count > 1) $scope.count--;
+        }
+
+        $scope.addBatteryStock = function(event) {
+            $scope.batteryentry.type = "new";
+            $scope.batteryentry.count = $scope.count;
+            $scope.batteryentry.batterymanufacturer = "n/a";
+            $scope.batteryentry.batterytype = "n/a";
+            $scope.batteryentry.date = new Date();
+            $scope.ear = "N"
+            $scope.stock.push($scope.batteryentry);
+            Stock.save($scope.stock);
+            $scope.count = 2;
+            window.location = "#/tab/mybatterystock";
+        }
+
+        $scope.myacoustician_company = window.localStorage.getItem("myacoustician_company");
+        $scope.myacoustician_street = window.localStorage.getItem("myacoustician_street");
+        $scope.myacoustician_zip = window.localStorage.getItem("myacoustician_zip");
+        $scope.myacoustician_city = window.localStorage.getItem("myacoustician_city");
+
+        $(".orderbutton").bind( "click", function(event) {
+            window.location = "#/tab/order/" + window.localStorage.getItem("myacoustician_id");
+        });
+
+    })
+    .controller('MybatterystocklistCtrl', function($scope, Stock, Batteryentry) {
+
+        $scope.stock = Stock.all();
+        $scope.foldering = function(event){
+            $("#toggle").toggle( "fold" );
+        }
+
+    })
+    .controller('MybatterystockcalendarCtrl', function($scope) {
+
+        $scope.foldering = function(event){
+            $("#toggle").toggle( "fold" );
+        }
+
+    })
+    .controller('MybatterystockdetialsCtrl', function($scope, $stateParams, Stock) {
+
+        $scope.date = $stateParams.stockId;
+        $scope.stock = Stock.getByDate($stateParams.stockId);
+
+        $scope.parseTerm = function(time) {
+            var millis= time % 1000;
+            time = parseInt(time/1000);
+            var seconds = time % 60;
+            time = parseInt(time/60);
+            var minutes = time % 60;
+            time = parseInt(time/60);
+            var hours = time % 24;
+            var out = "";
+            if(hours && hours > 0) out += hours + " " + ((hours == 1)?"hr":"hrs") + " ";
+            if(minutes && minutes > 0) out += minutes + " " + ((minutes == 1)?"min":"mins") + " ";
+            if(seconds && seconds > 0) out += seconds + " " + ((seconds == 1)?"sec":"secs") + " ";
+            if(millis&& millis> 0) out += millis+ " " + ((millis== 1)?"msec":"msecs") + " ";
+            return out.trim();
+        }
+
+    })
+    .controller('MybatterystocktakingCtrl', function($scope, $filter, $translate, Stock, Batteryentry) {
+
+        $scope.batteryentry = Batteryentry;
+        $scope.stock = Stock.all();
+        var jetzt = new Date();
+        $scope.stockdate = jetzt;
+        $scope.stocktime = jetzt;
+        $scope.ear = "right";
+        $scope.batteryentry.date = null;
+        $scope.batteryentry.time = null;
+
+
+        $scope.addBatteryStock = function(event) {
+
+            $scope.batteryentry.type = "taking";
+            $scope.batteryentry.count = "-1";
+            $scope.batteryentry.batterymanufacturer = "n/a";
+            $scope.batteryentry.batterytype = "n/a";
+            $scope.batteryentry.date = new Date($scope.stockdate.getFullYear(), $scope.stockdate.getMonth(), $scope.stockdate.getDate(), $scope.stocktime.getHours(), $scope.stocktime.getMinutes());
+
+            if ($scope.ear == "R") {
+                $scope.batteryentry.ear = "R";
+                var lastItem = Stock.getLastRight();
+                var lastItemDate = new Date(lastItem.date);
+                $scope.batteryentry.term = $scope.batteryentry.date.getTime()  - lastItemDate.getTime() ;
+                $scope.stock.push($scope.batteryentry);
+                Stock.save($scope.stock);
+                $scope.batteryentry.date = null;
+                $scope.stockdate = null;
+                $scope.stocktime = null;
+                window.location = "#/tab/mybatterystock";
+            } else if ($scope.ear == "L") {
+                $scope.batteryentry.ear = "L";
+                var lastItem = Stock.getLastLeft();
+                var lastItemDate = new Date(lastItem.date);
+                $scope.batteryentry.term = $scope.batteryentry.date.getTime()  - lastItemDate.getTime() ;
+                $scope.stock.push($scope.batteryentry);
+                Stock.save($scope.stock);
+                $scope.batteryentry.date = null;
+                $scope.stockdate = null;
+                $scope.stocktime = null;
+                window.location = "#/tab/mybatterystock";
+            } else {
+                $scope.batteryentry.ear = "N";
+                $translate('healthbook_mybatt_error_noear').then(function (text) {
+                    navigator.notification.alert(text, null, "Info", "ok");
+                });
+
+            }
+
+        }
+
+        $scope.calendar = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'date',
+                allowFutureDates: 'false'
+            };
+            datePicker.show(options, function(date){
+                $scope.stockdate = date;
+                $scope.$apply();
+            });
+        }
+
+        $scope.time = function(event) {
+
+            var options = {
+                date: new Date(),
+                mode: 'time',
+                allowFutureDates: 'false'
+            };
+            datePicker.show(options, function(date){
+                $scope.stocktime = date;
+                $scope.$apply();
+            });
+        }
+
+        Batteryentry.stockdate = "";
+    })
+
+
 ;

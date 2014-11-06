@@ -22,35 +22,17 @@
         </div>
 
         <div class="row">
-            <div class="col center"><a href="" ng-click="newsTab()">{{'batteries_navi_news' | translate}}</a></div>
             <div class="col center"><a href="" ng-click="battriesTab()">{{'batteries_navi_battery' | translate}}</a></div>
             <div class="col center"><a href="" ng-click="faqTab()">{{'batteries_navi_faq' | translate}}</a></div>
+            <div class="col center"><a href="" ng-click="newsTab()">{{'batteries_navi_news' | translate}}</a></div>
         </div>
 
         <ion-slide-box on-slide-changed="slideHasChanged($index)">
             <ion-slide>
                 <div class="box">
-
-                    <div class="item item-divider">
-                        {{'batteries_headline_news' | translate}}
-                    </div>
-                    <ion-list>
-                        <ion-item ng-repeat="entry in news" type="item-text-wrap" class="item" href="#/tab/newsarticle/{{$index}}">
-                            {{entry.title}}
-                        </ion-item>
-                    </ion-list>
-
-                </div>
-            </ion-slide>
-            <ion-slide>
-                <div class="box">
-
-
                     <div class="item item-divider">
                         {{'batteries_headline_battery' | translate}}
                     </div>
-
-
                     <ion-list>
                         <ion-item ng-repeat="battery in batteries" type="item-text-wrap" class="item item-thumbnail-left" href="#/tab/battery/{{$index}}">
                             <img style="width:auto; height:80px;" src="{{battery.imagelq}}">
@@ -59,14 +41,10 @@
                             <span ng-show="battery.capacity">{{'batteries_label_capacity' | translate}} {{battery.capacity}} mAh</span>
                         </ion-item>
                     </ion-list>
-
-
-
                 </div>
             </ion-slide>
             <ion-slide>
                 <div class="box">
-
                     <div class="item item-divider">
                         {{'batteries_headline_faq' | translate}}
                     </div>
@@ -75,16 +53,20 @@
                             {{entry.question}}
                         </ion-item>
                     </ion-list>
-
-
-
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="box">
+                    <div class="item item-divider">
+                        {{'batteries_headline_news' | translate}}
+                    </div>
+                    <ion-list>
+                        <ion-item ng-repeat="entry in news" type="item-text-wrap" class="item" href="#/tab/newsarticle/{{$index}}">
+                            {{entry.title}}
+                        </ion-item>
+                    </ion-list>
                 </div>
             </ion-slide>
         </ion-slide-box>
-
-
-
-
-
     </ion-content>
 </ion-view>
