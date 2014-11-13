@@ -20,11 +20,11 @@
                 <div id="toggle">
                     <div class="item item-divider">
                         <div class="row">
-                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
-                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
+                            <div class="col"><a class="button button-small button-positive" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
+                            <div class="col"><a class="button button-small button-positive" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
                         </div>
                     </div>
-                    <a class="item item-icon-right borderbottom" href="#/tab/mybatterystock_calendar">
+                    <div class="item item-icon-right borderbottom">
                         <p>{{'healthbook_mybatt_currentstock' | translate}}<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
                         <p>
                             {{'healthbook_mybatt_averageusefullife' | translate}}<br/>
@@ -33,7 +33,7 @@
                             <!--<div class="button button-clear button-small icon-left ion-ios7-refresh">Berechnungen zurücksetzen</div>-->
                         </p>
 
-                    </a>
+                    </div>
                 </div>
 
 
@@ -73,13 +73,13 @@
                 <div id="card2">
                     <div class="row row-center">
                         <div class="col">
-                            <button class="button button-small button-positive" ng-click="leftear()">
+                            <button id="buttonleftear" class="button button-small button-stable" ng-click="leftear()">
                                 {{'healthbook_mybatt_leftear' | translate}}
                             </button>
                         </div>
                         <div class="col"><a class="button button-small button-positive" href="" ng-click="calcard()">Kalender</a></div>
                         <div class="col">
-                            <button class="button button-small button-positive" ng-click="rightear()">
+                            <button id="buttonrightear" class="button button-small button-stable" ng-click="rightear()">
                                 {{'healthbook_mybatt_rightear' | translate}}
                             </button>
                         </div>

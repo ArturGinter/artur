@@ -45,11 +45,11 @@
     <div class="box">
         <h3>{{"starthelp_headline" | translate}}</h3>
         <p>{{"starthelp_introduction" | translate}}</p>
-        <p><strong>{{"starthelp_sub_1" | translate}}</strong><br/>{{"starthelp_text_1" | translate}}</p>
-        <p><strong>{{"starthelp_sub_2" | translate}}</strong><br/>{{"starthelp_text_2" | translate}}</p>
+        <p><a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}} <i class="showAcoustician ion-checkmark-round"></i></strong><br/>{{"starthelp_text_1" | translate}}</a></p>
+        <p><a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}} <i class="showStock ion-checkmark-round"></i></strong><br/>{{"starthelp_text_2" | translate}}</a></p>
         <br/>
         <button class="button button-block button-positive" ng-click="firsthelp()">
-            ok
+            {{"starthelp_dontshowagain" | translate}}
         </button>
     </div>
 </div>
@@ -110,10 +110,11 @@
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-<script type="text/javascript" src="js/googlemap.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/controllers.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/services.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
 
 <script type="text/javascript">
 

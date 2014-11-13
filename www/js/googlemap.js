@@ -30,7 +30,7 @@ function GoogleMap() {
         // Load Akustiker
         var log;
         var mapBounds = new google.maps.LatLngBounds();
-        var poIcon = new google.maps.MarkerImage("img/googlemap_lokal_indikator.png", null, null, null, new google.maps.Size(21,30));
+        var poIcon = new google.maps.MarkerImage("img/googlemap_lokal_indikator.png", null, null, null, new google.maps.Size(20,33));
 
         angular.forEach(retailer, function(value, key) {
 

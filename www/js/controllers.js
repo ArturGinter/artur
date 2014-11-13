@@ -23,21 +23,35 @@ angular.module('starter.controllers', [])
         window.localStorage.setItem("showcallist", "cal");
         window.localStorage.setItem("batterystockfolder", "false");
 
-        if (window.localStorage.getItem("hasStarted")) {
+        if (window.localStorage.getItem("hideHelp") == "true") {
+            $("#starthelp").hide();
+        } else if (window.localStorage.getItem("myacoustician_id") && Stock.getInventoryCount()) {
             $("#starthelp").hide();
         } else {
             $("#starthelp").show();
         }
 
+        if (window.localStorage.getItem("myacoustician_id")) $(".showAcoustician").show();
+        else $(".showAcoustician").hide();
+
+        if (Stock.getInventoryCount() != 0) $(".showStock").show();
+        else $(".showStock").hide();
+
         // Submit Battery Stock in background
-        if (window.localStorage.getItem("uuid")) {
+        if (window.localStorage.getItem("token")) {
 
-            var stockupdate = {uuid:window.localStorage.getItem("uuid"), stock:Stock.all()};
-
+            var stockupdate = {uuid:window.localStorage.getItem("token"), stock:Stock.all()};
             // ToDo: Nur neue Daten übermittelt. Flag 'sendToServer' in Services
-            $http.get( "http://www.powerone-batteries.com/index.php?id=stock&type=5000&data=" +  angular.toJson(stockupdate, false) ).then(function(result) {
-               // Error Handling
-            });
+            var dataObj = {
+                data : JSON.stringify(stockupdate)
+            };
+
+            $http({
+                method  : 'POST',
+                url     : 'http://www.powerone-batteries.com/en/power-one-admin/stock/?type=5000',
+                data    : $.param(dataObj),  // pass in data as strings
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+            }).success(function(data) {});
 
         }
 
@@ -124,7 +138,18 @@ angular.module('starter.controllers', [])
         };
         $scope.firsthelp = function() {
             $("#starthelp").hide();
+            window.localStorage.setItem("hideHelp", "true");
+            window.location = "#/tab/mybatterystock";
+        };
+        $scope.goToAcoustician = function() {
+            $("#starthelp").hide();
             window.localStorage.setItem("hasStarted", "true");
+            window.location = "#/tab/dash";
+        };
+        $scope.goToStock = function() {
+            $("#starthelp").hide();
+            window.localStorage.setItem("hasStarted", "true");
+            window.location = "#/tab/mybatterystock";
         };
 
 
@@ -142,7 +167,7 @@ angular.module('starter.controllers', [])
             map.initialize();
         } else {
 
-            //document.addEventListener("deviceready", function() {
+            document.addEventListener("deviceready", function() {
 
                 $translate('general_yourposition').then(function (text) {
                     $("#geoupdatemessage").html(text);
@@ -180,7 +205,7 @@ angular.module('starter.controllers', [])
                     });
 
                 }, {enableHighAccuracy: false, timeout:5000, maximumAge: 1});
-            //}, false);
+            }, false);
 
         }
 
@@ -354,6 +379,7 @@ angular.module('starter.controllers', [])
         $scope.glass = Glass.all();
         $scope.notes = Notes.all();
         $scope.stock = Stock.all();
+        $scope.myacoustician = window.localStorage.getItem("myacoustician_company");
 
         if (window.localStorage.getItem('mybattery')) {
             Aiddevice.setBattery(window.localStorage.getItem('mybattery'));
@@ -482,7 +508,7 @@ angular.module('starter.controllers', [])
         }
 
     })
-    .controller('AddmedikitentryCtrl', function($scope, $translate, Drug, Drugs) {
+    .controller('AddmedikitentryCtrl', function($scope, $translate, $http, Drug, Drugs, LoaderService) {
 
         $scope.drug = Drug;
         $scope.drugs = Drugs.all();
@@ -531,12 +557,33 @@ angular.module('starter.controllers', [])
                     navigator.notification.alert(text, null, "Info", "ok");
                 });
             } else {
-                $scope.drugs.push($scope.drug)
+
+                $translate('general_updateing').then(function (text) {
+                    LoaderService.show(text);
+                });
+
+                var drugid = $scope.drugs.push($scope.drug);
                 Drugs.save($scope.drugs);
-                //$scope.drugForm.$setPristine();
+                var id = drugid-1;
+                var dataString = JSON.stringify( Drugs.get(id));
+                var uuid = window.localStorage.getItem("uuid");
+                var token = window.localStorage.getItem("token");
+                var lang = window.localStorage.getItem("lang");
+
+                $http.get('http://www.powerone-batteries.com?id=medreminder&action=create&uuid='+uuid+'&token='+token+'&idextern='+id+'&lang='+lang+'&data='+dataString).
+                    success(function(data, status, headers, config) {
+                        window.location = "#/tab/mymedkit";
+                        LoaderService.hide();
+                    }).
+                    error(function(data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        LoaderService.hide();
+                });
+
+                // Clean state
                 $scope.drug.title = '';
-                $scope.drug.timehour = '';
-                $scope.drug.timeminute = '';
+                $scope.drug.time = '';
                 $scope.drug.startday = '';
                 $scope.drug.startmonth = '';
                 $scope.drug.startyear = '';
@@ -550,8 +597,8 @@ angular.module('starter.controllers', [])
                 $scope.drug.planfri = false;
                 $scope.drug.plansat = false;
                 $scope.drug.plansun = false;
+                $scope.drug.push = false;
 
-                window.location = "#/tab/mymedkit";
             }
 
         }
@@ -633,7 +680,7 @@ angular.module('starter.controllers', [])
         $scope.medid = $stateParams.medId;
         $scope.drug = Drugs.get($stateParams.medId);
 
-        $("#medkit-delete").bind( "touchstart", function(event) {
+        $("#medkit-delete").bind( "click", function(event) {
 
             Drugs.delete($stateParams.medId);
             window.location = "#/tab/healthbook";
@@ -641,7 +688,7 @@ angular.module('starter.controllers', [])
         });
 
     })
-    .controller('MedkiteditCtrl', function($scope, $stateParams, Drug, Drugs) {
+    .controller('MedkiteditCtrl', function($scope, $stateParams, $http, $translate, Drug, Drugs, LoaderService) {
         $scope.medid = $stateParams.medId;
         $scope.drug = Drugs.get($stateParams.medId);
 
@@ -682,13 +729,49 @@ angular.module('starter.controllers', [])
         }
 
         $scope.updateMedikitEntry = function(event) {
-            Drugs.update($scope.drug, $scope.medid);
-            window.location = "#/tab/mymedkit";
-        };
 
+            Drugs.update($scope.drug, $scope.medid);
+
+            var dataString = JSON.stringify( $scope.drug );
+            var uuid = window.localStorage.getItem("uuid");
+            var token = window.localStorage.getItem("token");
+            var lang = window.localStorage.getItem("lang");
+
+            $translate('general_updateing').then(function (text) {
+                LoaderService.show(text);
+            });
+
+            $http.get('http://www.powerone-batteries.com?id=medreminder&action=update&uuid='+uuid+'&token='+token+'&idextern='+$scope.medid+'&lang='+lang+'&data='+dataString).
+                success(function(data, status, headers, config) {
+                    window.location = "#/tab/mymedkit";
+                })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    LoaderService.hide();
+                });
+        };
         $("#medkit-delete").bind( "touchstart", function(event) {
-            Drugs.delete($scope.medid);
-            window.location = "#/tab/mymedkit";
+
+            var uuid = window.localStorage.getItem("uuid");
+            var token = window.localStorage.getItem("token");
+            var lang = window.localStorage.getItem("lang");
+
+            $translate('general_updateing').then(function (text) {
+                LoaderService.show(text);
+            });
+
+            $http.get('http://www.powerone-batteries.com?id=medreminder&action=remove&uuid='+uuid+'&token='+token+'&idextern='+$scope.medid+'&lang='+lang).
+                success(function(data, status, headers, config) {
+                    Drugs.delete($scope.medid);
+                    window.location = "#/tab/mymedkit";
+                })
+                .error(function(data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    LoaderService.hide();
+                });
+
         });
     })
     .controller('ContactCtrl', function($scope, $translate, LoaderService) {
@@ -900,6 +983,8 @@ angular.module('starter.controllers', [])
             $("#card2").show();
             $("#rightcard").hide();
             $("#leftcard").show();
+            $("#buttonleftear").addClass("button-positive");
+            $("#buttonleftear").removeClass("button-stable");
         } else {
             $("#card1").show();
             $("#card2").hide();
@@ -919,11 +1004,19 @@ angular.module('starter.controllers', [])
         $scope.leftear = function(event) {
             $("#rightcard").hide();
             $("#leftcard").show();
+            $("#buttonleftear").addClass("button-positive");
+            $("#buttonleftear").removeClass("button-stable");
+            $("#buttonrightear").addClass("button-stable");
+            $("#buttonrightear").removeClass("button-positive");
             window.localStorage.setItem("showcallist", "listleft")
         }
         $scope.rightear = function(event) {
             $("#rightcard").show();
             $("#leftcard").hide();
+            $("#buttonrightear").addClass("button-positive");
+            $("#buttonrightear").removeClass("button-stable");
+            $("#buttonleftear").addClass("button-stable");
+            $("#buttonleftear").removeClass("button-positive");
             window.localStorage.setItem("showcallist", "listright")
         }
 
@@ -933,6 +1026,7 @@ angular.module('starter.controllers', [])
             translateMonths: ["02", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
             time: dt.getFullYear() + '-' + (dt.getMonth() + 1),
             events: events
+
         });
 
         $scope.parseTerm = function(time) {

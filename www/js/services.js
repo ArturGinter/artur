@@ -576,7 +576,8 @@ angular.module('starter.services', [])
                     var datesArray = new Array()
                     for(var i=0;i<stock.length;i++) {
                         var tmpDate = new Date(stock[i].date);
-                        var dateString = tmpDate.getFullYear() + '-' + (tmpDate.getMonth()+1) + '-' + tmpDate.getDate();
+                        var dateString = tmpDate.getFullYear() + '-' + ("0"+(tmpDate.getMonth()+1)).slice(-2) + '-' + ("0" + tmpDate.getDate()).slice(-2);
+                        console.log(dateString);
                         datesArray.push(dateString);
                     }
                     datesArray = $.unique( datesArray );
@@ -596,7 +597,7 @@ angular.module('starter.services', [])
                         if (rightEar && leftEar) earString = "<span class=badge-R>R</span><span class=badge-L>L</span>";
                         else if (rightEar) earString = "<span class=badge-R>R</span>";
                         else if (leftEar) earString = "<span class=badge-L>L</span>";
-                        else earString = "N";
+                        //else earString = "N";
                         foundEvents = null;
 
                         // Create Return-Array
