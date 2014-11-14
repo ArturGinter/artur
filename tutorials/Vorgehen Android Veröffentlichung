@@ -1,0 +1,12 @@
+Vorgehen Android Veröffentlichung
+==================================+
+
+(1) cordova build android --release
+(2) Export in Eclipse
+- rechte Maus Projekt
+- Android Tools
+- Export Signed
+(3) zipalign 4 infile.apk powerone.apk
+
+
+Passwort: Hannover99

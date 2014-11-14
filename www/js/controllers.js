@@ -140,7 +140,6 @@ angular.module('starter.controllers', [])
         $scope.firsthelp = function() {
             $("#starthelp").hide();
             window.localStorage.setItem("hideHelp", "true");
-            window.location = "#/tab/mybatterystock";
         };
         $scope.goToAcoustician = function() {
             $("#starthelp").hide();
@@ -980,13 +979,13 @@ angular.module('starter.controllers', [])
             $("#card2").show();
             $("#rightcard").show();
             $("#leftcard").hide();
+            $("#buttonrightear").addClass("button-positive");
+            $("#buttonrightear").removeClass("button-stable");
         } else if (window.localStorage.getItem("showcallist") == "listleft") {
             $("#card1").hide();
             $("#card2").show();
             $("#rightcard").hide();
             $("#leftcard").show();
-            $("#buttonleftear").addClass("button-positive");
-            $("#buttonleftear").removeClass("button-stable");
         } else {
             $("#card1").show();
             $("#card2").hide();
@@ -1006,19 +1005,19 @@ angular.module('starter.controllers', [])
         $scope.leftear = function(event) {
             $("#rightcard").hide();
             $("#leftcard").show();
-            $("#buttonleftear").addClass("button-positive");
-            $("#buttonleftear").removeClass("button-stable");
-            $("#buttonrightear").addClass("button-stable");
-            $("#buttonrightear").removeClass("button-positive");
+            $("#buttonrightear").addClass("button-positive");
+            $("#buttonrightear").removeClass("button-stable");
+            $("#buttonleftear").addClass("button-stable");
+            $("#buttonleftear").removeClass("button-positive");
             window.localStorage.setItem("showcallist", "listleft")
         }
         $scope.rightear = function(event) {
             $("#rightcard").show();
             $("#leftcard").hide();
-            $("#buttonrightear").addClass("button-positive");
-            $("#buttonrightear").removeClass("button-stable");
-            $("#buttonleftear").addClass("button-stable");
-            $("#buttonleftear").removeClass("button-positive");
+            $("#buttonleftear").addClass("button-positive");
+            $("#buttonleftear").removeClass("button-stable");
+            $("#buttonrightear").addClass("button-stable");
+            $("#buttonrightear").removeClass("button-positive");
             window.localStorage.setItem("showcallist", "listright")
         }
 

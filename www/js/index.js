@@ -84,11 +84,11 @@ function tokenHandler (result) {
 }
 
 function successHandler (result) {
-    alert('successHandler' + result);
+    //alert('successHandler' + result);
 }
 
 function errorHandler (error) {
-    alert('successHandler' + error);
+    //alert('successHandler' + error);
 }
 
 
