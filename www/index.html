@@ -44,15 +44,30 @@
 <div id="starthelp">
     <div class="box">
         <h3>{{"starthelp_headline" | translate}}</h3>
-        <p>{{"starthelp_introduction" | translate}}</p>
-        <p><a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}} <i class="showAcoustician ion-checkmark-round"></i></strong><br/>{{"starthelp_text_1" | translate}}</a></p>
-        <p><a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}} <i class="showStock ion-checkmark-round"></i></strong><br/>{{"starthelp_text_2" | translate}}</a></p>
+        <!--<p>{{"starthelp_introduction" | translate}}</p>-->
+        <p>
+            <a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}}<!-- <i class="showAcoustician ion-checkmark-round"></i>--></strong>
+                <br/>{{"starthelp_text_1" | translate}}
+            </a>
+            <button class="button button-block button-positive" ng-click="goToAcoustician()">
+                {{"starthelp_sub_1" | translate}}
+            </button>
+        </p>
+        <p>
+            <a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}} <!--<i class="showStock ion-checkmark-round"></i>--></strong>
+                <br/>{{"starthelp_text_2" | translate}}
+            </a>
+            <button class="button button-block button-positive" ng-click="goToStock()">
+                {{"starthelp_sub_2" | translate}}
+            </button>
+        </p>
         <br/>
         <button class="button button-block button-positive" ng-click="firsthelp()">
             {{"starthelp_dontshowagain" | translate}}
         </button>
     </div>
 </div>
+
 
 <div id="help" class='ng-modal' ng-show='show'>
     <div class='ng-modal-overlay' ng-click='hideModal()'></div>

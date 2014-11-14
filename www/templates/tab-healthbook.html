@@ -11,64 +11,69 @@ https://github.com/manateeworks/phonegap-mwbarcodescanner
 
         <div class="box padding">
 
-        <h3 class="center">{{'headline_healthbook' | translate}}</h3>
+            <h3 class="center">{{'headline_healthbook' | translate}}</h3>
 
-        <div class="list">
-                    <br/>
-                    <div class="item item-divider bordertop">
-                        <span class="title">{{'healthbook_headline_mybattery' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()"><span>{{'healthbook_button_scan' | translate}}</span></a>
-                    </div>
-                    <a class="item item-icon-right" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()">
-                        <p class="mybattery" ng-show="aiddevice.battery">{{aiddevice.battery}}</p>
-                        <p class="mybattery" ng-hide="aiddevice.battery">{{'healthbook_scan' | translate}}</p>
-                        <i class="icon ion-ios7-barcode-outline"></i>
-                    </a>
-                    <a class="item item-icon-right" href="#/tab/medkit-battery">
-                        <p ng-show="aiddevice.label">{{aiddevice.label}}</p>
-                        <p ng-hide="aiddevice.label">{{'healthbook_notice_label' | translate}}</p>
-                        <p ng-show="aiddevice.type">{{aiddevice.type}}</p>
-                        <p ng-hide="aiddevice.type">{{'healthbook_notice_type' | translate}}</p>
-                        <i class="icon ion-ios7-arrow-right"></i>
-                    </a>
-                    <a class="item item-icon-right" href="#/tab/mybatterystock">
-                        <p ng-show="{{stock}}">{{'healthbook_mybatt_currentstock' | translate}}:<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
-                        <p ng-hide="{{stock}}">{{'healthbook_nostock' | translate}}</p>
-                        <i class="icon ion-ios7-arrow-right"></i>
-                    </a>
-                    <div class="item borderbottom">
-                        <p ng-show="myacoustician">{{'acoustician_text_myacoustician' | translate}}: {{myacoustician}}</p>
-                        <p ng-hide="myacoustician">{{'acoustician_text_myacoustician' | translate}}: {{'healthbook_noacoustician_info' | translate}}</p>
-                    </div>
-                    <br/>
+            <div class="list">
+                <br/>
+                <div class="item item-divider bordertop">
+                    <span class="title">{{'healthbook_headline_mybattery' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()"><span>{{'healthbook_button_scan' | translate}}</span></a>
+                </div>
+                <a class="item item-icon-right" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()">
+                    <p class="mybattery" ng-show="aiddevice.battery">{{aiddevice.battery}}</p>
+                    <p class="mybattery" ng-hide="aiddevice.battery">{{'healthbook_scan' | translate}}</p>
+                    <i class="icon ion-ios7-barcode-outline"></i>
+                </a>
+                <a class="item item-icon-right" href="#/tab/medkit-battery">
+                    <p ng-show="aiddevice.label">{{aiddevice.label}}</p>
+                    <p ng-hide="aiddevice.label">{{'healthbook_notice_label' | translate}}</p>
+                    <p ng-show="aiddevice.type">{{aiddevice.type}}</p>
+                    <p ng-hide="aiddevice.type">{{'healthbook_notice_type' | translate}}</p>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
+                <a class="item item-icon-right" href="#/tab/mybatterystock">
+                    <p ng-show="{{stock}}">{{'healthbook_mybatt_currentstock' | translate}}:<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
+                    <p ng-hide="{{stock}}">{{'healthbook_nostock' | translate}}</p>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
+                <a ng-hide="myacoustician" class="item item-icon-right borderbottom" href="#/tab/dash">
+                    <p>{{'acoustician_text_myacoustician' | translate}}: {{'healthbook_noacoustician_info' | translate}}</p>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
+                <a ng-show="myacoustician" class="item item-icon-right borderbottom" href="#/tab/dash">
+                    <p>{{'acoustician_text_myacoustician' | translate}}:</p>
+                    <p>{{myacoustician}}</p>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
+                <br/>
 
-                    <div class="item item-divider bordertop">
-                        <span class="title">{{'healthbook_headline_mydrug' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="#/tab/mymedkit"><span>{{'healthbook_button_create' | translate}}</span></a>
-                    </div>
-                    <div class="item borderbottom" ng-hide="{{drugs}}">
-                        <p>{{'healthbook_noglass_drug' | translate}}</p>
-                    </div>
-                    <ion-list>
-                        <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" href="#/tab/medkit-details/{{$index}}">
-                            {{drug.title}}
+                <div class="item item-divider bordertop">
+                    <span class="title">{{'healthbook_headline_mydrug' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="#/tab/mymedkit"><span>{{'healthbook_button_create' | translate}}</span></a>
+                </div>
+                <div class="item borderbottom" ng-hide="{{drugs}}">
+                    <p>{{'healthbook_noglass_drug' | translate}}</p>
+                </div>
+                <ion-list>
+                    <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" href="#/tab/medkit-details/{{$index}}">
+                        {{drug.title}}
                              <span class="item-note">
                                 <span ng-show="drug.startday">{{drug.startday | date:'dd.MM.yy'}}</span>
                                 <span ng-show="drug.endday"> - </span>
                                 <span ng-show="drug.endday">{{drug.endday | date:'dd.MM.yy'}}</span>
                                 <span ng-show="drug.timehour">({{drug.timehour}}:{{drug.timeminute}} Uhr)</span>
                              </span>
-                            <i class="icon ion-ios7-arrow-right"></i>
-                        </ion-item>
-                    </ion-list>
+                        <i class="icon ion-ios7-arrow-right"></i>
+                    </ion-item>
+                </ion-list>
 
-                    <br/>
+                <br/>
 
-                    <div class="item item-divider bordertop">
-                        {{'healthbook_headline_myglass' | translate}}
-                    </div>
+                <div class="item item-divider bordertop">
+                    {{'healthbook_headline_myglass' | translate}}
+                </div>
 
-                    <a class="item item-icon-right borderbottom" href="#/tab/medkit-glass">
+                <a class="item item-icon-right borderbottom" href="#/tab/medkit-glass">
 
-                        <p ng-hide="glass.optician || glass.sphright || glass.cylright || glass.aright || glass.addright || glass.sphleft || glass.cylleft || glass.aleft || glass.addleft">{{'healthbook_noglass_info' | translate}}</p>
+                    <p ng-hide="glass.optician || glass.sphright || glass.cylright || glass.aright || glass.addright || glass.sphleft || glass.cylleft || glass.aleft || glass.addleft">{{'healthbook_noglass_info' | translate}}</p>
                         <span ng-show="glass.optician || glass.sphright || glass.cylright || glass.aright || glass.addright || glass.sphleft || glass.cylleft || glass.aleft || glass.addleft">
                             <p><strong>R</strong>
                                 <span ng-show="glass.sphright">F Sph {{glass.sphright}}</span>
@@ -83,8 +88,8 @@ https://github.com/manateeworks/phonegap-mwbarcodescanner
                                 <span ng-show="glass.addleft">add {{glass.addleft}}</span>
                             </p>
                         </span>
-                        <i class="icon ion-ios7-arrow-right"></i>
-                    </a>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
 
                 <br/>
 
@@ -131,5 +136,3 @@ https://github.com/manateeworks/phonegap-mwbarcodescanner
 
 
 </ion-view>
-
-

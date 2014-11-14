@@ -597,7 +597,7 @@ angular.module('starter.services', [])
                         if (rightEar && leftEar) earString = "<span class=badge-R>R</span><span class=badge-L>L</span>";
                         else if (rightEar) earString = "<span class=badge-R>R</span>";
                         else if (leftEar) earString = "<span class=badge-L>L</span>";
-                        //else earString = "N";
+                        else earString = "<span class=badge-N>N</span>";
                         foundEvents = null;
 
                         // Create Return-Array

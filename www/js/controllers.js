@@ -31,6 +31,7 @@ angular.module('starter.controllers', [])
             $("#starthelp").show();
         }
 
+
         if (window.localStorage.getItem("myacoustician_id")) $(".showAcoustician").show();
         else $(".showAcoustician").hide();
 
@@ -149,7 +150,7 @@ angular.module('starter.controllers', [])
         $scope.goToStock = function() {
             $("#starthelp").hide();
             window.localStorage.setItem("hasStarted", "true");
-            window.location = "#/tab/mybatterystock";
+            window.location = "#/tab/mybatterystocknew";
         };
 
 
@@ -848,6 +849,7 @@ angular.module('starter.controllers', [])
                 navigator.notification.alert(text, null, "Info", "ok");
             });
             $(".saveacoustician").show();
+            $("#starthelp").show();
         });
 
 
