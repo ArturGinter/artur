@@ -40,7 +40,57 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+
 };
+
+
+// iOS
+function onNotificationAPN (event, $ionicViewService) {
+
+    var result = angular.toJson(event);
+
+    if ( event.foreground == false ) {
+        window.location = "#/tab/mybatterystocknew";
+        $("#help").hide();
+
+        $ionicViewService.clearHistory();
+    }
+
+    if ( event.foreground == true )
+    {
+        navigator.notification.confirm(event.payload.aps.alert, function(buttonIndex) {
+            if (buttonIndex == 0) {
+                $("#help").hide();
+                window.location = "#/tab/mybatterystocknew";
+            }
+        }, "Info");
+    }
+
+    if ( event.sound )
+    {
+        var snd = new Media(event.payload.sound);
+        snd.play();
+    }
+
+    if ( event.badge )
+    {
+        pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+    }
+}
+
+function tokenHandler (result) {
+    window.localStorage.setItem("token", result);
+    // Your iOS push server needs to know the token before it can push to this device
+    // here is where you might want to send it the token for later use.
+}
+
+function successHandler (result) {
+    //alert('successHandler' + result);
+}
+
+function errorHandler (error) {
+    //alert('successHandler' + error);
+}
 
 
 // Ionic Starter App
@@ -71,13 +121,32 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .run(function($ionicPlatform, $translate) {
 
+
         $ionicPlatform.ready(function() {
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
 
             // Device-Identifier
             var device = ionic.Platform.device();
             window.localStorage.setItem("uuid", device.uuid);
+            console.log("uuid: " + device.uuid);
+
+            // Push-Service register
+            try
+            {
+                pushNotification = window.plugins.pushNotification;
+                if (device.platform == 'android' || device.platform == 'Android' ||
+                    device.platform == 'amazon-fireos' ) {
+                    pushNotification.register(successHandler, errorHandler, {"senderID":"661780372179","ecb":"onNotification"});		// required!
+                } else {
+                    pushNotification.register(tokenHandler, errorHandler, {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});	// required!
+                }
+            }
+            catch(err)
+            {
+                txt="There was an error on this page.\n\n";
+                txt+="Error description: " + err.message + "\n\n";
+                alert(txt);
+            }
+            console.log("token: " +  window.localStorage.getItem("token"));
 
             // Language
             navigator.globalization.getLocaleName (
@@ -114,7 +183,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     })
 
-    .config(function($stateProvider, $urlRouterProvider, $translateProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $translateProvider, $compileProvider, $locationProvider) {
+
+        // Workaround für WP8
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel|x-wmapp0):/);
+        $locationProvider.html5Mode(false);
 
 
         //$translateProvider.useCookieStorage();
@@ -153,7 +226,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_yourposition: 'Your position is determined ...',
             general_maploading: 'Loading map ...',
             general_aroundyou: 'It could not be determined acoustician in their environment.',
-            general_mapnoresult: 'It could not be determined acoustician for your search.',
+            general_mapnoresult: 'It could not be determined acoustician for your search.\n\nIf your acoustician does not appear in the search, please ask him to registry as acoustician.',
             general_batterysearchnoresult: 'For your keyword no entries were found.',
             general_nogps: 'Your location can not be determined. Please use the search function.',
             general_back: 'Back',
@@ -164,18 +237,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_friday:'Friday',
             general_saturday:'Saturday',
             general_sunday:'Sunday',
+            general_done:'Done',
+            general_cancel:'Cancel',
             starthelp_headline:'Help',
             starthelp_introduction:'In order to make optimum use of the power one app, please take the following settings:',
-            starthelp_sub_1:'Tab acoustician',
+            starthelp_sub_1:'Define acoustician',
             starthelp_text_1:'Please select your audiologist and set it as master acoustician.',
-            starthelp_sub_2:'Tab health',
-            starthelp_text_2:'Please define your current battery inventory so that we can send you battery change notifications.',
+            starthelp_sub_2:'Define health',
+            starthelp_text_2:'Please define your current battery-stock, so that we can send you purchase-recommendations.',
+            starthelp_dontshowagain: 'Not set now!',
 
 
             startmodal_dash: "Find audiologist in your area or search our database.",
             startmodal_healthbook: "In the health pass you manage important health data, you can access anytime.",
             startmodal_batteries: "News of power one, all batteries in overview and quick answers to your questions in the FAQs.",
-            startmodal_contact: "Get in touch with us!",
+            startmodal_contact: "Do you have questions? Here you will find a contact form.",
             tab_dash: "Acoustician",
             tab_healthbook: "Health",
             tab_batteries: "Batteries",
@@ -213,11 +289,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_headline_myglasslenses: "My lenses",
             healthbook_noglass_drug: "No medicines stored.",
             healthbook_noglass_info: "Information has not been filed.",
+            healthbook_noacoustician_info: "Information has not been filed.",
             healthbook_button_edit: "edit",
             healthbook_button_scan: "scan",
             healthbook_button_create: "edit",
 
             healthbook_headline_myhearingaid: "My hearing aid",
+            healthbook_headline_hearingaiddata: "Hearing aid data",
             healthbook_label_label: "Manufacturer",
             healthbook_placeholder_label: "hearing aid manufacturer",
             healthbook_label_type: "Type",
@@ -300,6 +378,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_subheadline_new: "New purchase/fill stock",
             healthbook_mybatt_mybattery: "My battery",
             healthbook_mybatt_numberbatteries: "Number of batteries",
+            healthbook_mybatt_numberblister: "Number of blisters",
             healthbook_mybatt_piece: "Piece",
             healthbook_mybatt_addbattery: "Add",
             healthbook_mybatt_headline_take: "Remove the battery",
@@ -395,7 +474,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_yourposition: 'Ihre Position wird bestimmt ...',
             general_maploading: 'Karte wird geladen ...',
             general_aroundyou: 'Es konnten keine Akustiker in ihrer Umgebung ermittelt werden.',
-            general_mapnoresult: 'Für Ihren Suchbegriff konnten keine Akustiker gefunden werden.',
+            general_mapnoresult: 'Für Ihren Suchbegriff konnten keine Akustiker gefunden werden.\n\nFalls Ihr Akustiker nicht in der Suche erscheint, sprechen Sie ihn auf eine Registrierung an.',
             general_batterysearchnoresult: 'Für Ihren Suchbegriff konnten keine Einträge gefunden werden.',
             general_nogps: 'Ihr Standort kann nicht bestimmt werden. Bitte nutzen Sie die Suchfunktion.',
             general_back: 'Zurück',
@@ -406,19 +485,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_friday:'Freitag',
             general_saturday:'Samstag',
             general_sunday:'Sonntag',
+            general_done:'Fertig',
+            general_cancel:'Abbrechen',
             starthelp_headline:'Einstiegshilfe',
             starthelp_introduction:'Um die power one App optimal nutzen zu können, nehmen Sie bitte folgende Einstellungen vor:',
             starthelp_sub_1:'Bereich Akustiker',
-            starthelp_text_1:'Bitte wählen Sie Ihren Akustiker aus und stellen ihn als Stammakustiker ein.',
+            starthelp_text_1:'Bitte wählen Sie Ihren Akustiker aus und stellen ihn als Akustiker Ihres Vertrauens ein.',
             starthelp_sub_2:'Bereich Gesundheit',
-            starthelp_text_2:'Bitte definieren Sie Ihren aktuellen Batteriebestand, damit wir Ihnen abgestimmte Batteriewechsel-Erinnerungen schicken können.',
-
-
+            starthelp_text_2:'Bitte definieren Sie Ihren aktuellen Batteriebestand, damit wir Ihnen eine Batteriekaufempfehlung schicken können.',
+            starthelp_dontshowagain: 'Jetzt nicht festlegen!',
 
             startmodal_dash: "Finden Sie Akustiker in Ihrer Umgebung oder durchsuchen Sie unsere Datenbank.",
             startmodal_healthbook: "Im Gesundheitspass verwalten Sie wichtige Gesundheitsdaten, die Sie so jederzeit abrufen können.",
             startmodal_batteries: "News von power one, alle Batterien im Überblick und schnelle Antwort auf Ihre Fragen in den FAQs.",
-            startmodal_contact: "Nehmen Sie mit uns Kontakt auf!",
+            startmodal_contact: "Haben Sie noch Fragen? Hier gelangen Sie zur Kontaktaufnahme!",
             tab_dash: "Akustiker",
             tab_healthbook: "Gesundheit",
             tab_batteries: "Batterien",
@@ -434,8 +514,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             acoustician_headline_contact: "Kontakt",
             acoustician_headline_openingtimes: "Öffnungszeiten/Details",
             acoustician_button_inquiry: "Bestellanfrage senden",
-            acoustician_button_myacoustician: "Stammakustiker setzen",
-            acoustician_text_myacoustician: "Stammakustiker",
+            acoustician_button_myacoustician: "Akustiker Ihres Vertrauens setzen",
+            acoustician_text_myacoustician: "Akustiker Ihres Vertrauens",
             acoustician_noconnection_part1: "Es besteht anscheinend keine Verbindung zum Internet.",
             acoustician_noconnection_part2: "Für Informationen zu Ihrem nächstgelegenen Akustiker können Sie uns auch gern anrufen:",
             acoustician_noconnection_part3: "(+49) 7961 921790",
@@ -445,7 +525,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             acoustician_register_text2: "Über den Button werden Sie zur Anmeldung geführt.",
             acoustician_button_register: "Jetzt anmelden!",
             acoustician_routeplanner: "Routenplaner",
-            acoustician_info_saved: "Gespeichert als Stammakustiker!",
+            acoustician_info_saved: "Gespeichert als Akustiker Ihres Vertrauens!",
 
             healthbook_mirror: "Spiegel",
             healthbook_headline_mybattery: "Meine Batterie",
@@ -456,11 +536,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_headline_myglasslenses: "Meine Kontaktlinsen",
             healthbook_noglass_drug: "Keine Medikamente hinterlegt.",
             healthbook_noglass_info: "Noch nicht hinterlegt.",
+            healthbook_noacoustician_info: "Noch nicht hinterlegt.",
             healthbook_button_edit: "Bearbeiten",
             healthbook_button_scan: "Scan",
             healthbook_button_create: "Bearbeiten",
 
             healthbook_headline_myhearingaid: "Mein Hörgerät",
+            healthbook_headline_hearingaiddata: "Hörgerätedaten",
             healthbook_label_label: "Marke",
             healthbook_placeholder_label: "Hörgerätemarke",
             healthbook_label_type: "Typ",
@@ -543,6 +625,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_subheadline_new: "Neukauf/Bestand auffüllen",
             healthbook_mybatt_mybattery: "Meine Batterie",
             healthbook_mybatt_numberbatteries: "Anzahl Batterien",
+            healthbook_mybatt_numberblister: "Anzahl Blister",
             healthbook_mybatt_piece: "Stück",
             healthbook_mybatt_addbattery: "Hinzufügen",
             healthbook_mybatt_headline_take: "Batterie entnehmen",
@@ -561,10 +644,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_short_fri: "Fr",
             healthbook_mybatt_short_sat: "Sa",
             healthbook_mybatt_short_sun: "So",
-            healthbook_mybatt_nodata: "Informationen zu Ihrem Batterieverbrauch liegen noch nicht vor.",
+            healthbook_mybatt_nodata: "Informationen liegen nicht vor.",
             healthbook_headline_order:"Bestellung an Akustiker",
-            healthbook_info_masteracoustician: "Bitte Stammakustiker in der Kartenansicht auswählen!",
-            healthbook_notice_label: "Hörgerätehersteller hinterlegen",
+            healthbook_info_masteracoustician: "Bitte in der Kartenansicht auswählen!",
+            healthbook_notice_label: "Hörgerätehersteller",
             healthbook_notice_type: "Hörgerätetyp hinterlegen",
             healthbook_nostock: "Batteriebestand festlegen",
 
@@ -625,7 +708,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_enddate:"Date de fin",
             general_plan:"Jour de la semaine",
             general_save:"Enregistrer",
-            general_update:"Akualisieren", //
+            general_update:"Mettre à jour",
             general_delete:"Supprimer",
             general_settings:"Paramètres",
             general_push:"Rappel sous forme de notification push",
@@ -637,7 +720,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_yourposition: "Localisation de votre position en cours ...",
             general_maploading: "Chargement de la carte en cours ...",
             general_aroundyou: "Aucun audioprothésiste n'a pu être trouvé aux alentours de votre position.",
-            general_mapnoresult: "Aucun audioprothésiste n'a pu être trouvé pour le terme que vous recherchez.",
+            general_mapnoresult: "Aucun audioprothésiste n'a pu être trouvé pour le terme que vous recherchez.\n\nSi votre audiologiste ne apparaîtra pas dans la recherche, parlez lui dans un registre.",
             general_batterysearchnoresult: "Aucun article n'a pu être trouvé pour le terme que vous recherchez.",
             general_nogps: "Impossible de localiser votre emplacement. Veuillez utiliser la fonction de recherche.",
             general_back: "Retour",
@@ -648,17 +731,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             general_friday:"Vendredi",
             general_saturday:"Samedi",
             general_sunday:"Dimanche",
-            starthelp_headline:'Einstiegshilfe', //
-            starthelp_introduction:'Um die power one App optimal nutzen zu können, nehmen Sie bitte folgende Einstellungen vor:', //
-            starthelp_sub_1:'Bereich Akustiker', //
-            starthelp_text_1:'Bitte wählen Sie Ihren Akustiker aus und stellen ihn als Stammakustiker ein.', //
-            starthelp_sub_2:'Bereich Gesundheit', //
-            starthelp_text_2:'Bitte definieren Sie Ihren aktuellen Batteriebestand, damit wir Ihnen abgestimmte Batteriewechsel-Erinnerungen schicken können.', //
+            general_done:'prêt',
+            general_cancel:'avorter',
+            starthelp_headline:'Guide premier pas',
+            starthelp_introduction:'Afin de pouvoir utiliser au mieux l\'application power one, veuillez procéder aux réglages suivants:',
+            starthelp_sub_1:'Rubrique Audioprothésistes',
+            starthelp_text_1:'Veuillez sélectionner un audioprothésiste et paramétrez-le comme étant votre audioprothésiste attitré.',
+            starthelp_sub_2:'Rubrique Santé',
+            starthelp_text_2:'S\'il vous plaît définir votre batterie-stock, afin que nous puissions vous envoyer une recommandation d\'achat de la batterie.',
+            starthelp_dontshowagain: 'Non défini maintenant!',
 
             startmodal_dash: "Trouvez un audioprothésiste aux alentours ou parcourez notre base de données.",
             startmodal_healthbook: "Votre passeport santé vous permet de gérer des informations essentielles concernant votre santé que vous pouvez consulter à tout instant.",
             startmodal_batteries: "Les actualités de power one, toutes les piles en un coup d'œil et une réponse rapide à vos question dans les FAQ.",
-            startmodal_contact: "Prenez contact avec nous!",
+            startmodal_contact: "Vous avez des questions? Ici vous trouverez un formulaire de contact.",
             tab_dash: "Audioprothésiste",
             tab_healthbook: "Santé",
             tab_batteries: "Piles",
@@ -674,8 +760,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             acoustician_headline_contact: "Contact",
             acoustician_headline_openingtimes: "Horaires d'ouverture/Détails",
             acoustician_button_inquiry: "Envoyer la demande de commande",
-            acoustician_button_myacoustician: "Stammakustiker setzen", //
-            acoustician_text_myacoustician: "Stammakustiker", //
+            acoustician_button_myacoustician: "Définir l'audioprothésiste attitré",
+            acoustician_text_myacoustician: "Audioprothésiste attitré",
             acoustician_noconnection_part1: "Aucune connexion avec Internet n'est apparemment établie.",
             acoustician_noconnection_part2: "Pour tous renseignements concernant l'audioprothésiste le plus proche de chez vous, vous pouvez nous téléphoner au numéro suivant:",
             acoustician_noconnection_part3: "(+49) 7961 921790",
@@ -684,8 +770,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             acoustician_register_text1: "Si votre boutique est toujours introuvable, vous avez ici la possibilité de vous enregistrer.",
             acoustician_register_text2: "Cliquez sur ce bouton pour accéder à la page d'inscription.",
             acoustician_button_register: "Inscrivez-vous maintenant!",
-            acoustician_routeplanner: "Routenplaner", //
-            acoustician_info_saved: "Gespeichert als Stammakustiker!", //
+            acoustician_routeplanner: "Calculateur d'itinéraire",
+            acoustician_info_saved: "Enregistré comme audioprothésiste attitré!",
 
             healthbook_mirror: "Miroir",
             healthbook_headline_mybattery: "Ma pile",
@@ -696,11 +782,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_headline_myglasslenses: "Mes lentilles de contact",
             healthbook_noglass_drug: "Aucun médicament en mémoire.",
             healthbook_noglass_info: "Aucune information n'a encore été mémorisée.",
+            healthbook_noacoustician_info: "Aucune information n'a encore été mémorisée.",
             healthbook_button_edit: "Éditer",
             healthbook_button_scan: "Scan",
             healthbook_button_create: "Saisir",
 
             healthbook_headline_myhearingaid: "Mon appareil auditif",
+            healthbook_headline_hearingaiddata: "Données d'auditif",
             healthbook_label_label: "Marque",
             healthbook_placeholder_label: "Marque de l'appareil auditif",
             healthbook_label_type: "Type",
@@ -783,13 +871,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_subheadline_new: "Nouvel achat/Réapprovisionnement du stock",
             healthbook_mybatt_mybattery: "Ma pile",
             healthbook_mybatt_numberbatteries: "Nombre de piles",
+            healthbook_mybatt_numberblister: "Nombre de blisters",
             healthbook_mybatt_piece: "Unités",
             healthbook_mybatt_addbattery: "Ajouter",
             healthbook_mybatt_headline_take: "Retirer la pile",
             healthbook_mybatt_subheadline_take: "Entnahme",
             healthbook_mybatt_date: "Datum",
             healthbook_mybatt_time: "Uhrzeit",
-            healthbook_mybatt_error_noear: "Bitte rechtes oder linkes Ohr auswählen!",
+            healthbook_mybatt_error_noear: "Se il vous plaît sélectionnez l'oreille droite ou gauche!",
             healthbook_mybatt_button_take: "Retirer",
             healthbook_mybatt_ear: "Oreille",
             healthbook_mybatt_prev: "Retour",
@@ -802,11 +891,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_short_sat: "Sam",
             healthbook_mybatt_short_sun: "Dim",
             healthbook_mybatt_nodata: "Nous ne disposons d'aucune information concernant votre consommation de piles.",
-            healthbook_headline_order:"Bestellung an Akustiker", //
-            healthbook_info_masteracoustician: "Bitte Stammakustiker in der Kartenansicht auswählen!", //
-            healthbook_notice_label: "Hörgerätehersteller hinterlegen", //
-            healthbook_notice_type: "Hörgerätetyp hinterlegen", //
-            healthbook_nostock: "Batteriebestand festlegen", //
+            healthbook_headline_order:"Commande à l'audioprothésiste",
+            healthbook_info_masteracoustician: "Veuillez sélectionner un audioprothésiste attitré sur la carte!",
+            healthbook_notice_label: "Mémoriser le fabricant d'appareils auditifs",
+            healthbook_notice_type: "Mémoriser le type d'appareil auditif", //
+            healthbook_nostock: "Déterminer le stock de piles", //
 
             notes_mynotes: "Mes notes",
             notes_notentered: "Vous n'avez encore aucune notes en mémoire.",
@@ -941,15 +1030,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     'tab-healthbook': {
                         templateUrl: 'templates/tab-healthbook.html',
                         controller: 'HealthbookCtrl'
-                    }
-                }
-            })
-            .state('tab.choosebattery', {
-                url: '/choosebattery',
-                views: {
-                    'tab-healthbook': {
-                        templateUrl: 'templates/choosebattery.html',
-                        controller: 'ChoosebatteryCtrl'
                     }
                 }
             })

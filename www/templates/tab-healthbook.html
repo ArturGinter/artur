@@ -7,22 +7,21 @@ https://github.com/manateeworks/phonegap-mwbarcodescanner
     <ion-nav-buttons side="right">
         <a href="#/tab/mirror" class="button button-clear button-positive icon-left ion-ios7-camera-outline"> {{'healthbook_mirror' | translate}}</a>
     </ion-nav-buttons>
-    <ion-content class="has-header" padding="true">
+    <ion-content class="has-header">
 
-        <div class="box padding">
+        <div class="box">
 
             <h3 class="center">{{'headline_healthbook' | translate}}</h3>
 
-            <div class="list">
-                <br/>
+            <div class="list padding">
                 <div class="item item-divider bordertop">
-                    <span class="title">{{'healthbook_headline_mybattery' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()"><span>{{'healthbook_button_scan' | translate}}</span></a>
+                    {{'healthbook_headline_mybattery' | translate}}
                 </div>
-                <a class="item item-icon-right" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()">
-                    <p class="mybattery" ng-show="aiddevice.battery">{{aiddevice.battery}}</p>
-                    <p class="mybattery" ng-hide="aiddevice.battery">{{'healthbook_scan' | translate}}</p>
-                    <i class="icon ion-ios7-barcode-outline"></i>
-                </a>
+                <div class="item item-divider">
+                    <p class="mybattery" ng-show="aiddevice.battery">{{aiddevice.battery}}<a class="button button-small button-positive" style="float:right;" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()"><span>{{'healthbook_button_scan' | translate}}</span></a></p>
+                    <p class="mybattery" ng-hide="aiddevice.battery">{{'healthbook_scan' | translate}}<a class="button button-small button-positive" style="float:right;" href="javascript:scanner.startScanning();" onclick="scanner.startScanning()"><span>{{'healthbook_button_scan' | translate}}</span></a></p>
+
+                </div>
                 <a class="item item-icon-right" href="#/tab/medkit-battery">
                     <p ng-show="aiddevice.label">{{aiddevice.label}}</p>
                     <p ng-hide="aiddevice.label">{{'healthbook_notice_label' | translate}}</p>
@@ -48,7 +47,7 @@ https://github.com/manateeworks/phonegap-mwbarcodescanner
                 <br/>
 
                 <div class="item item-divider bordertop">
-                    <span class="title">{{'healthbook_headline_mydrug' | translate}}</span> <a class="button button-small button-stable" style="float:right;" href="#/tab/mymedkit"><span>{{'healthbook_button_create' | translate}}</span></a>
+                    <span class="title">{{'healthbook_headline_mydrug' | translate}}</span> <a class="button button-small button-positive" style="float:right;" href="#/tab/mymedkit"><span>{{'healthbook_button_create' | translate}}</span></a>
                 </div>
                 <div class="item borderbottom" ng-hide="{{drugs}}">
                     <p>{{'healthbook_noglass_drug' | translate}}</p>

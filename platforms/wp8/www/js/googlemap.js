@@ -30,7 +30,7 @@ function GoogleMap() {
         // Load Akustiker
         var log;
         var mapBounds = new google.maps.LatLngBounds();
-        var poIcon = new google.maps.MarkerImage("img/googlemap_lokal_indikator.png", null, null, null, new google.maps.Size(21,30));
+        var poIcon = new google.maps.MarkerImage("img/googlemap_lokal_indikator.png", null, null, null, new google.maps.Size(20,33));
 
         angular.forEach(retailer, function(value, key) {
 
@@ -41,7 +41,7 @@ function GoogleMap() {
                 map: map,
                 title: value.company,
                 snippet: value.company,
-                draggable: true,
+                draggable: false,
                 clickable: true,
                 optimized: false,
                 zIndex: 5,
@@ -51,7 +51,7 @@ function GoogleMap() {
             var content = '<p><strong>'+value.company+'</strong></p><p>'+value.street+', '+value.zip+' '+value.city+'</p>';
 
             if (value.email) {
-                content += '<div class="map_info_icon"><i class="icon ion-ios7-email-outline"></i></div>';
+                content += '<div class="map_info_icon"><i class="icon ion-chevron-right"></i></div>';
             } else {
                 content += '<div class="map_info_icon"><i class="icon ion-ios7-information-outline"></i></div>';
             }

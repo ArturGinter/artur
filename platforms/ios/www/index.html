@@ -39,20 +39,42 @@
     <!-- /PhoneGap Stuff -->
 
 </head>
-<body id="powerone" ng-app="starter" ng-controller="LoadingCtrl" class="platform-ios platform-cordova platform-webview">
+
+
+
+<body id="powerone" ng-controller="LoadingCtrl" ng-app="starter"  class="platform-ios platform-cordova platform-webview">
+
 
 <div id="starthelp">
     <div class="box">
         <h3>{{"starthelp_headline" | translate}}</h3>
-        <p>{{"starthelp_introduction" | translate}}</p>
-        <p><strong>{{"starthelp_sub_1" | translate}}</strong><br/>{{"starthelp_text_1" | translate}}</p>
-        <p><strong>{{"starthelp_sub_2" | translate}}</strong><br/>{{"starthelp_text_2" | translate}}</p>
+        <div id="starthelpAcoustician">
+            <p>
+                <a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}}</strong>
+                    <br/>{{"starthelp_text_1" | translate}}
+                </a>
+                <button class="button button-block button-positive" ng-click="goToAcoustician()">
+                    {{"starthelp_sub_1" | translate}}
+                </button>
+            </p>
+        </div>
+        <div id="starthelpStock">
+            <p>
+                <a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}}</strong>
+                    <br/>{{"starthelp_text_2" | translate}}
+                </a>
+                <button class="button button-block button-positive" ng-click="goToStock()">
+                    {{"starthelp_sub_2" | translate}}
+                </button>
+            </p>
+        </div>
         <br/>
         <button class="button button-block button-positive" ng-click="firsthelp()">
-            ok
+            {{"starthelp_dontshowagain" | translate}}
         </button>
     </div>
 </div>
+
 
 <div id="help" class='ng-modal' ng-show='show'>
     <div class='ng-modal-overlay' ng-click='hideModal()'></div>
@@ -110,16 +132,18 @@
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-<script type="text/javascript" src="js/googlemap.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/controllers.js"></script>
-<script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/googlemap.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/controllers.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/services.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/PushNotification.js"></script>
 
 <script type="text/javascript">
 
     app.initialize();
 
 </script>
+
 
 </body>
 </html>

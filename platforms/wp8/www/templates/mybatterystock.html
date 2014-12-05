@@ -3,37 +3,29 @@
 
     <ion-nav-buttons side="right">
     </ion-nav-buttons>
-    <ion-content class="has-header" padding="true">
+    <ion-content class="has-header">
 
-        <div class="box padding">
+        <div class="box">
 
             <h3 class="center">{{'healthbook_mybatt_headline_mystock' | translate}}</h3>
 
-            <div class="list">
+            <div class="list padding">
 
-                <br/>
-
-                <div ng-click="foldering()" class="item item-divider bordertop item-icon-right">
-                    {{'healthbook_mybatt_headline_newtake' | translate}}
-                    <strong><i class="ion-arrow-down-b"></i></strong>
+                <div class="item item-divider bordertop">
+                    <p>{{'healthbook_mybatt_currentstock' | translate}}<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
                 </div>
-                <div id="toggle">
-                    <div class="item item-divider">
-                        <div class="row">
-                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
-                            <div class="col"><a class="button button-small button-stable" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
-                        </div>
-                    </div>
-                    <a class="item item-icon-right borderbottom" href="#/tab/mybatterystock_calendar">
-                        <p>{{'healthbook_mybatt_currentstock' | translate}}<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
-                        <p>
-                            {{'healthbook_mybatt_averageusefullife' | translate}}<br/>
-                            Ø R: {{liferight}} {{'healthbook_mybatt_days' | translate}}<br/>
-                            Ø L: {{lifeleft}} {{'healthbook_mybatt_days' | translate}}<br/>
-                            <!--<div class="button button-clear button-small icon-left ion-ios7-refresh">Berechnungen zurücksetzen</div>-->
-                        </p>
+                <div class="item item-divider">
+                        <div style="float: left;"><a class="button button-small button-positive" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
+                        <div style="float: right;"><a class="button button-small button-positive" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
+                </div>
+                <div class="item item-divider borderbottom">
+                    <p>
+                        {{'healthbook_mybatt_averageusefullife' | translate}}<br/>
+                        Ø R: {{liferight}} {{'healthbook_mybatt_days' | translate}} (Min. {{minliferight}} / Max. {{maxliferight}})<br/>
+                        Ø L: {{lifeleft}} {{'healthbook_mybatt_days' | translate}} (Min. {{minlifeleft}} / Max. {{maxlifeleft}})<br/>
+                        <!--<div class="button button-clear button-small icon-left ion-ios7-refresh">Berechnungen zurücksetzen</div>-->
+                    </p>
 
-                    </a>
                 </div>
 
 
@@ -47,9 +39,9 @@
                             </div>
 
                             <div class="row">
-                                <div class="col"><a class="pull-left" data-go="prev"><div class="btn btn-primary">{{'healthbook_mybatt_prev' | translate}}</div></a></div>
-                                <div class="col"><h4 class="calender-headline"><span data-head-month></span>/<span data-head-year></span></h4></div>
-                                <div class="col"><a class="pull-right" data-go="next"><div class="btn btn-primary">{{'healthbook_mybatt_next' | translate}}</div></a></div>
+                                <div class="col-25"><a class="pull-left" data-go="prev"><div class="btn btn-primary">{{'healthbook_mybatt_prev' | translate}}</div></a></div>
+                                <div class="col-50"><h4 class="calender-headline"><span data-head-month></span>/<span data-head-year></span></h4></div>
+                                <div class="col-25"><a class="pull-right" data-go="next"><div class="btn btn-primary">{{'healthbook_mybatt_next' | translate}}</div></a></div>
                             </div>
 
                         </div><hr/>
@@ -73,13 +65,13 @@
                 <div id="card2">
                     <div class="row row-center">
                         <div class="col">
-                            <button class="button button-small button-positive" ng-click="leftear()">
+                            <button id="buttonleftear" class="button button-small button-stable" ng-click="leftear()">
                                 {{'healthbook_mybatt_leftear' | translate}}
                             </button>
                         </div>
                         <div class="col"><a class="button button-small button-positive" href="" ng-click="calcard()">Kalender</a></div>
                         <div class="col">
-                            <button class="button button-small button-positive" ng-click="rightear()">
+                            <button id="buttonrightear" class="button button-small button-stable" ng-click="rightear()">
                                 {{'healthbook_mybatt_rightear' | translate}}
                             </button>
                         </div>

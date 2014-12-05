@@ -35,6 +35,14 @@
                         {
                             "xml": "<feature name=\"Capture\"><param name=\"wp-package\" value=\"Capture\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"wp-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"wp-package\" value=\"DebugConsole\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -73,6 +81,10 @@
                         {
                             "xml": "<Capability Name=\"ID_CAP_MICROPHONE\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<Capability Name=\"ID_CAP_PUSH_NOTIFICATION\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -100,6 +112,12 @@
         },
         "com.plugin.datepicker": {
             "PACKAGE_NAME": "{f6d1a830-4aec-11e4-914e-7da5cd148d09}"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "{d2a37d70-643d-11e4-88e7-e57f5d4dbdce}"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "{d2a37d70-643d-11e4-88e7-e57f5d4dbdce}"
         }
     },
     "dependent_plugins": {

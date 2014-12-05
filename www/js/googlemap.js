@@ -51,7 +51,7 @@ function GoogleMap() {
             var content = '<p><strong>'+value.company+'</strong></p><p>'+value.street+', '+value.zip+' '+value.city+'</p>';
 
             if (value.email) {
-                content += '<div class="map_info_icon"><i class="icon ion-android-hand"></i></div>';
+                content += '<div class="map_info_icon"><i class="icon ion-chevron-right"></i></div>';
             } else {
                 content += '<div class="map_info_icon"><i class="icon ion-ios7-information-outline"></i></div>';
             }

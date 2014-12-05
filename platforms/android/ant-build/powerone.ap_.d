@@ -106,6 +106,7 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/index.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/jquery-1.11.1.min.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/MWBScanner.js \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/PushNotification.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/services.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/js/ydn.db-isw-core-qry.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/lib/ionic \
@@ -206,6 +207,7 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/lib/responsive-calendar/0.7/js/responsive-calendar.min.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/lib/responsive-calendar/0.7/js/coffee/responsive-calendar.coffee \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.manateeworks.barcodescanner \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.plugin.datepicker \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/org.apache.cordova.device \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
@@ -215,6 +217,8 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/org.apache.cordova.media-capture \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.manateeworks.barcodescanner/www \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.manateeworks.barcodescanner/www/MWBScanner.js \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.plugin.datepicker/www \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.plugin.datepicker/www/android \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/plugins/com.plugin.datepicker/www/android/DatePicker.js \
@@ -279,10 +283,23 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/bada-wac/icon-50-type3.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/bada-wac/icon-80-type4.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/blackberry/icon-80.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-40.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-40@2x.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-50.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-50@2x.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-57-2x.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-57.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-60.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-60@2x.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-72-2x.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-72.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-72@2x.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-76.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-76@2x.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-small.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon-small@2x.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon.png \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/ios/icon@2x.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/tizen/icon-128.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/webos/icon-64.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/icon/windows-phone/icon-173-tile.png \
@@ -322,6 +339,7 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/screen/tizen/README.md \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/screen/webos/screen-64.png \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/screen/windows-phone/screen-portrait.jpg \
+/Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/res/screen/windows-phone/SplashScreenImage.jpg \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/spec/helper.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/spec/index.js \
 /Users/lars/Desktop/PowerOneApp/platforms/android/assets/www/spec/lib \

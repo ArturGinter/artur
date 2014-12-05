@@ -15,6 +15,34 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
+    },
+    {
+        "file": "plugins/com.plugin.datepicker/www/ios/DatePicker.js",
+        "id": "com.plugin.datepicker.DatePicker",
+        "clobbers": [
+            "datePicker"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.console/www/console-via-logger.js",
+        "id": "org.apache.cordova.console.console",
+        "clobbers": [
+            "console"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.console/www/logger.js",
+        "id": "org.apache.cordova.console.logger",
+        "clobbers": [
+            "cordova.logger"
+        ]
+    },
+    {
         "file": "plugins/org.apache.cordova.file/www/DirectoryEntry.js",
         "id": "org.apache.cordova.file.DirectoryEntry",
         "clobbers": [
@@ -259,13 +287,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.plugin.datepicker/www/ios/DatePicker.js",
-        "id": "com.plugin.datepicker.DatePicker",
-        "clobbers": [
-            "datePicker"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.dialogs/www/notification.js",
         "id": "org.apache.cordova.dialogs.notification",
         "merges": [
@@ -285,12 +306,14 @@ module.exports.metadata =
 {
     "com.manateeworks.barcodescanner": "1.3.0",
     "com.phonegap.plugin.statusbar": "1.1.0",
+    "com.phonegap.plugins.PushPlugin": "2.2.1",
+    "com.plugin.datepicker": "0.4.0",
+    "org.apache.cordova.console": "0.2.12-dev",
     "org.apache.cordova.file": "1.3.1",
     "org.apache.cordova.geolocation": "0.3.11-dev",
     "org.apache.cordova.globalization": "0.3.2-dev",
     "org.apache.cordova.inappbrowser": "0.5.2",
     "org.apache.cordova.media-capture": "0.3.3",
-    "com.plugin.datepicker": "0.4.0",
     "org.apache.cordova.dialogs": "0.2.9-dev",
     "org.apache.cordova.device": "0.2.13-dev"
 }

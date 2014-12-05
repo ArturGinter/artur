@@ -66,6 +66,7 @@
 h3 {
     color: #58585a;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    margin: 0 0 10px 0;
 }
 .center {
     text-align:center;
@@ -175,7 +176,6 @@ a {
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
 
-    background-color: transperent;
 }
 .ng-modal-dialog-content {
     padding:10px;
@@ -214,6 +214,32 @@ a {
     margin-top: -190px;
     margin-left: -125px;
     padding:15px;
+}
+
+#starthelpmini {
+    z-index: 500;
+    position: absolute;
+    top:0;
+    left: 0px;
+    font-size:11px;
+    width: 100%;
+    height: 110px;
+}
+#starthelpmini .box {
+    padding: 6px;
+    margin:5px;
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: #ccc 4px solid;
 }
 
 #help {
@@ -276,6 +302,18 @@ a {
 .button.button-stable span {
     margin-right: 10px;
     margin-left: 10px;
+}
+.button.button-numpad {
+    border-color: grey;
+    width: 50px;
+    height: 35px;
+    background-color: grey;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color:#fff;
+}
+.button.button-numpad span {
+    margin: auto;
 }
 .button.button-balanced {
     border-color: #58AB26;

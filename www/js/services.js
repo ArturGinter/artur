@@ -678,35 +678,131 @@ angular.module('starter.services', [])
 
                 var stockString = window.localStorage['stock'];
                 var stock = angular.fromJson(stockString);
-                var timeinsuse = 0;
+                var timeinuse = 0;
 
                 if (stock) {
+                    var numberOfRightTakes = 0;
                     stock.sort(function(a, b) {
                         return new Date(b.date) - new Date(a.date);
                     });
                     for(var i=0;i<stock.length;i++) {
-                        if (stock[i].type == "taking" && stock[i].ear == "R" && stock[i].term > 0 && !isNaN(stock[i].term)) timeinsuse += stock[i].term;
+                        if (stock[i].type == "taking" && stock[i].ear == "R" && stock[i].term > 0 && !isNaN(stock[i].term)) {
+                            timeinuse += stock[i].term;
+                            numberOfRightTakes += 1;
+                        }
                     }
                 }
 
-                return (timeinsuse/86400000).toFixed(2);
+                return ((numberOfRightTakes == 0)?0:timeinuse/numberOfRightTakes/86400000).toFixed(2);
 
             },
             getAverageUsefulLifeLeft: function() {
 
                 var stockString = window.localStorage['stock'];
                 var stock = angular.fromJson(stockString);
-                var timeinsuse = 0;
+                var timeinuse = 0;
 
                 if (stock) {
+                    var numberOfLeftTakes = 0;
                     stock.sort(function(a, b) {
                         return new Date(b.date) - new Date(a.date);
                     });
                     for(var i=0;i<stock.length;i++) {
-                        if (stock[i].type == "taking" && stock[i].ear == "L" && stock[i].term > 0 && !isNaN(stock[i].term)) timeinsuse += stock[i].term;
+                        if (stock[i].type == "taking" && stock[i].ear == "L" && stock[i].term > 0 && !isNaN(stock[i].term)) {
+                            timeinuse += stock[i].term;
+                            numberOfLeftTakes += 1;
+                        }
                     }
                 }
-                return (timeinsuse/86400000).toFixed(2);
+                return ((numberOfLeftTakes == 0)?0:timeinuse/numberOfLeftTakes/86400000).toFixed(2);
+
+            },
+            getMaxLifeRight: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinuse = 0;
+
+                if (stock) {
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "R" && stock[i].term > 0 && !isNaN(stock[i].term) && stock[i].term > timeinuse) timeinuse = stock[i].term;
+                    }
+                }
+                return (timeinuse/86400000).toFixed(2);
+
+            },
+            getMaxLifeLeft: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinuse = 0;
+
+                if (stock) {
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking" && stock[i].ear == "L" && stock[i].term > 0 && !isNaN(stock[i].term) && stock[i].term > timeinuse) timeinuse = stock[i].term;
+                    }
+                }
+                return (timeinuse/86400000).toFixed(2);
+
+            },
+            getMinLifeRight: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinuse = 0;
+
+                if (stock) {
+                    var isTakingType = false;
+                    var isRight = false;
+                    var termNotZero = false;
+                    var isNotNaN = false;
+                    var timeIsShorter = false;
+                    for(var i=0;i<stock.length;i++) {
+
+                        isTakingType = (stock[i].type == "taking");
+                        isRight = (stock[i].ear == "R");
+                        termNotZero = (stock[i].term > 0);
+                        isNotNaN = (!isNaN(stock[i].term));
+                        timeIsShorter = (stock[i].term < timeinuse);
+
+                        if (isTakingType && isRight && termNotZero && isNotNaN) {
+                            if (timeinuse == 0 || timeIsShorter) {
+                                timeinuse = stock[i].term
+                            }
+                        }
+                    }
+                }
+                return (timeinuse/86400000).toFixed(2);
+
+            },
+            getMinLifeLeft: function() {
+
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+                var timeinuse = 0;
+
+                if (stock) {
+                    var isTakingType = false;
+                    var isLeft = false;
+                    var termNotZero = false;
+                    var isNotNaN = false;
+                    var timeIsShorter = false;
+                    for(var i=0;i<stock.length;i++) {
+
+                        isTakingType = (stock[i].type == "taking");
+                        isLeft = (stock[i].ear == "L");
+                        termNotZero = (stock[i].term > 0);
+                        isNotNaN = (!isNaN(stock[i].term));
+                        timeIsShorter = (stock[i].term < timeinuse);
+
+                        if (isTakingType && isLeft && termNotZero && isNotNaN) {
+                            if (timeinuse == 0 || timeIsShorter) {
+                                timeinuse = stock[i].term
+                            }
+                        }
+                    }
+                }
+                return (timeinuse/86400000).toFixed(2);
 
             },
             save: function(stock) {

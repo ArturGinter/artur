@@ -4,7 +4,7 @@
     <Languages xmlns="">
         <Language code="en-US" />
     </Languages>
-    <App Author="power one author" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{d2a37d70-643d-11e4-88e7-e57f5d4dbdce}" Publisher="power one" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="power one" Version="1.0.5" xmlns="">
+    <App Author="power one author" BitsPerPixel="32" Description="Apache Cordova for Windows Phone" Genre="apps.normal" ProductID="{d2a37d70-643d-11e4-88e7-e57f5d4dbdce}" Publisher="power one" PublisherID="{db093ed5-53b1-45f7-af72-751e8f36ab80}" RuntimeType="Silverlight" Title="power one" Version="1.0.11" xmlns="">
         <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
         <Capabilities>
             <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
@@ -16,6 +16,7 @@
             <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
             <Capability Name="ID_CAP_MICROPHONE" />
             <Capability Name="ID_CAP_ISV_CAMERA" />
+            <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
         </Capabilities>
         <Tasks>
             <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />

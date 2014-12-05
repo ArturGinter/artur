@@ -66,6 +66,7 @@
 h3 {
     color: #58585a;
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    margin: 0 0 10px 0;
 }
 .center {
     text-align:center;
@@ -175,7 +176,6 @@ a {
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
 
-    background-color: transperent;
 }
 .ng-modal-dialog-content {
     padding:10px;
@@ -302,6 +302,18 @@ a {
 .button.button-stable span {
     margin-right: 10px;
     margin-left: 10px;
+}
+.button.button-numpad {
+    border-color: grey;
+    width: 50px;
+    height: 35px;
+    background-color: grey;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    color:#fff;
+}
+.button.button-numpad span {
+    margin: auto;
 }
 .button.button-balanced {
     border-color: #58AB26;

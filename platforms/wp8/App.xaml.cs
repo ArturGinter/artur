@@ -32,7 +32,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace com.poweronebatteries.app
+namespace com.powerone-batteries.app
 {
     public partial class App : Application
     {

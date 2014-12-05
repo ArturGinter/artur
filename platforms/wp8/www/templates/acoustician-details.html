@@ -6,7 +6,6 @@
 
         <div class="list">
 
-            <br/>
             <div class="item item-divider bordertop">
                 {{'acoustician_headline_address' | translate}}
             </div>
@@ -45,12 +44,12 @@
 
             <br/>
 
-            <div ng-show="acoustician.additionalinfos" class="item item-divider bordertop">
+            <div class="item item-divider bordertop">
                 {{'acoustician_headline_openingtimes' | translate}}
             </div>
-            <div ng-show="acoustician.additionalinfos" class="item borderbottom">
-                <p>{{ acoustician.businesshours }}</p>
-                <p>{{ acoustician.additionalinfos }}</p>
+            <div class="item borderbottom">
+                <p ng-show="acoustician.businesshours">{{ acoustician.businesshours }}</p>
+                <p ng-show="acoustician.acoustician">{{ acoustician.additionalinfos }}</p>
             </div>
 
             <br/>

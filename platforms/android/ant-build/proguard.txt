@@ -1,6 +1,15 @@
 # view AndroidManifest.xml #generated:11
 -keep class com.manateeworks.ScannerActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:13
+-keep class com.plugin.gcm.CordovaGCMBroadcastReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:20
+-keep class com.plugin.gcm.GCMIntentService { <init>(...); }
+
+# view AndroidManifest.xml #generated:12
+-keep class com.plugin.gcm.PushHandlerActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:5
 -keep class com.poweronebatteries.app.powerone { <init>(...); }
 

@@ -10,14 +10,14 @@
         </p>
 
         <ion-list>
-            <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" ng-click="navLink('#/tab/medkit-edit/{{$index}}')">
+            <ion-item ng-repeat="drug in drugs" type="item-text-wrap" class="item item-icon-right" href="#/tab/medkit-edit/{{$index}}">
                 {{drug.title}}
-                <span class="item-note">
+                 <span class="item-note">
                     <span ng-show="drug.startday">{{drug.startday | date:'dd.MM.yy'}}</span>
                     <span ng-show="drug.endday"> - </span>
                     <span ng-show="drug.endday">{{drug.endday | date:'dd.MM.yy'}}</span>
                     <span ng-show="drug.timehour">({{drug.timehour}}:{{drug.timeminute}} Uhr)</span>
-                </span>
+                 </span>
                 <i class="icon ion-ios7-arrow-right"></i>
             </ion-item>
         </ion-list>

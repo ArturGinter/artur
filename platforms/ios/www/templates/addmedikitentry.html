@@ -16,7 +16,7 @@
                 {{'general_info' | translate}}
             </div>
 
-            <div class="item item-icon-right borderbottom">
+            <div class="item item-icon-right borderbottom" ng-click="time()">
                 {{'general_time' | translate}}
                 <span id="addmedikitentry-time" class="item-note" ng-show="drug.time">{{drug.time | date:'HH:mm'}}</span>
                 <a class="button button-icon icon ion-ios7-time-outline" ng-click="time()"></a>
@@ -28,16 +28,16 @@
                 {{'healthbook_headline_plan' | translate}}
             </div>
 
-            <div class="item item-icon-right">
+            <div class="item item-icon-right" ng-click="calendarStart()">
                 {{'general_startdate' | translate}}
                 <span id="addmedikitentry-startdate" class="item-note" ng-show="drug.startday">{{drug.startday | date:'dd.MM.yyyy'}}</span>
-                <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarStart()"></a>
+                <a class="button button-icon icon ion-ios7-calendar-outline"></a>
 
             </div>
-            <div class="item item-icon-right borderbottom">
+            <div class="item item-icon-right borderbottom" ng-click="calendarEnd()">
                 {{'general_enddate' | translate}}
                 <span id="addmedikitentry-enddate" class="item-note" ng-show="drug.endday">{{drug.endday | date:'dd.MM.yyyy'}}</span>
-                <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarEnd()"></a>
+                <a class="button button-icon icon ion-ios7-calendar-outline"></a>
             </div>
 
             <br/>

@@ -18,7 +18,7 @@
 
             <div class="item item-icon-right borderbottom">
                 {{'general_time' | translate}}
-                <span id="addmedikitentry-time" class="item-note" ng-show="drug.time">{{drug.time | date:'HH:mm'}}&nbsp;&nbsp;</span>
+                <span id="addmedikitentry-time" class="item-note" ng-show="drug.time">{{drug.time | date:'HH:mm'}}</span>
                 <a class="button button-icon icon ion-ios7-time-outline" ng-click="time()"></a>
             </div>
 
@@ -30,13 +30,13 @@
 
             <div class="item item-icon-right">
                 {{'general_startdate' | translate}}
-                <span id="addmedikitentry-startdate" class="item-note" ng-show="drug.startday">{{drug.startday | date:'dd.MM.yyyy'}}&nbsp;&nbsp;</span>
+                <span id="addmedikitentry-startdate" class="item-note" ng-show="drug.startday">{{drug.startday | date:'dd.MM.yyyy'}}</span>
                 <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarStart()"></a>
 
             </div>
             <div class="item item-icon-right borderbottom">
                 {{'general_enddate' | translate}}
-                <span id="addmedikitentry-enddate" class="item-note" ng-show="drug.endday">{{drug.endday | date:'dd.MM.yyyy'}}&nbsp;&nbsp;</span>
+                <span id="addmedikitentry-enddate" class="item-note" ng-show="drug.endday">{{drug.endday | date:'dd.MM.yyyy'}}</span>
                 <a class="button button-icon icon ion-ios7-calendar-outline" ng-click="calendarEnd()"></a>
             </div>
 

@@ -34,7 +34,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Resources;
 
 
-namespace com.poweronebatteries.app
+namespace com.powerone-batteries.app
 {
     public partial class MainPage : PhoneApplicationPage
     {

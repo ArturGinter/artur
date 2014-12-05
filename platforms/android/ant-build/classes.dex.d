@@ -27,7 +27,13 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/datepicker/DatePickerPlugin$DateSetListener.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/datepicker/DatePickerPlugin$TimeSetListener.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/datepicker/DatePickerPlugin.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/gcm/CordovaGCMBroadcastReceiver.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/gcm/GCMIntentService.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/gcm/PushHandlerActivity.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/plugin/gcm/PushPlugin.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/BuildConfig.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/Manifest$permission.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/Manifest.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/powerone.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/R$attr.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/R$drawable.class \
@@ -37,6 +43,8 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/R$xml.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/powerone_batteries/app/R.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/BuildConfig.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/Manifest$permission.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/Manifest.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/powerone.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/R$attr.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/R$drawable.class \
@@ -45,6 +53,7 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/R$string.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/R$xml.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronebatteries/app/R.class \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/com/poweronedkdnws74batteries/app/powerone.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$1.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$2.class \
@@ -128,3 +137,5 @@
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/org/apache/cordova/mediacapture/Capture.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/classes/org/apache/cordova/mediacapture/FileHelper.class \
 /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/dexedLibs/classes-a710583763bdc17a379aa3b4f9733453.jar \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/dexedLibs/gcm-5f880c2495a8433d80e39a5027069e22.jar \
+/Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/dexedLibs/android-support-v13-cfbb3dddd6b0ab7d0e78c734b58cee35.jar \

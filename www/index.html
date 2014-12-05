@@ -39,28 +39,35 @@
     <!-- /PhoneGap Stuff -->
 
 </head>
-<body id="powerone" ng-app="starter" ng-controller="LoadingCtrl">
+
+
+
+<body id="powerone" ng-controller="LoadingCtrl" ng-app="starter" >
+
 
 <div id="starthelp">
     <div class="box">
         <h3>{{"starthelp_headline" | translate}}</h3>
-        <!--<p>{{"starthelp_introduction" | translate}}</p>-->
-        <p>
-            <a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}}<!-- <i class="showAcoustician ion-checkmark-round"></i>--></strong>
-                <br/>{{"starthelp_text_1" | translate}}
-            </a>
-            <button class="button button-block button-positive" ng-click="goToAcoustician()">
-                {{"starthelp_sub_1" | translate}}
-            </button>
-        </p>
-        <p>
-            <a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}} <!--<i class="showStock ion-checkmark-round"></i>--></strong>
-                <br/>{{"starthelp_text_2" | translate}}
-            </a>
-            <button class="button button-block button-positive" ng-click="goToStock()">
-                {{"starthelp_sub_2" | translate}}
-            </button>
-        </p>
+        <div id="starthelpAcoustician">
+            <p>
+                <a ng-click="goToAcoustician()"><strong>{{"starthelp_sub_1" | translate}}</strong>
+                    <br/>{{"starthelp_text_1" | translate}}
+                </a>
+                <button class="button button-block button-positive" ng-click="goToAcoustician()">
+                    {{"starthelp_sub_1" | translate}}
+                </button>
+            </p>
+        </div>
+        <div id="starthelpStock">
+            <p>
+                <a ng-click="goToStock()"><strong>{{"starthelp_sub_2" | translate}}</strong>
+                    <br/>{{"starthelp_text_2" | translate}}
+                </a>
+                <button class="button button-block button-positive" ng-click="goToStock()">
+                    {{"starthelp_sub_2" | translate}}
+                </button>
+            </p>
+        </div>
         <br/>
         <button class="button button-block button-positive" ng-click="firsthelp()">
             {{"starthelp_dontshowagain" | translate}}
@@ -136,6 +143,7 @@
     app.initialize();
 
 </script>
+
 
 </body>
 </html>

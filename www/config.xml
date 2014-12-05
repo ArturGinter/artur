@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.poweronebatteries.app" version="1.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.powerone-batteries.app" version="1.1.0" android-versionCode="10008" ios-CFBundleVersion="2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>power one</name>
     <description>
         Power one application.
@@ -43,6 +43,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="com.phonegap.plugin.statusbar" />
+    <gap:plugin name="com.adobe.plugins.pushplugin" />
     <plugin name="Capture" value="org.apache.cordova.Capture"/>
     <plugin name="Capture" value="CDVCapture" />
     <Capabilities>

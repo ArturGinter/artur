@@ -7,28 +7,39 @@
     <ion-content class="has-header" padding="true">
 
         <form name="stockNewForm" data-ng-submit="addBatteryStock()" method="post">
-            <div class="box padding">
+            <div class="box">
 
                 <h3 class="center">{{'healthbook_mybatt_headline_newbattery' | translate}}</h3>
 
-                <div class="list">
-                    <br/>
+                <div class="list padding">
                     <div class="item item-divider bordertop">
                         {{'healthbook_mybatt_subheadline_new' | translate}}
                     </div>
                     <div class="item">
                         <p>{{'healthbook_mybatt_mybattery' | translate}}: <strong>{{aiddevice.battery}}</strong></p>
                     </div>
-                    <div class="item item-icon-right">
+                    <div class="item">
+                        <p>{{'healthbook_mybatt_numberbatteries' | translate}}: <strong>{{count}}</strong> {{'healthbook_mybatt_piece' | translate}}</p>
                         <div style="float: left;">
-                            <p>{{'healthbook_mybatt_numberbatteries' | translate}}: <strong>{{count}}</strong> {{'healthbook_mybatt_piece' | translate}}</p>
+                            <a ng-click="addNumber(1)" class="button button-small button-numpad" href=""><span>1</span></a>
+                            <a ng-click="addNumber(2)" class="button button-small button-numpad" href=""><span>2</span></a>
+                            <a ng-click="addNumber(3)" class="button button-small button-numpad" href=""><span>3</span></a><br>
+                            <a ng-click="addNumber(4)" class="button button-small button-numpad" href=""><span>4</span></a>
+                            <a ng-click="addNumber(5)" class="button button-small button-numpad" href=""><span>5</span></a>
+                            <a ng-click="addNumber(6)" class="button button-small button-numpad" href=""><span>6</span></a><br>
+                            <a ng-click="addNumber(7)" class="button button-small button-numpad" href=""><span>7</span></a>
+                            <a ng-click="addNumber(8)" class="button button-small button-numpad" href=""><span>8</span></a>
+                            <a ng-click="addNumber(9)" class="button button-small button-numpad" href=""><span>9</span></a><br>
+                            <a class="button button-small button-numpad" href=""><span> </span></a>
+                            <a ng-click="addNumber(0)" class="button button-small button-numpad" href=""><span>0</span></a>
+                            <a ng-click="deleteNumber()" class="button button-small button-numpad" href=""><span>C</span></a>
                         </div>
                         <div style="float: right;">
                             <a ng-click="increase()" class="button button-small button-stable" href=""><span>+</span></a>
-                            <a ng-click="decress()" class="button button-small button-stable" href=""><span>-</span></a>
+                            <a ng-click="decrease()" class="button button-small button-stable" href=""><span>-</span></a>
                         </div>
                     </div>
-                    <div class="item item-icon-right borderbottom">
+                    <div class="item borderbottom">
                         <button id="contact-submit" class="button button-positive" style="float:right;">
                             <span>{{'healthbook_mybatt_addbattery' | translate}}</span>
                         </button>
@@ -41,11 +52,11 @@
                     <div class="item item-divider bordertop">
                         {{'healthbook_headline_order' | translate}}
                     </div>
-                    <div class="item item-icon-right borderbottom" ng-show="myacoustician_company">
+                    <a class="item item-icon-right borderbottom orderbutton" ng-show="myacoustician_company">
                         <p>{{myacoustician_company}}</p>
                         <p>{{myacoustician_street}}, {{myacoustician_zip}} {{myacoustician_city}}</p>
-                        <a class="orderbutton button-icon icon ion-ios7-email-outline"></a>
-                    </div>
+                        <div class="button-icon icon ion-ios7-email-outline"></div>
+                    </a>
                     <div class="item item-icon-right borderbottom" ng-hide="myacoustician_company">
                         <p>{{'healthbook_info_masteracoustician' | translate}}</p>
                     </div>
