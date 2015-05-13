@@ -632,6 +632,22 @@ angular.module('starter.services', [])
                 return returnval;
 
             },
+            getLast: function() {
+                var stockString = window.localStorage['stock'];
+                var stock = angular.fromJson(stockString);
+
+                if (stock) {
+                    stock.sort(function(a, b) {
+                        return new Date(b.date) - new Date(a.date);
+                    });
+
+                    for(var i=0;i<stock.length;i++) {
+                        if (stock[i].type == "taking") return stock[i];
+                    }
+                }
+                return 0;
+
+            },
             getLastRight: function() {
                 var stockString = window.localStorage['stock'];
                 var stock = angular.fromJson(stockString);
@@ -668,7 +684,7 @@ angular.module('starter.services', [])
                 var count = 0;
                 if (stock) {
                     for(var i=0;i<stock.length;i++) {
-                        if (stock[i].type == "new") count = count + stock[i].count;
+                        if (stock[i].type == "new" || stock[i].type == "correction") count = count + stock[i].count;
                         if (stock[i].type == "taking") count--;
                     }
                 }
@@ -804,6 +820,9 @@ angular.module('starter.services', [])
                 }
                 return (timeinuse/86400000).toFixed(2);
 
+            },
+            reset: function() {
+                this.save( new Array() );
             },
             save: function(stock) {
                 window.localStorage['stock'] = angular.toJson(stock);

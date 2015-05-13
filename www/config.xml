@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.powerone-batteries.app" version="1.1.0" android-versionCode="10008" ios-CFBundleVersion="2" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.poweronebatteries.app" version="1.1.2" android-versionCode="10010" ios-CFBundleVersion="0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>power one</name>
     <description>
         Power one application.
@@ -106,11 +106,8 @@
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
-    <feature name="MWBarcodeScanner">
-        <param name="android-package" value="com.manateeworks.BarcodeScannerPlugin" />
-    </feature>
-    <feature name="MWBarcodeScanner">
-        <param name="ios-package" value="CDVMWBarcodeScanner" />
+    <feature name="Notification">
+        <param name="wp-package" value="Notification"/>
     </feature>
     <gap:config-file platform="ios" parent="UIStatusBarHidden">
         <true/>
@@ -121,4 +118,7 @@
     <preference name="StatusBarOverlaysWebView" value="true" />
     <preference name="StatusBarBackgroundColor" value="#FFFFFF" />
     <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="SplashScreen" value="foo" />
+    <preference name="SplashScreenDelay" value="2000" />
 </widget>

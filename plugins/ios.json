@@ -5,67 +5,9 @@
     },
     "config_munge": {
         "files": {
-            "framework": {
-                "parents": {
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": "true",
-                            "count": 1
-                        }
-                    ],
-                    "CoreVideo.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": "false",
-                            "count": 3
-                        }
-                    ],
-                    "QuartzCore.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "AssetsLibrary.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ],
-                    "MobileCoreServices.framework": [
-                        {
-                            "xml": "false",
-                            "count": 2
-                        }
-                    ],
-                    "CoreLocation.framework": [
-                        {
-                            "xml": "false",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
             "config.xml": {
                 "parents": {
                     "/*": [
-                        {
-                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"MWBarcodeScanner\"><param name=\"ios-package\" value=\"CDVMWBarcodeScanner\" /></feature>",
-                            "count": 1
-                        },
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" onload=\"true\" value=\"CDVStatusBar\" /></feature>",
                             "count": 1
@@ -83,11 +25,19 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"BarcodeScanner\"><param name=\"ios-package\" value=\"CDVBarcodeScanner\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"DatePicker\"><param name=\"ios-package\" value=\"DatePicker\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
                             "count": 1
                         },
                         {
@@ -109,6 +59,68 @@
                         {
                             "xml": "<feature name=\"Capture\"><param name=\"ios-package\" value=\"CDVCapture\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "libiconv.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AVFoundation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AssetsLibrary.framework": [
+                        {
+                            "xml": "false",
+                            "count": 2
+                        }
+                    ],
+                    "CoreVideo.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "QuartzCore.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "MobileCoreServices.framework": [
+                        {
+                            "xml": "false",
+                            "count": 2
+                        }
+                    ],
+                    "CoreLocation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 3
                         }
                     ]
                 }
@@ -126,19 +138,22 @@
         }
     },
     "installed_plugins": {
-        "com.manateeworks.barcodescanner": {
-            "PACKAGE_NAME": "com.powerone-batteries.app"
-        },
         "com.phonegap.plugin.statusbar": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
         "com.phonegap.plugins.PushPlugin": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
+        "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.powerone-batteries.app"
+        },
         "com.plugin.datepicker": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
         "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.powerone-batteries.app"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
         "org.apache.cordova.file": {
@@ -155,14 +170,10 @@
         },
         "org.apache.cordova.media-capture": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
+        },
+        "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.powerone-batteries.app"
         }
     },
-    "dependent_plugins": {
-        "org.apache.cordova.dialogs": {
-            "PACKAGE_NAME": "com.powerone-batteries.app"
-        },
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.powerone-batteries.app"
-        }
-    }
+    "dependent_plugins": {}
 }

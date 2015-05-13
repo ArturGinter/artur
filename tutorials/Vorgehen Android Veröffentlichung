@@ -2,10 +2,16 @@ Vorgehen Android Veröffentlichung
 ==================================+
 
 (1) cordova build android --release
+
+-> platforms/android/ant-build/
+
 (2) Export in Eclipse
 - rechte Maus Projekt
 - Android Tools
 - Export Signed
+
+(2) jarsigner -verbose -keystore c:\users\android\debug.keystore c:\users\pir fahim\Desktops\GoogleDriveApp.apk my_keystore_alias
+
 (3) zipalign 4 infile.apk powerone.apk
 
 
@@ -13,3 +19,28 @@ Passwort: Hannover99
 
 (4) Play Store
 https://play.google.com/apps/publish/?hl=de&dev_acc=05646475469076966565
+
+
+
+
+
+Android Veröffentlichung
+
+(0) config.xml: com.poweronebatteries.app
+(1) cordova build android --release
+(2) Signatur Passwort: Hannover99
+(3) Datei unter /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/powerone-release.apk
+(4) zipalign 4 infile.apk powerone.apk
+/Users/larsgotte/Library/Android/sdk/build-tools/22.0.1/zipalign 4 CordovaApp-release-unaligned.apk powerone.apk
+Output: /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/powerone.apk
+(5) http://developer.android.com/index.html
+Benutzer: powerone@drive.eu
+Passwort: Hannover99
+(6) Neue APK-Datei in Produktionsphase hochladen
+(7) Dialog 
+- Neu in dieser Version ergänzen
+- Button "Jetzt in Prdoutionphase veröffentlichen"
+
+
+
+/Users/jonasenders/Development/Apps/PowerOneApp/platforms/android/KeyStore/powerone-release-key.keystore

@@ -9,6 +9,6 @@ package com.poweronebatteries.app;
 
 public final class Manifest {
     public static final class permission {
-        public static final String C2D_MESSAGE="com.poweronedkdnws74batteries.app.permission.C2D_MESSAGE";
+        public static final String C2D_MESSAGE="com.poweronebatteries.app.permission.C2D_MESSAGE";
     }
 }

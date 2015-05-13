@@ -5,6 +5,8 @@ angular.module('starter.controllers', [])
 
     .factory('LoaderService', function ($rootScope, $translate, $ionicLoading, $http, Stock) {
 
+        //$cordovaSplashscreen.show();
+
         // Cleanup
         var today = new Date();
         if (!window.localStorage.getItem("nextupdate")) {
@@ -386,7 +388,7 @@ angular.module('starter.controllers', [])
     })
 
 
-    .controller('HealthbookCtrl', function ($scope, Aiddevice, Drugs, Glass, Notes, Stock) {
+    .controller('HealthbookCtrl', function ($scope, $cordovaBarcodeScanner, Aiddevice, Drugs, Glass, Notes, Stock) {
         $scope.inventory = Stock.getInventoryCount();
         $scope.aiddevice = Aiddevice.all();
         $scope.drugs = Drugs.all();
@@ -394,6 +396,46 @@ angular.module('starter.controllers', [])
         $scope.notes = Notes.all();
         $scope.stock = Stock.all();
         $scope.myacoustician = window.localStorage.getItem("myacoustician_company");
+
+        $scope.scan = function (event) {
+            $cordovaBarcodeScanner
+                .scan()
+                .then(function(barcodeData) {
+                    // Success! Barcode data is here
+                    if (barcodeData.text) {
+                        $scope.aiddevice.battery = "Daten werden aktualisiert ...";
+
+                        var jqxhr = $.get( "http://www.powerone-batteries.com/index.php?id=287&barcodetype="+barcodeData.format+"&barcode="+barcodeData.text+"&type=5000", function(data) {
+
+                            try {
+                                var json = jQuery.parseJSON(data);
+                                var battery = json.batteries;
+                                if (battery) {
+                                    $scope.aiddevice.battery = battery[0]["name"];
+                                    window.localStorage.setItem("mybattery", battery[0]["name"]);
+                                    $scope.$apply();
+                                }
+                            }
+                            catch(err) {
+                                $scope.aiddevice.battery = "Batterie nicht vorhanden!";
+
+                            }
+                            $scope.$apply();
+                        }).done(function() {
+
+                        })
+                        .fail(function() {
+                            navigator.notification.alert("Service ist derzeit nicht erreichbar!", function(){}, "Batteriecode", 'ok');
+
+                        })
+                    }
+                }, function(error) {
+                    // An error occurred
+                    $scope.aiddevice.battery = "Batterie nicht vorhanden!";
+                });
+        }
+
+
 
         if (window.localStorage.getItem('mybattery')) {
             Aiddevice.setBattery(window.localStorage.getItem('mybattery'));
@@ -1036,6 +1078,26 @@ angular.module('starter.controllers', [])
         $scope.maxliferight = Stock.getMaxLifeRight();
         $scope.maxlifeleft = Stock.getMaxLifeLeft();
 
+        $scope.reset = function (event) {
+            Stock.reset();
+
+            $scope.stockright = Stock.allRight();
+            $scope.stockleft = Stock.allLeft();
+            $scope.inventory = Stock.getInventoryCount();
+            $scope.liferight = Stock.getAverageUsefulLifeRight();
+            $scope.lifeleft = Stock.getAverageUsefulLifeLeft();
+            $scope.minliferight = Stock.getMinLifeRight();
+            $scope.minlifeleft = Stock.getMinLifeLeft();
+            $scope.maxliferight = Stock.getMaxLifeRight();
+            $scope.maxlifeleft = Stock.getMaxLifeLeft();
+
+            $('.responsive-calendar').responsiveCalendar('clearAll')
+
+            $translate('healthbook_mybatt_resetconfirm').then(function (text) {
+                navigator.notification.alert(text, null, "Info", "ok");
+            });
+        }
+
         $scope.foldering = function (event) {
             $("#toggle").toggle("fold");
             if (window.localStorage.getItem("batterystockfolder") == "false") window.localStorage.setItem("batterystockfolder", "true")
@@ -1110,7 +1172,11 @@ angular.module('starter.controllers', [])
             var minutes = time % 60;
             time = parseInt(time / 60);
             var hours = time % 24;
+            time = parseInt(time / 24);
+            var days = time % 30;
+
             var out = "";
+            if (days && days > 0) out += days + " " + ((days == 1) ? "day" : "days") + " ";
             if (hours && hours > 0) out += hours + " " + ((hours == 1) ? "hr" : "hrs") + " ";
             if (minutes && minutes > 0) out += minutes + " " + ((minutes == 1) ? "min" : "mins") + " ";
             if (seconds && seconds > 0) out += seconds + " " + ((seconds == 1) ? "sec" : "secs") + " ";
@@ -1207,6 +1273,59 @@ angular.module('starter.controllers', [])
         }
 
     })
+    .controller('MybatterystockreadjustmentCtrl', function ($scope, $filter, $translate, Stock, Batteryentry, Aiddevice) {
+
+        $scope.aiddevice = Aiddevice.all();
+        $scope.batteryentry = Batteryentry;
+        $scope.stock = Stock.all();
+        $scope.count = 0;
+
+        $scope.increase = function (event) {
+            $scope.count++;
+        }
+
+        $scope.decrease = function (event) {
+            if ($scope.count > 1) $scope.count--;
+        }
+
+        $scope.addNumber = function(number) {
+            if($scope.count == 0) {
+                $scope.count = number;
+            } else if($scope.count < 100){
+                $scope.count = parseInt("" + $scope.count + number);
+            }
+        }
+
+        $scope.deleteNumber = function() {
+            $scope.count = 0;
+        }
+
+        $scope.addBatteryStock = function (event) {
+            $scope.batteryentry.type = "correction";
+            $scope.batteryentry.count = parseInt($scope.count);
+            $scope.batteryentry.batterymanufacturer = Aiddevice.getLabel();
+            $scope.batteryentry.batterytype = Aiddevice.getType();
+            $scope.batteryentry.date = new Date();
+            $scope.ear = "N"
+            $scope.stock.push($scope.batteryentry);
+            Stock.save($scope.stock);
+            $scope.count = 0;
+            window.location = "#/tab/mybatterystock";
+        }
+        $scope.removeBatteryStock = function (event) {
+            $scope.batteryentry.type = "correction";
+            $scope.batteryentry.count = -1*parseInt($scope.count);
+            $scope.batteryentry.batterymanufacturer = Aiddevice.getLabel();
+            $scope.batteryentry.batterytype = Aiddevice.getType();
+            $scope.batteryentry.date = new Date();
+            $scope.ear = "N"
+            $scope.stock.push($scope.batteryentry);
+            Stock.save($scope.stock);
+            $scope.count = 0;
+            window.location = "#/tab/mybatterystock";
+        }
+
+    })
     .controller('MybatterystocktakingCtrl', function ($scope, $filter, $translate, Stock, Batteryentry, Aiddevice) {
 
         $scope.batteryentry = Batteryentry;
@@ -1217,6 +1336,14 @@ angular.module('starter.controllers', [])
         $scope.ear = "right";
         $scope.batteryentry.date = null;
         $scope.batteryentry.time = null;
+
+        // Info, falls letzter Eintrag einen Monat zurückliegt
+        var lastEntry = Stock.getLast();
+        var lastEntryDate = new Date(lastEntry.date);
+        var oneMonthAgo = new Date();
+        oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+        if (lastEntryDate < oneMonthAgo) $scope.nottaking = true;
+        else $scope.nottaking = false;
 
 
         $scope.addBatteryStock = function (event) {
@@ -1265,7 +1392,7 @@ angular.module('starter.controllers', [])
                 var options = {
                     date: new Date(),
                     mode: 'date',
-                    allowFutureDates: 'false',
+                    //allowFutureDates: 'false',
                     doneButtonLabel: translation["general_done"],
                     cancelButtonLabel: translation["general_cancel"]
                 };
@@ -1282,7 +1409,7 @@ angular.module('starter.controllers', [])
                 var options = {
                     date: new Date(),
                     mode: 'time',
-                    allowFutureDates: 'false',
+                    //allowFutureDates: 'false',
                     doneButtonLabel: translation["general_done"],
                     cancelButtonLabel: translation["general_cancel"]
                 };

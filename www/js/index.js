@@ -79,17 +79,18 @@ function onNotificationAPN (event, $ionicViewService) {
 }
 
 function tokenHandler (result) {
+    console.log("tokenHandler: " + result);
     window.localStorage.setItem("token", result);
     // Your iOS push server needs to know the token before it can push to this device
     // here is where you might want to send it the token for later use.
 }
 
 function successHandler (result) {
-    //alert('successHandler' + result);
+    console.log('successHandler' + result);
 }
 
 function errorHandler (error) {
-    //alert('successHandler' + error);
+    console.log('successHandler' + error);
 }
 
 
@@ -100,7 +101,7 @@ function errorHandler (error) {
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'pascalprecht.translate'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'pascalprecht.translate'])
 
     .directive('browseTo', function ($ionicGesture) {
         return {
@@ -124,6 +125,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
         $ionicPlatform.ready(function() {
 
+            setTimeout(function() {
+                navigator.splashscreen.hide();
+            }, 2000);
+
             // Device-Identifier
             var device = ionic.Platform.device();
             window.localStorage.setItem("uuid", device.uuid);
@@ -146,18 +151,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 txt+="Error description: " + err.message + "\n\n";
                 alert(txt);
             }
-            console.log("token: " +  window.localStorage.getItem("token"));
 
             // Language
             navigator.globalization.getLocaleName (
                 function(locale)
-                {
+                {                 
                     if (locale.value.toLowerCase().indexOf("de") != -1) {
                         window.localStorage.setItem('lang', 'de-DE');
                         $translate.use('de-DE');
                     } else if (locale.value.toLowerCase().indexOf("fr") != -1) {
                         window.localStorage.setItem('lang', 'fr-FR');
                         $translate.use('fr-FR');
+                    } else if (locale.value.toLowerCase().indexOf("ja") != -1) {
+                        window.localStorage.setItem('lang', 'ja-JP');
+                        $translate.use('ja-JP');
                     } else {
                         window.localStorage.setItem('lang', 'en-EN');
                         $translate.use('en-EN');
@@ -366,6 +373,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_currentstock: "Current battery stock",
             healthbook_mybatt_battries: "Batteries",
             healthbook_mybatt_averageusefullife: "Average useful life",
+            healthbook_mybatt_reset: "Reset calculations",
+            healthbook_mybatt_resetconfirm: "Calculations were reset",
             healthbook_mybatt_days: "Days",
             healthbook_mybatt_list: "List view",
             healthbook_mybatt_calendar: "Calendar",
@@ -375,12 +384,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_clock: "Clock",
             healthbook_mybatt_term: "Operational time",
             healthbook_mybatt_headline_newbattery: "New battery",
+            healthbook_mybatt_headline_correction: "Stock correction",
             healthbook_mybatt_subheadline_new: "New purchase/fill stock",
+            healthbook_mybatt_subheadline_correction: "Add/Remove from stock",
+
             healthbook_mybatt_mybattery: "My battery",
             healthbook_mybatt_numberbatteries: "Number of batteries",
             healthbook_mybatt_numberblister: "Number of blisters",
             healthbook_mybatt_piece: "Piece",
             healthbook_mybatt_addbattery: "Add",
+            healthbook_mybatt_removebattery: "Remove",
             healthbook_mybatt_headline_take: "Remove the battery",
             healthbook_mybatt_subheadline_take: "Take",
             healthbook_mybatt_date: "Date",
@@ -398,6 +411,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_short_sat: "Sat",
             healthbook_mybatt_short_sun: "Sun",
             healthbook_mybatt_nodata: "Information about its battery consumption are not yet available.",
+            healthbook_mybatt_nottaking: "We have detected that you have entered a long period of time no removal. In order not to distort the calculations, please enter it after or reset the stock.",
             healthbook_headline_order:"Order to acoustician",
             healthbook_info_masteracoustician: "Please choose master acoustician in map view!",
             healthbook_notice_label: "Enter hearing aid manufacturer",
@@ -613,6 +627,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_currentstock: "Aktueller Batteriebestand",
             healthbook_mybatt_battries: "Batterien",
             healthbook_mybatt_averageusefullife: "Durchschnittliche Nutzungsdauer",
+            healthbook_mybatt_reset: "Berechnungen zurücksetzen",
+            healthbook_mybatt_resetconfirm: "Berechnungen wurden zurückgesetzt",
             healthbook_mybatt_days: "Tage",
             healthbook_mybatt_list: "Listenansicht",
             healthbook_mybatt_calendar: "Kalender",
@@ -622,12 +638,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_clock: "Uhr",
             healthbook_mybatt_term: "Laufzeit",
             healthbook_mybatt_headline_newbattery: "Neue Batterie",
+            healthbook_mybatt_headline_correction: "Bestandskorrektur",
             healthbook_mybatt_subheadline_new: "Neukauf/Bestand auffüllen",
+            healthbook_mybatt_subheadline_correction: "Hinzufügen/Entfernen",
             healthbook_mybatt_mybattery: "Meine Batterie",
             healthbook_mybatt_numberbatteries: "Anzahl Batterien",
             healthbook_mybatt_numberblister: "Anzahl Blister",
             healthbook_mybatt_piece: "Stück",
             healthbook_mybatt_addbattery: "Hinzufügen",
+            healthbook_mybatt_removebattery: "Entfernen",
             healthbook_mybatt_headline_take: "Batterie entnehmen",
             healthbook_mybatt_subheadline_take: "Entnahme",
             healthbook_mybatt_date: "Datum",
@@ -645,6 +664,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_short_sat: "Sa",
             healthbook_mybatt_short_sun: "So",
             healthbook_mybatt_nodata: "Informationen liegen nicht vor.",
+            healthbook_mybatt_nottaking: "Wir haben festgestellt, dass Sie über einen längeren Zeitraum keine Entnahme eingetragen haben. Um die Laufzeitberechnung nicht zu verfälschen, tragen Sie bitte nach oder setzen Sie den Bestand zurück.",
             healthbook_headline_order:"Bestellung an Akustiker",
             healthbook_info_masteracoustician: "Bitte in der Kartenansicht auswählen!",
             healthbook_notice_label: "Hörgerätehersteller",
@@ -859,6 +879,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_currentstock: "Stock de piles actuel",
             healthbook_mybatt_battries: "Piles",
             healthbook_mybatt_averageusefullife: "Durée moyenne d'utilisation",
+            healthbook_mybatt_reset: "Réinitialiser les calculs",
+            healthbook_mybatt_resetconfirm: "Les calculs ont été remis à zéro",
             healthbook_mybatt_days: "Jours",
             healthbook_mybatt_list: "Vue en liste",
             healthbook_mybatt_calendar: "Calendrier",
@@ -868,12 +890,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_clock: "Heure",
             healthbook_mybatt_term: "Durée de marche",
             healthbook_mybatt_headline_newbattery: "Nouvelle pile",
+            healthbook_mybatt_headline_correction: "Correction de Ssock",
             healthbook_mybatt_subheadline_new: "Nouvel achat/Réapprovisionnement du stock",
+            healthbook_mybatt_subheadline_correction: "Ajout/Suppression de stock",
             healthbook_mybatt_mybattery: "Ma pile",
             healthbook_mybatt_numberbatteries: "Nombre de piles",
             healthbook_mybatt_numberblister: "Nombre de blisters",
             healthbook_mybatt_piece: "Unités",
             healthbook_mybatt_addbattery: "Ajouter",
+            healthbook_mybatt_removebattery: "Supprimer",
             healthbook_mybatt_headline_take: "Retirer la pile",
             healthbook_mybatt_subheadline_take: "Entnahme",
             healthbook_mybatt_date: "Datum",
@@ -891,6 +916,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             healthbook_mybatt_short_sat: "Sam",
             healthbook_mybatt_short_sun: "Dim",
             healthbook_mybatt_nodata: "Nous ne disposons d'aucune information concernant votre consommation de piles.",
+            healthbook_mybatt_nottaking: "Vous avez saisi une longue période de temps sans retrait. Afin de ne pas fausser le calcul de terme, s'il vous plaît entrer après ou réinitialiser le stock.",
             healthbook_headline_order:"Commande à l'audioprothésiste",
             healthbook_info_masteracoustician: "Veuillez sélectionner un audioprothésiste attitré sur la carte!",
             healthbook_notice_label: "Mémoriser le fabricant d'appareils auditifs",
@@ -931,6 +957,260 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             contact_privacy: "Protection des données"
 
         });
+      
+        $translateProvider.translations('ja-JP', {
+			general_january:"1 月",
+			general_february:"2 月",
+			general_march:"3 月",
+			general_april:"4 月",
+			general_may:"5 月",
+			general_june:"6 月",
+			general_july:"7 月",
+			general_august:"8 月",
+			general_september:"9 月",
+			general_october:"10 月",
+			general_november:"11 月",
+			general_december:"12 月",
+			general_day:"日",
+			general_month:"月",
+			general_year:"年",
+			general_info:"情報",
+			general_time:"時間",
+			general_startdate:"開始日",
+			general_enddate:"終了日",
+			general_plan:"週日",
+			general_save:"保存",
+			general_update:"更新",
+			general_delete:"削除",
+			general_settings:"設定",
+			general_push:"プッシュ通知",
+			general_updateing:"データを更新しています...",
+			general_notice:"通知",
+			general_fillout:"名前、電子メール アドレス、およびメッセージを入力してください。",
+			general_searchword:"検索語を入力してください。",
+			general_messagesubmit:"メッセージは送信されました。",
+			general_yourposition:"あなたの位置が検出されました...",
+			general_maploading:"地図をロードしています...",
+			general_aroundyou:"あなたの近くに補聴器技能士は見つかりませんでした。",
+			general_mapnoresult:"検索に適合する補聴器技能士は見つかりませんでした。\n\nあなたの補聴器技能士が検索に表示されない場合は、補聴器技能士として登録するように依頼してください。",
+			general_batterysearchnoresult:"検索語に適合するエントリは見つかりませんでした。",
+			general_nogps:"あなたの位置を検出できませんでした。検索機能を使用してください。",
+			general_back:"戻る",
+			general_monday:"月曜日",
+			general_tuesday:"火曜日",
+			general_wednesday:"水曜日",
+			general_thursday:"木曜日",
+			general_friday:"金曜日",
+			general_saturday:"土曜日",
+			general_sunday:"日曜日",
+			general_done:"完了",
+			general_cancel:"キャンセル",
+			starthelp_headline:"ヘルプ",
+			starthelp_introduction:"power one アプリを最適に利用するために、次の設定を行ってください。",
+			starthelp_sub_1:"補聴器技能士の設定",
+			starthelp_text_1:"聴覚士を選択して、その聴覚士を販売店として設定してください。",
+			starthelp_sub_2:"健康状態の設定",
+			starthelp_text_2:"ご購入いただける商品をお勧めできるよう、現在ご使用の電池の在庫を設定してください。",
+			starthelp_dontshowagain:"いま設定は行わない",
+			
+			
+			startmodal_dash:"お住まいの地域の聴覚士を見つけるか、弊社のデータベースを検索してください。",
+			startmodal_healthbook:"ヘルス パスでは、いつでもアクセス可能な重要な健康に関するデータを管理します。",
+			startmodal_batteries:"power one の最新情報、すべての電池の概要、FAQ では皆様の質問に対する回答を参照できます。",
+			startmodal_contact:"ご質問がありますか？こちらの連絡フォームをご利用ください。",
+			tab_dash:" 販売店",
+			tab_healthbook:"健康",
+			tab_batteries:"電池",
+			tab_contact:"連絡先",
+			headline_dash:" 販売店検索",
+			headline_healthbook:"ヘルス パス",
+			headline_batteries:"電池ガイド",
+			headline_contact:"連絡先",
+			
+			acoustician_searchshop:" 販売店の検索...",
+			acoustician_search:"検索",
+			acoustician_headline_address:"住所",
+			acoustician_headline_contact:"連絡先",
+			acoustician_headline_openingtimes:"営業時間",
+			acoustician_button_inquiry:"問い合わせの送信",
+			acoustician_button_myacoustician:" 販売店として設定",
+			acoustician_text_myacoustician:" 販売店",
+			acoustician_noconnection_part1:"現在インターネットへの接続がありません。",
+			acoustician_noconnection_part2:"最寄りの聴覚士に関する情報は、次の電話番号までお問い合わせください:",
+			acoustician_noconnection_part3:"(+49) 7961 921790",
+			acoustician_create:"追加",
+			acoustician_register_shop:"補聴器技能士の追加",
+			acoustician_register_text1:"あなたの店舗が見つからない場合は、ここで登録することができます。",
+			acoustician_register_text2:"登録用ボタン",
+			acoustician_button_register:"いますぐご登録ください！",
+			acoustician_routeplanner:"アクセス",
+			acoustician_info_saved:" 販売店として保存済み",
+			
+			healthbook_mirror:"ミラー",
+			healthbook_headline_mybattery:"使用電池",
+			healthbook_scan:"バーコードをスキャンしてください。",
+			healthbook_headline_mydrug:"服用薬",
+			healthbook_headline_myglassandlenses:"眼鏡/コンタクトレンズ",
+			healthbook_headline_myglass:"眼鏡",
+			healthbook_headline_myglasslenses:"コンタクトレンズ",
+			healthbook_noglass_drug:"保存されている薬はありません。",
+			healthbook_noglass_info:"情報は保存されていません。",
+			healthbook_noacoustician_info:"情報は保存されていません。",
+			healthbook_button_edit:"編集",
+			healthbook_button_scan:"スキャン",
+			healthbook_button_create:"編集",
+			
+			healthbook_headline_myhearingaid:"使用補聴器",
+			healthbook_headline_hearingaiddata:"補聴器データ",
+			healthbook_label_label:" 製造メーカー",
+			healthbook_placeholder_label:"補聴器の製造業者",
+			healthbook_label_type:"タイプ",
+			healthbook_placeholder_type:"補聴器のタイプ",
+			healthbook_headline_reminder:"電池交換の通知",
+			healthbook_label_date:"日付",
+			healthbook_label_reminderactive:"通知を設定しますか？",
+			
+			healthbook_headline_myoptician:"担当眼鏡店",
+			healthbook_label_optician:"眼鏡店",
+			healthbook_placeholder_optician:"眼鏡店の名前",
+			
+			healthbook_headline_righteye:"右目",
+			healthbook_label_righteye_sph:"Sph.",
+			healthbook_label_righteye_cyl:"Cyl",
+			healthbook_label_righteye_ach:"Axis",
+			healthbook_label_righteye_add:"Add.",
+			
+			healthbook_placeholder_righteye_sph:"屈折力",
+			healthbook_placeholder_righteye_cyl:"乱視度数",
+			healthbook_placeholder_righteye_ach:"乱視軸",
+			healthbook_placeholder_righteye_add:"加入度数",
+			
+			healthbook_headline_lefteye:"左目",
+			healthbook_label_lefteye_sph:"Sph.",
+			healthbook_label_lefteye_cyl:"Cyl",
+			healthbook_label_lefteye_ach:"Axis",
+			healthbook_label_lefteye_add:"Add.",
+			
+			healthbook_placeholder_lefteye_sph:"屈折力",
+			healthbook_placeholder_lefteye_cyl:"乱視度数",
+			healthbook_placeholder_lefteye_ach:"乱視軸",
+			healthbook_placeholder_lefteye_add:"加入度数",
+			
+			healthbook_headline_other:"その他",
+			healthbook_headline_label_pd:"PD",
+			healthbook_headline_label_glass:"眼鏡",
+			healthbook_headline_label_constitution:"眼鏡フレーム",
+			
+			healthbook_headline_placeholder_pd:"瞳孔間距離",
+			healthbook_headline_placeholder_glass:"眼鏡製造",
+			healthbook_headline_placeholder_constitution:"構造製造",
+			
+			healthbook_reminer_helptext:"電池交換の通知日を設定してください。クリック 1 つであとから自動的にメモリを調整できます。",
+			healthbook_headline_reminderat:"通知オン",
+			healthbook_headline_renewaldate:"更新日",
+			healthbook_button_full:"電池はまだ完全に充電されています。",
+			healthbook_button_change:"電池が交換されました。",
+			healthbook_daysreminder:"更新日",
+			
+			healthbook_headline_no_drugs:"適用される薬はありません",
+			healthbook_text_adddrugs:"薬のエントリを新規に作成してください。",
+			healthbook_button_newdrug:"作成",
+			healthbook_headline_newdrug:"新しい薬",
+			healthbook_headline_editdrug:"薬の編集",
+			healthbook_placeholder_newdrug:"薬の名前を入力してください",
+			healthbook_headline_plan:"服用日",
+			healthbook_error_title:"タイトル フィールドに入力してください。",
+			
+			healthbook_mirror_headline:"ミラー",
+			healthbook_mirror_helptext:"アドバイス :フロント カメラを鏡としてご使用ください。これにより、機器を簡単に挿入できます。これを使用するには、下のボタンをクリックして、フロント カメラのビューを入力します。",
+			healthbook_mirror_button:"カメラに切り替え",
+			
+			healthbook_mybatt_headline_mystock:"電池在庫",
+			healthbook_mybatt_headline_newtake:"新規購入/提供",
+			healthbook_mybatt_button_new:"新規購入",
+			healthbook_mybatt_button_take:"提供",
+			healthbook_mybatt_currentstock:"現在の電池在庫",
+			healthbook_mybatt_battries:"電池",
+			healthbook_mybatt_averageusefullife:"平均寿命",
+			healthbook_mybatt_reset:"計算のリセット",
+			healthbook_mybatt_resetconfirm:"計算はリセットされました",
+			healthbook_mybatt_days:"日",
+			healthbook_mybatt_list:"リスト ビュー",
+			healthbook_mybatt_calendar:"カレンダー",
+			healthbook_mybatt_leftear:"左耳",
+			healthbook_mybatt_rightear:"右耳",
+			healthbook_mybatt_insertdate:"日付の入力",
+			healthbook_mybatt_clock:"時間",
+			healthbook_mybatt_term:"運用時間",
+			healthbook_mybatt_headline_newbattery:"新しい電池",
+			healthbook_mybatt_headline_correction:"在庫の修正",
+			healthbook_mybatt_subheadline_new:"新規購入/在庫充填",
+			healthbook_mybatt_subheadline_correction:"在庫に追加/削除",
+			
+			healthbook_mybatt_mybattery:"使用電池",
+			healthbook_mybatt_numberbatteries:"電池数",
+			healthbook_mybatt_numberblister:"ブリスター数",
+			healthbook_mybatt_piece:"個数",
+			healthbook_mybatt_addbattery:"追加",
+			healthbook_mybatt_removebattery:"取り出す",
+			healthbook_mybatt_headline_take:"電池を取り出す",
+			healthbook_mybatt_subheadline_take:"提供",
+			healthbook_mybatt_date:"日付",
+			healthbook_mybatt_time:"時間",
+			healthbook_mybatt_error_noear:"左耳または右耳を選択してください。",
+			healthbook_mybatt_button_take:"取り出す",
+			healthbook_mybatt_ear:"耳",
+			healthbook_mybatt_prev:"前へ",
+			healthbook_mybatt_next:"次へ",
+			healthbook_mybatt_short_mon:"月",
+			healthbook_mybatt_short_tue:"火",
+			healthbook_mybatt_short_wed:"水",
+			healthbook_mybatt_short_thu:"木",
+			healthbook_mybatt_short_fri:"金",
+			healthbook_mybatt_short_sat:"土",
+			healthbook_mybatt_short_sun:"日",
+			healthbook_mybatt_nodata:"電池の消費量に関する情報はまだ利用できません。",
+			healthbook_mybatt_nottaking:"削除をしない期間を長期間入力したことが検出されました。計算を妨げないために、あとから入力するか、在庫をリセットしてください。",
+			healthbook_headline_order:"補聴器技能士へ注文",
+			healthbook_info_masteracoustician:"マップ ビューで販売店を選択してください。",
+			healthbook_notice_label:"補聴器の製造業者を入力してください",
+			healthbook_notice_type:"補聴器のタイプを入力してください",
+			healthbook_nostock:" お手持ちの展示の数量を入力してください",
+			
+			notes_mynotes:"メモ",
+			notes_notentered:"メモが提供されていません。",
+			notes_placeholder:"ここにメモリへの個人医療情報を設定します。",
+			
+			batteries_placeholder_search:"製品と FAQ での検索",
+			batteries_button_search:"検索",
+			batteries_headline_news:"power one の最新情報",
+			batteries_headline_battery:"power one - 補聴器のエネルギー",
+			batteries_headline_faq:"FAQ - power one に関するよくある質問",
+			batteries_label_energy:"エネルギー",
+			batteries_label_capacity:"容量",
+			batteries_label_iec:"IEC",
+			batteries_label_typeno:"タイプ番号",
+			batteries_label_voltage:"電圧 (V)",
+			batteries_label_electro:"電気化学システム",
+			batteries_label_typicalenergy:"標準エネルギー (mWh)",
+			batteries_label_typicalcapacity:"標準容量 (mAh)",
+			batteries_label_diameter:"標準容量 (mAh)",
+			batteries_label_height:"高さ (mm)",
+			batteries_label_weight:"重量 (g)",
+			batteries_label_typedesignation:"タイプ指定",
+			batteries_navi_news:"最新情報",
+			batteries_navi_battery:"電池",
+			batteries_navi_faq:"FAQ",
+			
+			contact_label_name:"名前",
+			contact_label_email:"電子メール",
+			contact_label_telefon:"電話",
+			contact_label_inquiry:"お問い合わせ",
+			contact_button_send:"送信",
+			contact_imprint:"企業情報",
+			contact_privacy:"プライバシー"
+        });
+        
         if (window.localStorage.getItem('lang')) $translateProvider.preferredLanguage(window.localStorage.getItem('lang'));
         else $translateProvider.preferredLanguage("en-EN");
         $translateProvider.fallbackLanguage("en-EN");
@@ -1165,6 +1445,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                     'tab-healthbook': {
                         templateUrl: 'templates/mybatterystock.html',
                         controller: 'MybatterystockCtrl'
+                    }
+                }
+            })
+            .state('tab.mybatterystockreadjustment', {
+                url: '/mybatterystockreadjustment',
+                views: {
+                    'tab-healthbook': {
+                        templateUrl: 'templates/mybatterystockreadjustment.html',
+                        controller: 'MybatterystockreadjustmentCtrl'
                     }
                 }
             })

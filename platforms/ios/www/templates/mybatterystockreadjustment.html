@@ -1,0 +1,57 @@
+
+<ion-view title="">
+
+    <ion-nav-buttons side="right">
+    </ion-nav-buttons>
+
+    <ion-content class="has-header" padding="true">
+
+        <form name="stockNewForm" data-ng-submit="addBatteryStock()" method="post">
+            <div class="box">
+
+                <h3 class="center">{{'healthbook_mybatt_headline_correction' | translate}}</h3>
+
+                <div class="list padding">
+                    <div class="item item-divider bordertop">
+                        {{'healthbook_mybatt_subheadline_correction' | translate}}
+                    </div>
+                    <div class="item">
+                        <p>{{'healthbook_mybatt_numberbatteries' | translate}}: <strong>{{count}}</strong> {{'healthbook_mybatt_piece' | translate}}</p>
+                        <div style="float: left;">
+                            <a ng-click="addNumber(1)" class="button button-small button-numpad" href=""><span>1</span></a>
+                            <a ng-click="addNumber(2)" class="button button-small button-numpad" href=""><span>2</span></a>
+                            <a ng-click="addNumber(3)" class="button button-small button-numpad" href=""><span>3</span></a><br>
+                            <a ng-click="addNumber(4)" class="button button-small button-numpad" href=""><span>4</span></a>
+                            <a ng-click="addNumber(5)" class="button button-small button-numpad" href=""><span>5</span></a>
+                            <a ng-click="addNumber(6)" class="button button-small button-numpad" href=""><span>6</span></a><br>
+                            <a ng-click="addNumber(7)" class="button button-small button-numpad" href=""><span>7</span></a>
+                            <a ng-click="addNumber(8)" class="button button-small button-numpad" href=""><span>8</span></a>
+                            <a ng-click="addNumber(9)" class="button button-small button-numpad" href=""><span>9</span></a><br>
+                            <a class="button button-small button-numpad" href=""><span> </span></a>
+                            <a ng-click="addNumber(0)" class="button button-small button-numpad" href=""><span>0</span></a>
+                            <a ng-click="deleteNumber()" class="button button-small button-numpad" href=""><span>C</span></a>
+                        </div>
+                        <div style="float: right;">
+                            <a ng-click="increase()" class="button button-small button-stable" href=""><span>+</span></a>
+                            <a ng-click="decrease()" class="button button-small button-stable" href=""><span>-</span></a>
+                        </div>
+                    </div>
+                    <div class="item borderbottom">
+                        <button class="button button-small button-positive" style="float:left;" ng-click="removeBatteryStock()">
+                            <span>{{'healthbook_mybatt_removebattery' | translate}}</span>
+                        </button>
+                        <button class="button button-small button-positive" style="float:right;" ng-click="addBatteryStock()">
+                            <span>{{'healthbook_mybatt_addbattery' | translate}}</span>
+                        </button>
+                    </div>
+                    <br/>
+                </div>
+
+            </div>
+
+        </form>
+
+    </ion-content>
+
+
+</ion-view>

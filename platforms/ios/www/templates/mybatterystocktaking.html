@@ -14,7 +14,9 @@
                     <div class="item item-divider bordertop">
                         {{'healthbook_mybatt_subheadline_take' | translate}}
                     </div>
-
+                    <div class="item item-text-wrap" ng-show="nottaking">
+                        <p>{{'healthbook_mybatt_nottaking' | translate}}</p>
+                    </div>
                     <div class="item item-icon-right">
                         {{'healthbook_mybatt_date' | translate}}
                         <p>{{stockdate | date:'dd.MM.yyyy'}}</p>

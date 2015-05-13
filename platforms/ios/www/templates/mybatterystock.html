@@ -11,9 +11,10 @@
 
             <div class="list padding">
 
-                <div class="item item-divider bordertop">
+                <a class="item item-icon-right item-divider bordertop" href="#/tab/mybatterystockreadjustment">
                     <p>{{'healthbook_mybatt_currentstock' | translate}}<br/>{{inventory}} {{'healthbook_mybatt_battries' | translate}}</p>
-                </div>
+                    <i class="icon ion-ios7-arrow-right"></i>
+                </a>
                 <div class="item item-divider">
                         <div style="float: left;"><a class="button button-small button-positive" href="#/tab/mybatterystocknew"><span>{{'healthbook_mybatt_button_new' | translate}}</span></a></div>
                         <div style="float: right;"><a class="button button-small button-positive" href="#/tab/mybatterystocktaking"><span>{{'healthbook_mybatt_button_take' | translate}}</span></a></div>
@@ -23,7 +24,7 @@
                         {{'healthbook_mybatt_averageusefullife' | translate}}<br/>
                         Ø R: {{liferight}} {{'healthbook_mybatt_days' | translate}} (Min. {{minliferight}} / Max. {{maxliferight}})<br/>
                         Ø L: {{lifeleft}} {{'healthbook_mybatt_days' | translate}} (Min. {{minlifeleft}} / Max. {{maxlifeleft}})<br/>
-                        <!--<div class="button button-clear button-small icon-left ion-ios7-refresh">Berechnungen zurücksetzen</div>-->
+                        <div class="button button-clear button-small icon-left ion-ios7-refresh" ng-click="reset()">{{'healthbook_mybatt_reset' | translate}}</div>
                     </p>
 
                 </div>

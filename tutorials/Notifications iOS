@@ -1,0 +1,35 @@
+
+
+
+
+
+
+Notifications iOS
+====================
+
+Job: 0009935: Subdomain für Push-Services
+
+http://push.powerone-batteries.com/samples.php
+http://push.powerone-batteries.com/php_info.php
+
+
+http://www.easyapns.com
+
+
+http://pmatypo3.drive.lc
+powerone_pushservice
+
+Datenbank
+URL: https://phpmyadmin.ma22189.plusserver.de
+User: powerone
+Pass: p6vZXhR3CXUyS88S
+
+
+Tutorial Notification Certs
+http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1
+
+
+My token is: <00847828 fac9e540 68ce57c4 7cc6b145 02ecd007 120f353b dbce163e f6df3137>
+
+
+/var/folders/hm/9dywtrn51xj7fny7krx_wx5w0000gq/C/com.apple.DeveloperTools/6.1-6A1052d/Xcode/SharedPrecompiledHeaders/powerone-Prefix-dlhrsyaiirvhaugatvhvszwowrbv/

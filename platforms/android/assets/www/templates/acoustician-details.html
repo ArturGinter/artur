@@ -6,10 +6,10 @@
 
         <div class="list">
 
-            <div class="item item-divider bordertop">
+            <div class="item item-text-wrap item-divider bordertop">
                 {{'acoustician_headline_address' | translate}}
             </div>
-            <div class="item borderbottom">
+            <div class="item item-text-wrap borderbottom">
                 <div class="col">
                     <p>{{ acoustician.street }}</p>
                     <p>{{ acoustician.zip }} {{ acoustician.city }}</p>
@@ -18,10 +18,10 @@
 
             <br/>
 
-            <div class="item item-divider bordertop">
+            <div class="item item-text-wrap item-divider bordertop">
                 {{'acoustician_headline_contact' | translate}}
             </div>
-            <div class="item borderbottom">
+            <div class="item item-text-wrap borderbottom">
                 <div ng-show="acoustician.phone" class="row">
                     <div class="col">Phone</div>
                     <div class="col col-75">
@@ -47,7 +47,7 @@
             <div class="item item-divider bordertop">
                 {{'acoustician_headline_openingtimes' | translate}}
             </div>
-            <div class="item borderbottom">
+            <div class="item item-text-wrap borderbottom">
                 <p ng-show="acoustician.businesshours">{{ acoustician.businesshours }}</p>
                 <p ng-show="acoustician.acoustician">{{ acoustician.additionalinfos }}</p>
             </div>

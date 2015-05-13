@@ -1,0 +1,68 @@
+
+
+Anpassungen WP8-Version
+
+(1) index.html PNG statt SVG
+<div class="col"><img src="img/logo_powerone.png" height="auto" width="240"></div>
+<h1 class="title"><img src="img/logo.png" height="30" width="auto"></h1>
+
+(2) googlemap.js bei Usermarker und Akustiker
+function GoogleMap() {
+	draggable: true,
+	
+(3) index.css
+html {
+        -ms-touch-action: pan-x;
+        touch-action: pan-x;
+    }
+
+    body {
+        -ms-touch-action: pan-y;
+        touch-action: pan-y;
+        -ms-content-zooming: none;
+    }
+    
+(4) Service.js
+
+.factory('Faq', function($http) {
+	if (navigator.language == 'de-de') lang = 13;
+    if (navigator.language == 'fr-fr') lang = 6;
+.factory('News', function($http) {
+	if (navigator.language == 'de-de') lang = 13;
+    if (navigator.language == 'fr-fr') lang = 6;
+
+(5) Datetime Picker
+
+(a) cordova plugin add https://github.com/leecrossley/cordova-plugin-datetime-picker.git
+(b) Package Manager Console: Install-Package Coding4Fun.Toolkit.Controls
+(c) Update
+Go to the Tools Menu –> Extensions and Updates
+Go to the Update Tab –> Visual Studio Gallery
+Click Update
+Restart Visual Studio
+
+Packages.dgml
+
+MybatterystocktakingCtrl austauschen:
+        $scope.calendar = function (event) {            datetimepicker.selectDate(function (date) {                $scope.stockdate = new Date(parseInt(date, 10))                $scope.$apply();            });        }        $scope.time = function (event) {            datetimepicker.selectTime(function (time) {                $scope.stocktime = new Date(parseInt(time, 10))                $scope.$apply();            });        }
+
+AddmedikitentryCtrl austauschen:
+        $scope.time = function (event) {            datetimepicker.selectTime(function (time) {                $scope.drug.time = time;                $scope.$apply();            });        }        $scope.calendarStart = function (event) {            datetimepicker.selectDate(function (date) {                $scope.drug.startday = date                $scope.$apply();            });        }        $scope.calendarEnd = function (event) {            datetimepicker.selectDate(function (date) {                $scope.drug.endday = date                $scope.$apply();            });        }
+        
+MedkiteditCtrl austauschen:
+        $scope.time = function (event) {            datetimepicker.selectTime(function (time) {                $scope.drug.time = new Date(parseInt(time, 10))                $scope.$apply();            });        }        $scope.calendarStart = function (event) {            datetimepicker.selectDate(function (date) {                $scope.drug.startday = new Date(parseInt(date, 10))                $scope.$apply();            });        }        $scope.calendarEnd = function (event) {            datetimepicker.selectDate(function (date) {                $scope.drug.endday = new Date(parseInt(date, 10))                $scope.$apply();            });        }(6) alert ersetzen
+navigator.notification.alert(
+ersetzen durch
+alert(
+
+
+
+Veröffentlichung
+===============================
+https://dev.windows.com/de-de
+
+User: powerone@drive.eu
+Password: w3bcheck
+
+
+
