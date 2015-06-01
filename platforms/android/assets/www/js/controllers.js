@@ -98,7 +98,7 @@ angular.module('starter.controllers', [])
             hide: function () {
                 $rootScope.loading.hide();
             }
-        }
+        };
     })
     .controller('LoadingCtrl', ['$scope', '$ionicLoading', function ($scope, $ionicLoading) {
 
@@ -234,7 +234,7 @@ angular.module('starter.controllers', [])
                 if (result.data.statuscode == "200") {
                     window.localStorage.setItem("retailer", JSON.stringify(result.data.retailer));
                     var map = new GoogleMap();
-                    map.retailer = result.data.retailer
+                    map.retailer = result.data.retailer;
                     map.initialize();
                 } else {
                     $translate('general_mapnoresult').then(function (text) {
@@ -276,7 +276,7 @@ angular.module('starter.controllers', [])
                 $scope.news = News.all();
                 $scope.batteries = Batteries.all();
                 $scope.faq = Faq.all();
-                window.localStorage.setItem("lasttab", "0")
+                window.localStorage.setItem("lasttab", "0");
                 $ionicSlideBoxDelegate.update();
             } else {
 
@@ -284,18 +284,18 @@ angular.module('starter.controllers', [])
                 var faqresult = Faq.search($("#battery-searchword").val());
 
                 if (battresult.length > 0) {
-                    window.localStorage.setItem("lasttab", "0")
+                    window.localStorage.setItem("lasttab", "0");
                     $scope.batteries = battresult;
                     $scope.faq = faqresult;
                     $scope.news = News.all();
                 } else if (faqresult.length > 0) {
-                    window.localStorage.setItem("lasttab", "1")
+                    window.localStorage.setItem("lasttab", "1");
                     $scope.batteries = battresult;
                     $scope.faq = faqresult;
                     $scope.news = News.all();
                 } else {
                     $("#battery-messagebox").show();
-                    window.localStorage.setItem("lasttab", "0")
+                    window.localStorage.setItem("lasttab", "0");
                 }
 
 
@@ -359,20 +359,20 @@ angular.module('starter.controllers', [])
     })
 
     .controller('BatteryDetailCtrl', function ($scope, $stateParams, Batteries) {
-        window.localStorage.setItem("lasttab", "0")
+        window.localStorage.setItem("lasttab", "0");
         $scope.battery = Batteries.get($stateParams.batteryId);
 
         $scope.zoomImage = function () {
             $("#fullimage").show();
-        }
+        };
         $scope.hideImage = function () {
             $("#fullimage").hide();
-        }
+        };
 
     })
 
     .controller('FaqAnswerCtrl', function ($scope, $stateParams, Faq) {
-        window.localStorage.setItem("lasttab", "1")
+        window.localStorage.setItem("lasttab", "1");
         $scope.faq = Faq.get($stateParams.faqId);
     })
 
@@ -383,12 +383,12 @@ angular.module('starter.controllers', [])
     })
 
     .controller('NewsArticleCtrl', function ($scope, $stateParams, News) {
-        window.localStorage.setItem("lasttab", "2")
+        window.localStorage.setItem("lasttab", "2");
         $scope.news = News.get($stateParams.newsId);
     })
 
 
-    .controller('HealthbookCtrl', function ($scope, $cordovaBarcodeScanner, Aiddevice, Drugs, Glass, Notes, Stock) {
+    .controller('HealthbookCtrl', function ($scope, $cordovaBarcodeScanner, $translate, Aiddevice, Drugs, Glass, Notes, Stock) {
         $scope.inventory = Stock.getInventoryCount();
         $scope.aiddevice = Aiddevice.all();
         $scope.drugs = Drugs.all();
@@ -403,7 +403,9 @@ angular.module('starter.controllers', [])
                 .then(function(barcodeData) {
                     // Success! Barcode data is here
                     if (barcodeData.text) {
-                        $scope.aiddevice.battery = "Daten werden aktualisiert ...";
+						$translate('batteries_dataisupdated').then(function (text) {
+						     $scope.aiddevice.battery = text;
+						});
 
                         var jqxhr = $.get( "http://www.powerone-batteries.com/index.php?id=287&barcodetype="+barcodeData.format+"&barcode="+barcodeData.text+"&type=5000", function(data) {
 
@@ -417,24 +419,27 @@ angular.module('starter.controllers', [])
                                 }
                             }
                             catch(err) {
-                                $scope.aiddevice.battery = "Batterie nicht vorhanden!";
-
+								$translate('batteries_notavailable').then(function (text) {
+								     $scope.aiddevice.battery = text;
+								});
                             }
                             $scope.$apply();
                         }).done(function() {
 
                         })
                         .fail(function() {
-                            navigator.notification.alert("Service ist derzeit nicht erreichbar!", function(){}, "Batteriecode", 'ok');
-
-                        })
+							$translate(new Array('batteries_noservice', 'batteries_batteriecode')).then(function (translation) {
+							     navigator.notification.alert(translation["batteries_noservice"], function(){}, translation["batteries_batteriecode"], 'ok');
+							});
+                        });
                     }
                 }, function(error) {
                     // An error occurred
-                    $scope.aiddevice.battery = "Batterie nicht vorhanden!";
+					$translate('batteries_noservice').then(function (text) {
+					     $scope.aiddevice.battery = text;
+					});
                 });
-        }
-
+        };
 
 
         if (window.localStorage.getItem('mybattery')) {
@@ -560,7 +565,7 @@ angular.module('starter.controllers', [])
         $scope.drugs = Drugs.all();
         $scope.addMedikitEntry = function (event) {
             window.location = "#/tab/addmedikitentry";
-        }
+        };
 
     })
     .controller('AddmedikitentryCtrl', function ($scope, $translate, $http, Drug, Drugs, LoaderService) {
@@ -583,7 +588,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.calendarStart = function (event) {
 
@@ -599,7 +604,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.calendarEnd = function (event) {
 
@@ -615,7 +620,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
 
         $scope.saveMedikitEntry = function (event) {
@@ -669,7 +674,7 @@ angular.module('starter.controllers', [])
 
             }
 
-        }
+        };
 
     })
     .controller('MedkittimeCtrl', function ($scope, Drug) {
@@ -774,7 +779,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.calendarStart = function (event) {
 
@@ -790,7 +795,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.calendarEnd = function (event) {
 
@@ -806,7 +811,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.updateMedikitEntry = function (event) {
 
@@ -971,7 +976,7 @@ angular.module('starter.controllers', [])
 
         $scope.openMap = function () {
             window.open('http://map.google.com/maps?daddr=' + $scope.acoustician.street + ", " + $scope.acoustician.zip + " " + $scope.acoustician.city, '_blank', 'location=yes');
-        }
+        };
 
 
     })
@@ -1091,18 +1096,18 @@ angular.module('starter.controllers', [])
             $scope.maxliferight = Stock.getMaxLifeRight();
             $scope.maxlifeleft = Stock.getMaxLifeLeft();
 
-            $('.responsive-calendar').responsiveCalendar('clearAll')
+            $('.responsive-calendar').responsiveCalendar('clearAll');
 
             $translate('healthbook_mybatt_resetconfirm').then(function (text) {
                 navigator.notification.alert(text, null, "Info", "ok");
             });
-        }
+        };
 
         $scope.foldering = function (event) {
             $("#toggle").toggle("fold");
-            if (window.localStorage.getItem("batterystockfolder") == "false") window.localStorage.setItem("batterystockfolder", "true")
-            else window.localStorage.setItem("batterystockfolder", "false")
-        }
+            if (window.localStorage.getItem("batterystockfolder") == "false") window.localStorage.setItem("batterystockfolder", "true");
+            else window.localStorage.setItem("batterystockfolder", "false");
+        };
         if (window.localStorage.getItem("batterystockfolder") == "false") $("#toggle").toggle("fold");
         if (window.localStorage.getItem("showcallist") == "listright") {
             $("#card1").hide();
@@ -1124,14 +1129,14 @@ angular.module('starter.controllers', [])
             $("#card1").show();
             $("#card2").hide();
             window.localStorage.setItem("showcallist", "cal");
-        }
+        };
         $scope.listcard = function (event) {
             $("#card1").hide();
             $("#card2").show();
             $("#rightcard").hide();
             $("#leftcard").show();
-            window.localStorage.setItem("showcallist", "listleft")
-        }
+            window.localStorage.setItem("showcallist", "listleft");
+        };
         $scope.leftear = function (event) {
             $("#rightcard").hide();
             $("#leftcard").show();
@@ -1139,8 +1144,8 @@ angular.module('starter.controllers', [])
             $("#buttonrightear").removeClass("button-stable");
             $("#buttonleftear").addClass("button-stable");
             $("#buttonleftear").removeClass("button-positive");
-            window.localStorage.setItem("showcallist", "listleft")
-        }
+            window.localStorage.setItem("showcallist", "listleft");
+        };
         $scope.rightear = function (event) {
             $("#rightcard").show();
             $("#leftcard").hide();
@@ -1148,8 +1153,8 @@ angular.module('starter.controllers', [])
             $("#buttonleftear").removeClass("button-stable");
             $("#buttonrightear").addClass("button-stable");
             $("#buttonrightear").removeClass("button-positive");
-            window.localStorage.setItem("showcallist", "listright")
-        }
+            window.localStorage.setItem("showcallist", "listright");
+        };
 
         var dt = new Date();
         $translate(new Array('general_january', 'general_february', 'general_march', 'general_april', 'general_may', 'general_june', 'general_july', 'general_august', 'general_september', 'general_october', 'general_november', 'general_december')).then(function (translation) {
@@ -1182,7 +1187,7 @@ angular.module('starter.controllers', [])
             if (seconds && seconds > 0) out += seconds + " " + ((seconds == 1) ? "sec" : "secs") + " ";
             if (millis && millis > 0) out += millis + " " + ((millis == 1) ? "msec" : "msecs") + " ";
             return out.trim();
-        }
+        };
 
 
     })
@@ -1195,11 +1200,11 @@ angular.module('starter.controllers', [])
 
         $scope.increase = function (event) {
             $scope.count++;
-        }
+        };
 
         $scope.decrease = function (event) {
             if ($scope.count > 1) $scope.count--;
-        }
+        };
 
         $scope.addNumber = function(number) {
             if($scope.count == 0) {
@@ -1207,11 +1212,11 @@ angular.module('starter.controllers', [])
             } else if($scope.count < 100){
                 $scope.count = parseInt("" + $scope.count + number);
             }
-        }
+        };
 
         $scope.deleteNumber = function() {
             $scope.count = 0;
-        }
+        };
 
         $scope.addBatteryStock = function (event) {
             $scope.batteryentry.type = "new";
@@ -1219,12 +1224,12 @@ angular.module('starter.controllers', [])
             $scope.batteryentry.batterymanufacturer = Aiddevice.getLabel();
             $scope.batteryentry.batterytype = Aiddevice.getType();
             $scope.batteryentry.date = new Date();
-            $scope.ear = "N"
+            $scope.ear = "N";
             $scope.stock.push($scope.batteryentry);
             Stock.save($scope.stock);
             $scope.count = 0;
             window.location = "#/tab/mybatterystock";
-        }
+        };
 
         $scope.myacoustician_company = window.localStorage.getItem("myacoustician_company");
         $scope.myacoustician_street = window.localStorage.getItem("myacoustician_street");
@@ -1241,14 +1246,14 @@ angular.module('starter.controllers', [])
         $scope.stock = Stock.all();
         $scope.foldering = function (event) {
             $("#toggle").toggle("fold");
-        }
+        };
 
     })
     .controller('MybatterystockcalendarCtrl', function ($scope) {
 
         $scope.foldering = function (event) {
             $("#toggle").toggle("fold");
-        }
+        };
 
     })
     .controller('MybatterystockdetialsCtrl', function ($scope, $stateParams, Stock) {
@@ -1270,7 +1275,7 @@ angular.module('starter.controllers', [])
             if (seconds && seconds > 0) out += seconds + " " + ((seconds == 1) ? "sec" : "secs") + " ";
             if (millis && millis > 0) out += millis + " " + ((millis == 1) ? "msec" : "msecs") + " ";
             return out.trim();
-        }
+        };
 
     })
     .controller('MybatterystockreadjustmentCtrl', function ($scope, $filter, $translate, Stock, Batteryentry, Aiddevice) {
@@ -1282,11 +1287,11 @@ angular.module('starter.controllers', [])
 
         $scope.increase = function (event) {
             $scope.count++;
-        }
+        };
 
         $scope.decrease = function (event) {
             if ($scope.count > 1) $scope.count--;
-        }
+        };
 
         $scope.addNumber = function(number) {
             if($scope.count == 0) {
@@ -1294,11 +1299,11 @@ angular.module('starter.controllers', [])
             } else if($scope.count < 100){
                 $scope.count = parseInt("" + $scope.count + number);
             }
-        }
+        };
 
         $scope.deleteNumber = function() {
             $scope.count = 0;
-        }
+        };
 
         $scope.addBatteryStock = function (event) {
             $scope.batteryentry.type = "correction";
@@ -1306,24 +1311,24 @@ angular.module('starter.controllers', [])
             $scope.batteryentry.batterymanufacturer = Aiddevice.getLabel();
             $scope.batteryentry.batterytype = Aiddevice.getType();
             $scope.batteryentry.date = new Date();
-            $scope.ear = "N"
+            $scope.ear = "N";
             $scope.stock.push($scope.batteryentry);
             Stock.save($scope.stock);
             $scope.count = 0;
             window.location = "#/tab/mybatterystock";
-        }
+        };
         $scope.removeBatteryStock = function (event) {
             $scope.batteryentry.type = "correction";
             $scope.batteryentry.count = -1*parseInt($scope.count);
             $scope.batteryentry.batterymanufacturer = Aiddevice.getLabel();
             $scope.batteryentry.batterytype = Aiddevice.getType();
             $scope.batteryentry.date = new Date();
-            $scope.ear = "N"
+            $scope.ear = "N";
             $scope.stock.push($scope.batteryentry);
             Stock.save($scope.stock);
             $scope.count = 0;
             window.location = "#/tab/mybatterystock";
-        }
+        };
 
     })
     .controller('MybatterystocktakingCtrl', function ($scope, $filter, $translate, Stock, Batteryentry, Aiddevice) {
@@ -1384,7 +1389,7 @@ angular.module('starter.controllers', [])
 
             }
 
-        }
+        };
 
         $scope.calendar = function (event) {
 
@@ -1401,7 +1406,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         $scope.time = function (event) {
 
@@ -1418,7 +1423,7 @@ angular.module('starter.controllers', [])
                     $scope.$apply();
                 });
             });
-        }
+        };
 
         Batteryentry.stockdate = "";
     });

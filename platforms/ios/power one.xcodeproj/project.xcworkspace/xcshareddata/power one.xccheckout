@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>59F8333E-D6B7-46AC-B353-43AF1EC49BFB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>power one</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>07489D8E4C27BD9869E8E0A504F38B648F4D9D54</key>
+		<string>repo.drive.eu:varta-micro/powerone-app.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/power one.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>07489D8E4C27BD9869E8E0A504F38B648F4D9D54</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>repo.drive.eu:varta-micro/powerone-app.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>07489D8E4C27BD9869E8E0A504F38B648F4D9D54</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>07489D8E4C27BD9869E8E0A504F38B648F4D9D54</string>
+			<key>IDESourceControlWCCName</key>
+			<string>powerone-app</string>
+		</dict>
+	</array>
+</dict>
+</plist>

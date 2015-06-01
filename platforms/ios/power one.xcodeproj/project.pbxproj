@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E1C51B65494A69A8450BE7 /* CDVCapture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 021575D4BB3B4B1DBE974F5F /* CDVCapture.bundle */; };
 		055C5F71A49548FD8D96277F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09032502391479B9008002B /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -543,8 +542,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sonja Peitl-Steinert (JS8T8W2QA9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sonja Peitl-Steinert (JS8T8W2QA9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -567,7 +566,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "power one";
-				PROVISIONING_PROFILE = "a361fb40-7415-4d26-8f82-6adba801e209";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -577,8 +576,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sonja Peitl-Steinert (JS8T8W2QA9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sonja Peitl-Steinert (JS8T8W2QA9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "power one/power one-Prefix.pch";
@@ -599,7 +598,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "power one";
-				PROVISIONING_PROFILE = "a361fb40-7415-4d26-8f82-6adba801e209";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
