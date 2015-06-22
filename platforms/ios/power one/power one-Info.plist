@@ -49,7 +49,7 @@
       </dict>
     </dict>
     <key>CFBundleIdentifier</key>
-    <string>com.powerone-batteries.app</string>
+    <string>com.poweronebatteries.app</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -172,10 +172,6 @@
         <key>UILaunchImageSize</key>
         <string>{768, 1024}</string>
       </dict>
-    </array>
-    <key>UISupportedInterfaceOrientations</key>
-    <array>
-      <string>UIInterfaceOrientationPortrait</string>
     </array>
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
