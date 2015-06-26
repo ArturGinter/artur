@@ -286,6 +286,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
             acoustician_button_register: "Sign up now!",
             acoustician_routeplanner: "Route",
             acoustician_info_saved: "Saved as your master acoustician",
+            acoustician_mylocation: "Show my location",	
 
             healthbook_mirror: "Mirror",
             healthbook_headline_mybattery: "My Battery",
@@ -544,6 +545,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
             acoustician_button_register: "Jetzt anmelden!",
             acoustician_routeplanner: "Routenplaner",
             acoustician_info_saved: "Gespeichert als Akustiker Ihres Vertrauens!",
+            acoustician_mylocation: "Mein Standort anzeigen",	
 
             healthbook_mirror: "Spiegel",
             healthbook_headline_mybattery: "Meine Batterie",
@@ -799,6 +801,7 @@ angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter
 			acoustician_button_register: "Inscrivez-vous maintenant!",
 			acoustician_routeplanner: "Calculateur d'itinéraire",
 			acoustician_info_saved: "Enregistré comme audioprothésiste attitré!",
+			acoustician_mylocation: "Afficher mon emplacement",	
 			
 			healthbook_mirror: "Miroir",
 			healthbook_headline_mybattery: "Ma pile",

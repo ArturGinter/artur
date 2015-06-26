@@ -1,7 +1,10 @@
+var domain = 'http://powerone.localhost.lc/';
 
 angular.module('starter.services', [])
-
-    .factory('Retailers', function($http) {
+	.constant("GLOBALVARS", {
+	        "DOMAIN": "http://www.powerone-batteries.com/"
+	})
+    .factory('Retailers', function($http, GLOBALVARS) {
 
         return {
             all: function() {
@@ -12,35 +15,35 @@ angular.module('starter.services', [])
                     lat = "48.97345";
                     lon = "10.12876";
                 }
-                console.log("http://www.powerone-batteries.com/index.php?id=retailer&type=5000&lat="+lat+"&lon="+lon);
-                return $http.get( "http://www.powerone-batteries.com/index.php?id=retailer&type=5000&lat="+lat+"&lon="+lon).then(function(result) {
+                console.log(GLOBALVARS.DOMAIN + "index.php?id=retailer&type=5000&lat="+lat+"&lon="+lon);
+                return $http.get( GLOBALVARS.DOMAIN + "index.php?id=retailer&type=5000&lat=" + lat + "&lon=" + lon ).then( function(result) {
                     try {
                         window.localStorage.setItem("retailerstatuscode", JSON.stringify(result.data.statuscode));
                         window.localStorage.setItem("retailer", JSON.stringify(result.data.retailer));
 
-                        return result
+                        return result;
                     }
                     catch(err) {
                         alert( err.message );
                     }
-                })
+                });
             },
             search: function($search, $translate) {
-                console.log("http://www.powerone-batteries.com/index.php?id=retailer&type=5000&keyword="+$search);
-                return $http.get( "http://www.powerone-batteries.com/index.php?id=retailer&type=5000&keyword="+$search, function(result) {
+            	console.log( GLOBALVARS.DOMAIN + "index.php?id=retailer&type=5000&keyword=" + $search );
+                return $http.get( GLOBALVARS.DOMAIN + "index.php?id=retailer&type=5000&keyword=" + $search).then ( function(result) {
 
                     try {
-                        return result
+                        return result;
                     } catch(err) {
                         alert( err.message );
                     }
 
-                })
+                });
 
             }
-        }
+        };
     })
-    .factory('Batteries', function($http) {
+    .factory('Batteries', function($http, GLOBALVARS) {
 
         return {
             all: function() {
@@ -50,18 +53,17 @@ angular.module('starter.services', [])
                     return batteries;
                 }
 
-                return $http.get( "http://www.powerone-batteries.com/index.php?id=287&type=5000" ).then(function(result) {
+                return $http.get( GLOBALVARS.DOMAIN + "/index.php?id=287&type=5000" ).then(function(result) {
                     try {
                         var json = angular.fromJson(result.data);
                         batteries = json.batteries;
                         window.localStorage.setItem("batteries", angular.toJson(batteries));
                         return batteries;
-                    }
-                    catch(err) {
+                    } catch(err) {
                         alert( "Json Batteries" + err.message );
                     }
 
-                })
+                });
 
             },
             get: function(batteryId) {
@@ -81,9 +83,9 @@ angular.module('starter.services', [])
 
                 return result;
             }
-        }
+        };
     })
-    .factory('Faq', function($http) {
+    .factory('Faq', function($http, GLOBALVARS) {
 
         return {
             all: function() {
@@ -95,7 +97,7 @@ angular.module('starter.services', [])
                 if (navigator.language.toLowerCase() == 'de-de') lang = 13;
                 if (navigator.language.toLowerCase() == 'fr-fr') lang = 6;
 
-                return $http.get( "http://www.powerone-batteries.com/index.php?id=faq&type=5000&L=" + lang).then(function(result) {
+                return $http.get( GLOBALVARS.DOMAIN + "index.php?id=faq&type=5000&L=" + lang).then(function(result) {
                     try {
                         var json = angular.fromJson(result.data);
                         faq = json.faq;
@@ -106,7 +108,7 @@ angular.module('starter.services', [])
                         console.log( "Json Faq" + err.message );
                     }
 
-                })
+                });
 
             },
             get: function(faqId) {
@@ -126,9 +128,9 @@ angular.module('starter.services', [])
 
                 return result;
             }
-        }
+        };
     })
-    .factory('News', function($http) {
+    .factory('News', function($http, GLOBALVARS) {
 
         return {
             all: function() {
@@ -139,7 +141,7 @@ angular.module('starter.services', [])
                 if (navigator.language.toLowerCase() == 'de-de') lang = 13;
                 if (navigator.language.toLowerCase() == 'fr-fr') lang = 6;
 
-                return $http.get( "http://www.powerone-batteries.com/index.php?id=news&type=5000&L=" + lang).then(function(result) {
+                return $http.get( GLOBALVARS.DOMAIN + "index.php?id=news&type=5000&L=" + lang).then(function(result) {
                     try {
                         var json = angular.fromJson(result.data);
                         news = json.news;
@@ -150,7 +152,7 @@ angular.module('starter.services', [])
                         console.log( "Json news" + err.message );
                     }
 
-                })
+                });
 
             },
             get: function(newsId) {
@@ -170,7 +172,7 @@ angular.module('starter.services', [])
 
                 return result;
             }
-        }
+        };
     })
     .factory('Drug', function() {
 
@@ -192,7 +194,7 @@ angular.module('starter.services', [])
             plansun: false,
 
             push: false,
-        }
+        };
 
 
         return {
@@ -276,7 +278,7 @@ angular.module('starter.services', [])
                 drugs.splice(medId, 1);
                 this.save(drugs);
             }
-        }
+        };
 
     })
     .factory('Glass', function() {
@@ -303,11 +305,7 @@ angular.module('starter.services', [])
                 glasses: obj.glasses,
                 spectacleframe: obj.spectacleframe,
 
-
-
-
                 lensesoptician : obj.lensesoptician,
-
                 lensessphright : obj.lensessphright,
                 lensescylright : obj.lensescylright,
                 lensesaright : obj.lensesaright,
@@ -322,7 +320,7 @@ angular.module('starter.services', [])
                 lensesglasses: obj.lensesglasses,
                 lensesspectacleframe: obj.lensesspectacleframe
 
-            }
+            };
         } else {
             glass = {
                 optician : '',
@@ -357,7 +355,7 @@ angular.module('starter.services', [])
                 lensespd: '',
                 lensesglasses: '',
                 lensesspectacleframe: ''
-            }
+            };
         }
 
         return {
@@ -387,7 +385,7 @@ angular.module('starter.services', [])
                 reminderhour: obj.reminderhour,
                 reminderminute: obj.reminderminute,
                 reminderrenewal: obj.reminderrenewal
-            }
+            };
         } else {
             aid = {
                 label : '',
@@ -400,7 +398,7 @@ angular.module('starter.services', [])
                 reminderhour: '10',
                 reminderminute: '00',
                 reminderrenewal: ''
-            }
+            };
         }
 
         return {
@@ -439,11 +437,11 @@ angular.module('starter.services', [])
         if (obj) {
             notes = {
                 text : obj.text
-            }
+            };
         } else {
             notes = {
                 text : ''
-            }
+            };
         }
 
         return {
@@ -472,7 +470,7 @@ angular.module('starter.services', [])
             date: '',
             term: '',
             submittedToServer: false
-        }
+        };
         return {
             getType: function() {
                 return batteryentry.type;
@@ -481,7 +479,7 @@ angular.module('starter.services', [])
                 batteryentry.type = type;
             },
             getCount: function() {
-                return batteryentry.count
+                return batteryentry.count;
             },
             setCount: function(count) {
                 batteryentry.count = count;
@@ -530,21 +528,6 @@ angular.module('starter.services', [])
                 }
                 return [];
             },
-            /*
-             allNew: function() {
-             var stock = this.all();
-             var returnStock = new Array();
-             for(var i=0;i<stock.length;i++) {
-             if (stock[i].submittedToServer == false) {
-             returnStock.push(stock[i]);
-             stock[i].submittedToServer = true;
-             }
-             }
-
-             this.save();
-             return returnStock;
-             },
-             */
             allRight: function() {
                 var stockString = window.localStorage['stock'];
                 if(stockString) {
@@ -573,7 +556,7 @@ angular.module('starter.services', [])
                 if(stockString) {
                     stock = angular.fromJson(stockString);
                     // Unique Dates for calender
-                    var datesArray = new Array()
+                    var datesArray = new Array();
                     for(var i=0;i<stock.length;i++) {
                         var tmpDate = new Date(stock[i].date);
                         var dateString = tmpDate.getFullYear() + '-' + ("0"+(tmpDate.getMonth()+1)).slice(-2) + '-' + ("0" + tmpDate.getDate()).slice(-2);
@@ -783,7 +766,7 @@ angular.module('starter.services', [])
 
                         if (isTakingType && isRight && termNotZero && isNotNaN) {
                             if (timeinuse == 0 || timeIsShorter) {
-                                timeinuse = stock[i].term
+                                timeinuse = stock[i].term;
                             }
                         }
                     }
@@ -813,7 +796,7 @@ angular.module('starter.services', [])
 
                         if (isTakingType && isLeft && termNotZero && isNotNaN) {
                             if (timeinuse == 0 || timeIsShorter) {
-                                timeinuse = stock[i].term
+                                timeinuse = stock[i].term;
                             }
                         }
                     }
@@ -827,7 +810,7 @@ angular.module('starter.services', [])
             save: function(stock) {
                 window.localStorage['stock'] = angular.toJson(stock);
             }
-        }
+        };
 
     })
 ;

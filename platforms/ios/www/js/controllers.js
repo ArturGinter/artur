@@ -175,7 +175,7 @@ angular.module('starter.controllers', [])
 
     }])
 
-    .controller('DashCtrl', function ($scope, $translate, $timeout, $ionicModal, Retailers, LoaderService) {
+    .controller('DashCtrl', function ($scope, $translate, $timeout, $ionicModal, $http, Retailers, LoaderService) {
 
         if (window.localStorage.getItem("retailer") != null) {
             var map = new GoogleMap();
@@ -202,10 +202,12 @@ angular.module('starter.controllers', [])
 
                         if (retailers.data.statuscode == "200") {
                             $scope.retailers = retailers.data.retailer;
+                                                        
                             var map = new GoogleMap();
                             map.retailer = retailers.data.retailer;
                             map.initialize();
                         } else {
+                        	
                             $translate('general_aroundyou').then(function (text) {
                                 $("#geoupdatemessage").html(text);
                             });
@@ -226,23 +228,64 @@ angular.module('starter.controllers', [])
         }
 
         // Search-Button
-
         $("#acoustician-searchbutton").bind("click", function (event) {
-
+        	
             Retailers.search($("#searchword").val(), $translate).then(function (result) {
-
+            	
                 if (result.data.statuscode == "200") {
                     window.localStorage.setItem("retailer", JSON.stringify(result.data.retailer));
                     var map = new GoogleMap();
                     map.retailer = result.data.retailer;
+                    map.others = result.data.others;
                     map.initialize();
                 } else {
+            	
+                	var map = new GoogleMap();                		
+            		map.others = result.data.others;
+                	
+                	$http.get( "https://maps.googleapis.com/maps/api/geocode/json?address=" + $("#searchword").val() ).then( function(result) {
+                		
+                		var json = angular.fromJson(result.data);
+                		
+                		map.lat = json.results[0].geometry.location.lat;
+                		map.lng = json.results[0].geometry.location.lng;
+                		map.initialize();
+                		
+                	});
+                	
+                	$("#searchword").val('');
+
                     $translate('general_mapnoresult').then(function (text) {
                         navigator.notification.alert(text, null, "Info", "ok");
                     });
                 }
+
+            }, function (status) {
+            	console.log(status);
             });
         });
+        
+        $("#acoustician-allbutton").bind("click", function (event) {
+        	
+        	$("#searchword").val = "";
+	        Retailers.all().then(function (retailers) {
+	
+	            if (retailers.data.statuscode == "200") {
+	                $scope.retailers = retailers.data.retailer;
+	                                            
+	                var map = new GoogleMap();
+	                map.retailer = retailers.data.retailer;
+	                map.initialize();
+	            } else {
+	                $translate('general_aroundyou').then(function (text) {
+	                    $("#geoupdatemessage").html(text);
+	                });
+	            }
+	
+	        }, function (status) {
+	            console.log(status);
+	        });
+        });	
 
     })
 

@@ -8,7 +8,11 @@
 function GoogleMap() {
 
     var retailer;
-    var addMarkersToMap = function(map, retailer, position) {
+    var others;
+    var lat;
+    var lng;
+    
+    var addMarkersToMap = function(map, retailer, position, fit, zoomAt, lat, lng) {
 
         // Usermarker
         if (window.localStorage.getItem("myLatitude") && window.localStorage.getItem("myLongitude")) {
@@ -26,8 +30,8 @@ function GoogleMap() {
             });
         }
 
-
         // Load Akustiker
+
         var log;
         var mapBounds = new google.maps.LatLngBounds();
         var poIcon = new google.maps.MarkerImage("img/googlemap_lokal_indikator.png", null, null, null, new google.maps.Size(20,33));
@@ -82,14 +86,34 @@ function GoogleMap() {
             google.maps.event.removeListener( bounds_listener );
         });
 
-        if( retailer.length > 0) map.fitBounds(mapBounds);
+        if(fit) map.fitBounds(mapBounds);
+        if(zoomAt) {
+        	
+			var location = new google.maps.LatLng(lat, lng);
+			var bounds = new google.maps.LatLngBounds(location);
+			map.fitBounds(bounds);    
+			   	
+        }
 
-    }
+    };
+    
+    this.zoomIn = function(lat, lng) {
+		var location = new google.maps.LatLng(lat, lng);
+		var bounds = new google.maps.LatLngBounds(location);
+		//map.fitBounds(bounds);
+    };
 
     this.initialize = function(position) {
         var map = showMap();
-        addMarkersToMap(map, this.retailer, position);
-    }
+        
+        if (this.lat && this.lng) {
+        	addMarkersToMap(map, this.others, position, true, true, this.lat, this.lng);
+        } else {
+         	if (this.others) addMarkersToMap(map, this.others, position, false, false);
+        	addMarkersToMap(map, this.retailer, position, true, false);       	
+        }
+        
+    };
 
     var showMap = function(){
         $('#map_info').hide();
@@ -106,12 +130,12 @@ function GoogleMap() {
                     google.maps.MapTypeId.ROADMAP
                 ]
             }
-        }
+        };
 
         var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         //map.setMyLocationEnabled(true);
 
         return map;
 
-    }
+    };
 }
