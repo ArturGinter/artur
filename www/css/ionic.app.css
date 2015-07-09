@@ -9695,6 +9695,9 @@ a {
   position: absolute;
   right: 15px; }
 
+.nav-bar-title {
+  text-align: center; }
+
 @media screen and (min-device-width: 768px) {
   .ng-modal-close {
     color: #58585a;
