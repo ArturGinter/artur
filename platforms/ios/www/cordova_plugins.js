@@ -308,6 +308,7 @@ module.exports.metadata =
     "com.phonegap.plugins.PushPlugin": "2.2.1",
     "com.phonegap.plugins.barcodescanner": "2.0.1",
     "com.plugin.datepicker": "0.4.0",
+    "cordova-plugin-whitelist": "1.0.0",
     "org.apache.cordova.console": "0.2.12-dev",
     "org.apache.cordova.dialogs": "0.2.11",
     "org.apache.cordova.file": "1.3.1",

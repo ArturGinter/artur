@@ -5,7 +5,7 @@
     </ion-nav-buttons>
 
     <ion-content class="has-header" padding="true">
-        <form name="stockForm" data-ng-submit="addBatteryStock()" method="post">
+        <form name="stockForm" data-ng-submit="addBatteryStock(radio)" method="post">
             <div class="box">
                 <h3 class="center">{{'healthbook_mybatt_headline_take' | translate}}</h3>
                 <div class="list padding">
@@ -28,8 +28,8 @@
                         <a class="button button-icon icon ion-ios7-time-outline" ng-bind="{{batteryentry.time}}" ng-click="time()"></a>
                     </div>
 
-                    <ion-radio ng-model="$parent.ear" ng-value="'R'">{{'healthbook_mybatt_rightear' | translate}}</ion-radio>
-                    <ion-radio ng-model="$parent.ear" ng-value="'L'" class="borderbottom">{{'healthbook_mybatt_leftear' | translate}}</ion-radio>
+                    <ion-radio ng-model="radio.ear" ng-value="'R'">{{'healthbook_mybatt_rightear' | translate}}</ion-radio>
+                    <ion-radio ng-model="radio.ear" ng-value="'L'" class="borderbottom">{{'healthbook_mybatt_leftear' | translate}}</ion-radio>
 
                     <br/>
                 </div>

@@ -1,5 +1,11 @@
 var domain = 'http://powerone.localhost.lc/';
 
+/*
+ * Hide Statusbar
+ * http://stackoverflow.com/questions/18979837/how-to-hide-ios-7-status-bar
+ */
+
+
 angular.module('starter.services', [])
 	.constant("GLOBALVARS", {
 	        "DOMAIN": "http://www.powerone-batteries.com/"

@@ -1,0 +1,91 @@
+{
+    "cordova-plugin-whitelist": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-whitelist.git",
+            "subdir": ".",
+            "ref": "r1.0.0"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.phonegap.plugin.statusbar": {
+        "source": {
+            "type": "local",
+            "path": "/Users/lars/Downloads/StatusBarPlugin-master"
+        }
+    },
+    "com.phonegap.plugins.PushPlugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/forcedotcom/PushPlugin",
+            "subdir": ".",
+            "ref": "unstable"
+        }
+    },
+    "com.phonegap.plugins.barcodescanner": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/wildabeast/BarcodeScanner.git",
+            "subdir": "."
+        }
+    },
+    "com.plugin.datepicker": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.console": {
+        "source": {
+            "type": "git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.dialogs": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.dialogs"
+        }
+    },
+    "org.apache.cordova.file": {
+        "source": {
+            "type": "local",
+            "path": "/Users/lars/.plugman/cache/org.apache.cordova.file/1.3.1/package"
+        }
+    },
+    "org.apache.cordova.geolocation": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-geolocation.git",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.globalization": {
+        "source": {
+            "type": "git",
+            "url": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-globalization.git",
+            "subdir": "."
+        }
+    },
+    "org.apache.cordova.inappbrowser": {
+        "source": {
+            "type": "local",
+            "path": "/Users/lars/.plugman/cache/org.apache.cordova.inappbrowser/0.5.2/package"
+        }
+    },
+    "org.apache.cordova.media-capture": {
+        "source": {
+            "type": "local",
+            "path": "/Users/lars/.plugman/cache/org.apache.cordova.media-capture/0.3.3/package"
+        }
+    },
+    "org.apache.cordova.splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.splashscreen"
+        }
+    }
+}

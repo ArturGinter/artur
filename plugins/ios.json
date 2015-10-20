@@ -71,55 +71,55 @@
                 "parents": {
                     "libiconv.dylib": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "AVFoundation.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "AssetsLibrary.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 2
                         }
                     ],
                     "CoreVideo.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "QuartzCore.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "AudioToolbox.framework": [
                         {
-                            "xml": "true",
+                            "xml": true,
                             "count": 1
                         }
                     ],
                     "MobileCoreServices.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 2
                         }
                     ],
                     "CoreLocation.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 1
                         }
                     ],
                     "CoreGraphics.framework": [
                         {
-                            "xml": "false",
+                            "xml": false,
                             "count": 3
                         }
                     ]
@@ -148,6 +148,9 @@
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
         "com.plugin.datepicker": {
+            "PACKAGE_NAME": "com.powerone-batteries.app"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.powerone-batteries.app"
         },
         "org.apache.cordova.console": {
