@@ -37,7 +37,7 @@
                 <div ng-show="acoustician.web" class="row">
                     <div class="col">Web</div>
                     <div class="col col-75">
-                        <p>{{ acoustician.web }}</p>
+                    	<p><a ng-href="http://{{ acoustician.web }}" onclick="window.open(this.href, '_system', 'location=yes'); return false;">{{ acoustician.web }}</a></p>
                     </div>
                 </div>
             </div>

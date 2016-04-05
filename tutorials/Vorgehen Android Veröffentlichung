@@ -30,7 +30,7 @@ Android Veröffentlichung
 (1) cordova build android --release
 (2) Signatur Passwort: Hannover99
 (3) Datei unter /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/powerone-release.apk
-(4) zipalign 4 infile.apk powerone.apk
+(4) /Users/larsgotte/Library/Android/sdk/build-tools/23.0.2/zipalign 4 infile.apk powerone.apk
 /Users/larsgotte/Library/Android/sdk/build-tools/22.0.1/zipalign 4 CordovaApp-release-unaligned.apk powerone.apk
 Output: /Users/lars/Desktop/PowerOneApp/platforms/android/ant-build/powerone.apk
 (5) http://developer.android.com/index.html

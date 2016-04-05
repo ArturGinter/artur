@@ -101,7 +101,7 @@ function errorHandler (error) {
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'pascalprecht.translate'])
+angular.module('starter', ['ionic', 'ngCordova', 'starter.controllers', 'starter.services', 'pascalprecht.translate', 'ngIOS9UIWebViewPatch'])
 
     .directive('browseTo', function ($ionicGesture) {
         return {
