@@ -166,7 +166,6 @@ angular.module('starter.controllers', [])
             window.location = "#/tab/mybatterystocknew";
         };
 
-
         $rootScope.camera = function () {
             navigator.device.capture.captureImage(function (mediaFiles) {
             }, function (error) {

@@ -1,4 +1,4 @@
-/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-gen/com/poweronebatteries/app/R.java \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-gen/com/powerone_batteries/app/R.java \
  : /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable/icon.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable/launcher_icon.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable/share_via_barcode.png \
@@ -15,6 +15,7 @@
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_next_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_previous_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_remove.png \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/icon.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-hdpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-ldpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-mdpi/screen.png \

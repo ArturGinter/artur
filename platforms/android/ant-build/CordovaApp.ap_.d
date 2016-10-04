@@ -15,6 +15,7 @@
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_next_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_previous_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/ic_action_remove.png \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-mdpi/icon.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-hdpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-ldpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/res/drawable-port-mdpi/screen.png \
@@ -95,6 +96,7 @@
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-mdpi/ic_action_next_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-mdpi/ic_action_previous_item.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-mdpi/ic_action_remove.png \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-mdpi/icon.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-port-hdpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-port-ldpi/screen.png \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/ant-build/res/drawable-port-mdpi/screen.png \
@@ -152,6 +154,7 @@
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/img/logo_powerone.svg \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/img/logo_powerone_dark.svg \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/img/logo_powerone_hellgrau.svg \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/js/angular-ios9-uiwebview.patch.js \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/js/controllers.js \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/js/googlemap.js \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/js/index.js \
@@ -172,6 +175,7 @@
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/scss \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/version.json \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/css/ionic.css \
+/Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/css/ionic.css.map \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/css/ionic.min.css \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/fonts/ionicons.eot \
 /Users/larsgotte/Documents/GIT/powerone-app/platforms/android/assets/www/lib/ionic/fonts/ionicons.svg \

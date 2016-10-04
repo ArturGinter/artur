@@ -1,9 +1,8 @@
 <ion-view title="" class="padding">
     <ion-content has-header="true" padding="true">
 
-
-        <h3>{{ acoustician.company }} {{myacoustician}}</h3>
-
+        <h3 ng-bind-html="acoustician.company"> {{myacoustician}}</h3>
+        
         <div class="list">
 
             <div class="item item-text-wrap item-divider bordertop">
@@ -37,7 +36,7 @@
                 <div ng-show="acoustician.web" class="row">
                     <div class="col">Web</div>
                     <div class="col col-75">
-                        <p><a href="#" onclick="window.open('{{ acoustician.web }}', '_system', 'location=yes'); return false;">{{ acoustician.web }}</a></p>
+                    	<p><a ng-href="http://{{ acoustician.web }}" onclick="window.open(this.href, '_system', 'location=yes'); return false;">{{ acoustician.web }}</a></p>
                     </div>
                 </div>
             </div>
@@ -48,8 +47,8 @@
                 {{'acoustician_headline_openingtimes' | translate}}
             </div>
             <div class="item item-text-wrap borderbottom">
-                <p ng-show="acoustician.businesshours">{{ acoustician.businesshours }}</p>
-                <p ng-show="acoustician.acoustician">{{ acoustician.additionalinfos }}</p>
+                <p ng-show="acoustician.businesshours" style="white-space: pre;">{{ acoustician.businesshours }}</p>
+                <p ng-show="acoustician.additionalinfos" style="white-space: pre;">{{ acoustician.additionalinfos }}</p>
             </div>
 
             <br/>
